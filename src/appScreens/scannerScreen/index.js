@@ -20,16 +20,34 @@ const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 const ScannerSheet = props => {
   const onSuccess = e => {
-    Linking.openURL(e.data).catch(err =>
-      console.error('An error occured', err),
-    );
+    // Linking.openURL(e.data).catch(err =>
+    //   console.error('An error occured', err),
+    // );
+    let text = e.data;
+    console.log('scanned data',e.data);
+    let result = text.slice(9);
+    console.log('the cup id is:' ,result);
+    let cupResult = text.slice(0, 9);
+    console.log('the cup res is:' ,cupResult);
+    if(cupResult === 'CIRCLECUP'){
+      alert('cup scanned please redirect!')
+    }
+    else{
+      alert('invalid qr code')
+    }
   };
+  const CameraRotate = () => {
+    RNCamera.Constants.FlashMode.on
+  }
+  const FlashOnOff = () => {
+
+  }
   const TopConatiner = () => {
     return (
       <View style={{marginTop: 0}}>
-        <TouchableOpacity style={styles.CloseSheet} onPress={() => props.setVisible(false)}>
+        {/* <TouchableOpacity style={styles.CloseSheet} onPress={() => props.setVisible(false)}>
           <Ionicons name="close-outline" style={styles.closeIcon} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Text style={styles.topHeding}>Scan a QR Code</Text>
         <Text style={styles.topText}>
           Please point your camera to the qr code that is presented on a cup.If
@@ -40,13 +58,13 @@ const ScannerSheet = props => {
   };
   const BottomContainer = () => (
     <View style={styles.btnGrp}>
-      <TouchableOpacity style={styles.ActionBtn}>
+      <TouchableOpacity style={styles.ActionBtn} onPress={()=>CameraRotate()}>
         <Ionicons
           name={'camera-reverse-outline'}
           style={styles.CamReverseIcon}
         />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.ActionBtn}>
+      <TouchableOpacity style={styles.ActionBtn} onPress={FlashOnOff}>
         <Ionicons name={'flash-outline'} style={styles.FlashIcon} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.ActionBtn}>
@@ -70,10 +88,11 @@ const ScannerSheet = props => {
 
   return (
     <View>
-      <BottomSheet
+       {/* <BottomSheet
         visible={props.visible}
         onBackButtonPress={() => props.setVisible(false)}
-        onBackdropPress={() => props.setVisible(false)}>
+        onBackdropPress={() => props.setVisible(false)}
+         > */}
         <View style={styles.bottomNavigationView}>
           <QRCodeScanner
             onRead={onSuccess}
@@ -87,9 +106,11 @@ const ScannerSheet = props => {
             bottomViewStyle={styles.bottomCon}
             cameraContainerStyle={styles.cameraContainerStyle}
             cameraStyle={styles.cameraStyle}
+            reactivate={true}
+            reactivateTimeout={1000}
           />
-        </View>
-      </BottomSheet>
+      </View>
+    {/* </BottomSheet>  */}
     </View>
   );
 };

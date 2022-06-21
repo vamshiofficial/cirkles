@@ -4,7 +4,7 @@ import fonts from '../../../assets/custom/fonts';
 //------------
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   bottomNavigationView: {
     height: '100%',
     // backgroundColor:'white'
@@ -76,3 +76,4 @@ export const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+export default styles

@@ -1,10 +1,11 @@
 import React, {useContext} from 'react';
-import {View, Text, ActivityIndicator} from 'react-native';
+import {View, Text, ActivityIndicator, StatusBar} from 'react-native';
 // import BottomTabs from './bottomTabs';
 import {NavigationContainer} from '@react-navigation/native';
 import AppNav from './appNav';
 import AuthNav from './authNav';
 import {AuthContext, AuthProvider} from './context/authContest';
+import colors from '../../assets/custom/colors';
 const AppNavigations = () => {
   const {isLoading, userToken} = useContext(AuthContext);
 
@@ -16,9 +17,12 @@ const AppNavigations = () => {
     );
   }
   return (
+    <>
+    <StatusBar backgroundColor={colors.PrimaryBlack} />
     <NavigationContainer>
       {userToken !== null ? <AppNav /> : <AuthNav />}
     </NavigationContainer>
+    </>
   );
 };
 

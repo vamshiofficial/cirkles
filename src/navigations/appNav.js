@@ -70,15 +70,16 @@ function AppNav() {
         <Tab.Screen
           name="ScannerScreen"
           component={ScannerSheet}
-          listeners={({navigation}) => ({
-            tabPress: event => {
-              event.preventDefault();
-              // navigation.navigate("AddPostPage", { navigation: navigation })
-              setVisible(!visible);
-            },
-          })}
+          // listeners={({navigation}) => ({
+          //   tabPress: event => {
+          //     // event.preventDefault();
+          //     // navigation.navigate("AddPostPage", { navigation: navigation })
+          //     // setVisible(!visible);
+          //   },
+          // })}
           options={{
             tabBarLabel: 'Scanner',
+            headerShown:false,
             // tabBarShowLabel: false,
             tabBarIcon: ({color, size, focused}) => (
               <IonIcon

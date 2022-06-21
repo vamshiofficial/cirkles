@@ -20,7 +20,6 @@ const HomeScreen = ({navigation}) => {
           you.
         </Text>
       </Animatable.View>
-      <QrDataTest />
       <TouchableOpacity
         onPress={() => navigation.navigate('OutletScreen')}
         // onPress={LogOutNow()}
