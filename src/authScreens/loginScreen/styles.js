@@ -12,21 +12,21 @@ const styles = StyleSheet.create({
   HeaderSection: {
     height: DeviceHeight * 0.3,
     width: DeviceWidth,
-    backgroundColor:colors.PrimaryBlack,
-    paddingBottom: 60,
-    paddingTop: 15,
+    backgroundColor: colors.white,
+    // paddingBottom: 60,
+    paddingVertical: 30,
     paddingHorizontal: 20,
-    justifyContent:'center'
+    justifyContent: 'center',
   },
   HedingText: {
     fontFamily: fonts.PrimaryBoldFont,
     fontSize: fonts.FontMainHeading,
-    color:colors.white
+    color: colors.black,
   },
   HeaderText: {
     fontFamily: fonts.PrimaryFont,
     fontSize: fonts.FontBody,
-    color:colors.white3
+    color: colors.black3,
   },
   BodySection: {
     flex: 1,
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 35,
     paddingVertical: 40,
     marginTop: -35,
+    // marginBottom: -35,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -44,29 +45,38 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  bg_img:{
-    alignSelf:'center',
+  bg_img: {
+    alignSelf: 'center',
     // width:DeviceWidth*0.50,
     // height:DeviceWidth*0.50,
-    marginBottom:50
+    marginBottom: 50,
   },
   //   --form
   formCon: {
-    flexDirection:'row',
-    alignSelf:'center',
+    flexDirection: 'row',
+    alignSelf: 'center',
     // position:'absolute',
     // bottom:50
   },
   mobileInput: {
-    width:DeviceWidth*0.85,
-    alignSelf:'center',
-    borderColor:colors.bglight,
-    borderWidth:1,
-    height:45,
-    paddingHorizontal:15,
-    fontFamily:fonts.PrimaryFont,
-    borderRadius:5,
-    fontSize:fonts.FontHeadding
+    width: DeviceWidth * 0.85,
+    alignSelf: 'center',
+    borderColor: colors.bglight,
+    borderWidth: 1,
+    height: 45,
+    paddingHorizontal: 15,
+    fontFamily: fonts.PrimaryFont,
+    borderRadius: 5,
+    fontSize: fonts.FontBody,
+  },
+  bottomNavigationView: {
+    backgroundColor: colors.white,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    flex:1
+    // height: DeviceHeight * 0.60,
+    // maxHeight: DeviceHeight,
+    // paddingBottom: 30,
   },
 });
 export default styles;

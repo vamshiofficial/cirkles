@@ -1,10 +1,13 @@
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import styles from './styles';
 import ListCardUi from '../components/ListCard';
 import * as Animatable from 'react-native-animatable';
 import QrDataTest from './qrtest';
+import {AuthContext} from '../../navigations/context/authContest';
+import SubmitBtn from '../components/submitBtn';
 const HomeScreen = ({navigation}) => {
+  const {LogOutNow, LoginNow} = useContext(AuthContext);
   return (
     <ScrollView contentContainerStyle={styles.con}>
       <Animatable.View
@@ -18,7 +21,10 @@ const HomeScreen = ({navigation}) => {
         </Text>
       </Animatable.View>
       <QrDataTest />
-      <TouchableOpacity onPress={()=>navigation.navigate('OutletScreen')}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('OutletScreen')}
+        // onPress={LogOutNow()}
+      >
         <Text>outlet Ui</Text>
       </TouchableOpacity>
       <ListCardUi
@@ -56,6 +62,11 @@ const HomeScreen = ({navigation}) => {
         BodyText="You can get a absolutly free tea or coffee when you got FREE message when youscaned a QR Code with our app."
         LearnmoreBtn={false}
         onClickLearnmore={() => alert('done')}
+      />
+      <SubmitBtn
+        onPress={() => {
+          LogOutNow();
+        }}
       />
     </ScrollView>
   );

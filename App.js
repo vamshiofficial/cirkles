@@ -1,17 +1,12 @@
-import { View, Text,SafeAreaView } from 'react-native'
-import React from 'react'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import fonts from './assets/custom/fonts'
-import colors from './assets/custom/colors'
-import BottomTabs from './src/navigations/bottomTabs'
-import { NavigationContainer } from '@react-navigation/native'
-import MainNav from './src/navigations/MainNav'
+import React from 'react';
+import {AuthProvider} from './src/navigations/context/authContest';
+import AppNavigations from './src/navigations';
 const App = () => {
   return (
-    <NavigationContainer>
-      <MainNav />
-    </NavigationContainer>
-  )
-}
+    <AuthProvider>
+     <AppNavigations />
+    </AuthProvider>
+  );
+};
 
-export default App
+export default App;

@@ -11,8 +11,8 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import styles from './styles';
 import {Text, View, Image} from 'react-native';
 import fonts from '../../assets/custom/fonts';
-import ScannerSheet from './ScannerSheet';
-function BottomTabs() {
+import ScannerSheet from '../appScreens/scannerScreen';
+function AppNav() {
   const [visible, setVisible] = useState(false);
   return (
     <>
@@ -34,7 +34,7 @@ function BottomTabs() {
           component={HomeScreen}
           options={{
             headerShown: true,
-            headerStyle: {backgroundColor: colors.Primary},
+            headerStyle: {backgroundColor: colors.Primary,elevation:0},
             headerRight: () => (
               <Image
                 style={styles.HomeTopMenuImg}
@@ -57,7 +57,7 @@ function BottomTabs() {
             ),
             tabBarLabel: 'Home',
             headerTitle: '',
-            tabBarShowLabel: false,
+            // tabBarShowLabel: false,
             tabBarIcon: ({color, size, focused}) => (
               <IonIcon
                 name="ios-home-outline"
@@ -68,8 +68,8 @@ function BottomTabs() {
           }}
         />
         <Tab.Screen
-          name="Settings"
-          component={SettingsScreen}
+          name="ScannerScreen"
+          component={ScannerSheet}
           listeners={({navigation}) => ({
             tabPress: event => {
               event.preventDefault();
@@ -78,8 +78,8 @@ function BottomTabs() {
             },
           })}
           options={{
-            tabBarLabel: 'Notifications',
-            tabBarShowLabel: false,
+            tabBarLabel: 'Scanner',
+            // tabBarShowLabel: false,
             tabBarIcon: ({color, size, focused}) => (
               <IonIcon
                 name="ios-scan-sharp"
@@ -133,8 +133,8 @@ function BottomTabs() {
           }}
         />
       </Tab.Navigator>
-      <ScannerSheet visible={visible} setVisible={setVisible} />
+      {/* <ScannerSheet visible={visible} setVisible={setVisible} /> */}
     </>
   );
 }
-export default BottomTabs;
+export default AppNav;

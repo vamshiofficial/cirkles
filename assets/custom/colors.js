@@ -1,4 +1,5 @@
 export default {
+    // DA2824 //F4D23F
     Primary:'#F4D23F',
     PrimaryBlack:'#17202A',
     black:'#000',
