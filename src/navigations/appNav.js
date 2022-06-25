@@ -122,7 +122,7 @@ function AppNav() {
             headerTitleAlign: 'left',
             headerTitleStyle: {fontFamily: fonts.PrimaryBoldFont},
             tabBarLabel: 'Notifications',
-            headerStyle: {backgroundColor: colors.Primary},
+            headerStyle: {backgroundColor: colors.Primary,shadowOpacity:0,elevation:0},
             tabBarShowLabel: false,
             tabBarIcon: ({color, size, focused}) => (
               <SimpleLineIcons

@@ -2,6 +2,8 @@ import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import fonts from '../../../assets/custom/fonts';
 import colors from '../../../assets/custom/colors';
+import * as Animatable from 'react-native-animatable';
+import styles from './styles';
 import {
   Container,
   Header,
@@ -16,7 +18,7 @@ import {
 
 const NotificationCard = props => {
   return (
-    <View style={styles.con}>
+    <Animatable.View animation={'slideInUp'} style={styles.NTFcon}>
       <ListItem avatar noBorder>
         <Left>
           <Thumbnail
@@ -37,47 +39,25 @@ const NotificationCard = props => {
               },
             ]}
             source={{
-              uri: props.ImageUrl,
+              uri: props.Data.profile_image,
             }}
           />
         </Left>
         <Body>
-          <Text note style={styles.messageText}>
-            {props.NotificationText}
-          </Text>
-          <Text style={styles.time}>{props.NotificationTime}</Text>
+          <View style={styles.text_con}>
+            <Text style={styles.the_user_name_text}>
+              {props.Data.ntf_id} {props.Data.the_user_name}
+            </Text>
+            <Text note style={styles.messageText}>
+              {' '}
+              {props.Data.ntf_text}
+            </Text>
+          </View>
+          <Text style={styles.time}>{props.Data.post_time}</Text>
         </Body>
         <Right />
       </ListItem>
-    </View>
+    </Animatable.View>
   );
 };
-
-const styles = StyleSheet.create({
-  con: {
-    marginLeft: 0,
-    width: '90%',
-    // height:'100%',
-    alignSelf: 'center',
-    // marginVertical: 10,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.white1,
-  },
-  profileImage: {
-    borderRadius: 13,
-    width: 50,
-    height: 50,
-  },
-  time: {
-    fontFamily: fonts.PrimaryFont,
-    fontSize: fonts.FontSmall,
-    color: colors.white5,
-  },
-  messageText: {
-    fontFamily: fonts.PrimaryFont,
-    fontSize: fonts.FontBody,
-    color: colors.black3,
-  },
-});
 export default NotificationCard;
