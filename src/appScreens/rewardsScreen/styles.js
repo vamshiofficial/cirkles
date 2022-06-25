@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   HeaderSection: {
-    backgroundColor: colors.black1,
+    backgroundColor: colors.PrimaryBlack,
     paddingBottom: 50,
     paddingHorizontal: 15,
   },
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 15,
-    backgroundColor: colors.black1,
+    backgroundColor: colors.PrimaryBlack,
     alignItems:'center',
     justifyContent:'center'
   },
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 15,
-    backgroundColor: colors.black1,
+    backgroundColor: colors.PrimaryBlack,
     alignItems:'center',
     justifyContent:'center',
     marginTop:20

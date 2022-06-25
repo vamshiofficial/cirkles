@@ -98,12 +98,12 @@ function AppNav() {
             headerTitleAlign: 'left',
             headerShown: true,
             headerStyle: {
-              backgroundColor: colors.black1,
+              backgroundColor: colors.PrimaryBlack,
               borderBottomWidth: 0,
               shadowOpacity: 0,
               elevation:0
             },
-            headerTitleStyle: {fontFamily: fonts.PrimaryBoldFont},
+            headerTitleStyle: {fontFamily: fonts.PrimaryBoldFont,color:colors.white},
             tabBarShowLabel: false,
             tabBarIcon: ({color, size, focused}) => (
               <IonIcon

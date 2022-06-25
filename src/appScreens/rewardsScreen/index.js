@@ -98,10 +98,7 @@ const RewardsScreen = () => {
           <MaterialCommunityIcons name="qrcode-scan" style={styles.qrIcon} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.shareScanBtn} onPress={OnShare}>
-          <Ionicons
-            name="md-arrow-redo-outline"
-            style={styles.shareIcon}
-          />
+          <Ionicons name="md-arrow-redo-outline" style={styles.shareIcon} />
         </TouchableOpacity>
       </View>
     </View>
