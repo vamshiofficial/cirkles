@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -16,34 +16,58 @@ import fonts from '../../../assets/custom/fonts';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import RewardGettingSheet from './RewardGettingSheet';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Toast} from 'native-base';
 //------------
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
-const ScannerSheet = props => {
+const ScannerSheet = ({navigation}) => {
   const [RewardModal, setRewardModal] = useState(false);
   const [isRewardGetting, setisRewardGetting] = useState(false);
   const [isGotRewarded, setisGotRewarded] = useState(false);
   const [isFlashOn, setisFlashOn] = useState(false);
   const [isFrontCameraOn, setisFrontCameraOn] = useState(false);
+  const [Currect_UserId, setCurrect_UserId] = useState('');
+  //============
+  useEffect(() => {
+    const GetUserId = async () => {
+      let id = '';
+      try {
+        id = await AsyncStorage.getItem('userToken');
+        setCurrect_UserId(id);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    GetUserId();
+  }, []);
+  //===============
   const onSuccess = e => {
-    // Linking.openURL(e.data).catch(err =>
-    //   console.error('An error occured', err),
-    // );
-    let text = e.data;
-    console.log('scanned data', e.data);
-    let result = text.slice(9);
-    console.log('the cup id is:', result);
-    let cupResult = text.slice(0, 9);
-    console.log('the cup res is:', cupResult);
-    if (cupResult === 'CIRCLECUP') {
-      GetTheReward(result, 450);
-      setRewardModal(true);
-      setisRewardGetting(true);
-      // alert('cup scanned please redirect!');
+    if (Currect_UserId !== null) {
+      let text = e.data;
+      console.log('scanned data', e.data);
+      let result = text.slice(9);
+      console.log('the cup id is:', result);
+      let cupResult = text.slice(0, 9);
+      console.log('the cup res is:', cupResult);
+      if (cupResult === 'CIRCLECUP') {
+        GetTheReward(result, 450);
+        setRewardModal(true);
+        setisRewardGetting(true);
+        // alert('cup scanned please redirect!');
+      } else {
+        alert('invalid qr code');
+      }
     } else {
-      alert('invalid qr code');
+      // Toast.show({
+      //   text: 'Wrong password!',
+      //   buttonText: 'Okay',
+      //   buttonTextStyle: {color: '#008000'},
+      //   buttonStyle: {backgroundColor: '#5cb85c'},
+      // });
     }
   };
+
   const GetTheReward = (cup_id, user_id) => {
     const CallTheApi = `https://esigm.com/thecircle/v1/action.php?action=GetCupReward&user_id=${user_id}&cup_id=${cup_id}`;
     fetch(CallTheApi)
@@ -74,7 +98,7 @@ const ScannerSheet = props => {
     setisFrontCameraOn(!isFrontCameraOn);
   };
   const FlashOnOff = () => {
-    if(!isFrontCameraOn){
+    if (!isFrontCameraOn) {
       setisFlashOn(!isFlashOn);
     }
   };
@@ -92,17 +116,14 @@ const ScannerSheet = props => {
   const BottomContainer = () => (
     <View style={styles.btnGrp}>
       <TouchableOpacity style={styles.ActionBtn} onPress={CameraRotate}>
-        {isFrontCameraOn?
-        <Ionicons
-          name={'camera-reverse'}
-          style={styles.CamReverseIcon}
-        />
-        :
-        <Ionicons
-          name={'camera-reverse-outline'}
-          style={styles.CamReverseIcon}
-        />
-      }
+        {isFrontCameraOn ? (
+          <Ionicons name={'camera-reverse'} style={styles.CamReverseIcon} />
+        ) : (
+          <Ionicons
+            name={'camera-reverse-outline'}
+            style={styles.CamReverseIcon}
+          />
+        )}
       </TouchableOpacity>
       <TouchableOpacity style={styles.ActionBtn} onPress={FlashOnOff}>
         {isFlashOn ? (
@@ -111,9 +132,17 @@ const ScannerSheet = props => {
           <Ionicons name={'flash-outline'} style={styles.FlashIcon} />
         )}
       </TouchableOpacity>
-      {/* <TouchableOpacity style={styles.ActionBtn}>
+      <TouchableOpacity style={styles.ActionBtn}
+        onPress={() =>
+          Toast.show({
+            text: "Wrong password!",
+            buttonText: "Okay",
+            buttonTextStyle: { color: "#008000" },
+            buttonStyle: { backgroundColor: "#5cb85c" }
+          })}
+      >
         <Ionicons name={'checkmark-outline'} style={styles.SubmitIcon} />
-      </TouchableOpacity> */}
+      </TouchableOpacity>
     </View>
   );
   const CustomMarker = () => (
@@ -138,6 +167,8 @@ const ScannerSheet = props => {
             setRewardModal={setRewardModal}
             isRewardGetting={isRewardGetting}
             isGotRewarded={isGotRewarded}
+            Currect_UserId={Currect_UserId}
+            navigation={navigation}
           />
         ) : (
           <QRCodeScanner
@@ -147,7 +178,7 @@ const ScannerSheet = props => {
                 ? RNCamera.Constants.FlashMode.torch
                 : RNCamera.Constants.FlashMode.off
             }
-            cameraType={isFrontCameraOn ? "front" : "back"}
+            cameraType={isFrontCameraOn ? 'front' : 'back'}
             containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
             showMarker={true}
             customMarker={<CustomMarker />}

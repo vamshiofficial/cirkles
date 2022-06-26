@@ -87,7 +87,6 @@ const LoginScreen = props => {
           This is simple and fast process you just need to enter your mobile
           number then you will get OTP to verify your identity.
         </Text>
-        <Text>mobile:{Mobile}</Text>
       </View>
       <View style={styles.BodySection}>
         <View style={styles.formCon}>

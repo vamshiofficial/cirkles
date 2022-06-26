@@ -107,6 +107,31 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     alignSelf:'center'
   },
+  // ======without login 
+  OnlyHeaderSection: {
+    backgroundColor: colors.PrimaryBlack,
+    borderBottomLeftRadius:0,
+    borderBottomRightRadius:0,
+    paddingBottom: 50,
+    paddingHorizontal: 15,
+    marginBottom:15
+  },
+  without_login_con:{
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 0,
+    backgroundColor: colors.white,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    marginTop: -35,
+  },
+  without_login_text:{
+    fontSize:fonts.FontBody,
+    fontFamily:fonts.PrimaryFont,
+    color:colors.black3,
+    alignSelf:'center'
+  },
   //   ==========reward card
   bottomNavigationView: {
     backgroundColor: '#fff',

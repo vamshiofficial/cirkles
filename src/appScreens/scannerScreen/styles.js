@@ -46,6 +46,28 @@ const styles = StyleSheet.create({
   closeIcon: {
     fontSize: 20,
   },
+  without_login_con: {
+    height: '50%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 0,
+    backgroundColor: colors.white,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    marginTop: -35,
+  },
+  without_login_text: {
+    fontSize: fonts.FontBody,
+    fontFamily: fonts.PrimaryFont,
+    color: colors.black3,
+    alignSelf: 'center',
+  },
+  login_image: {
+    width:500,
+    height: 500,
+    marginVertical: 25,
+  },
   // ========qr scanner
   cameraContainerStyle: {
     height: DeviceHeight * 0.55,
@@ -56,8 +78,8 @@ const styles = StyleSheet.create({
   },
   btnGrp: {
     flexDirection: 'row',
-    width:'100%',
-    justifyContent:'space-evenly'
+    width: '100%',
+    justifyContent: 'space-evenly',
   },
   ActionBtn: {
     width: 50,
@@ -86,7 +108,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: DeviceWidth,
-    height: DeviceHeight*0.70,
+    height: DeviceHeight * 0.7,
     backgroundColor: colors.Primary,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,

@@ -19,8 +19,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../../../assets/custom/colors';
+import LoginBtn from '../components/loginBtn';
 
-function HeaderSection() {
+function HeaderSection({navigation}) {
   return (
     <View style={styles.HeaderSection}>
       <View style={styles.rewardCount}>
@@ -173,57 +174,74 @@ const RewardsScreen = () => {
   };
   return (
     <>
-      {/* <View style={styles.body}> */}
-      {loading ? (
-        <ActivityIndicator />
+      {Currect_UserId !== null ? (
+        loading ? (
+          <ActivityIndicator />
+        ) : (
+          <>
+            {total_rows ? (
+              <List>
+                <FlatList
+                  key={'#'}
+                  data={data}
+                  renderItem={({item}) => (
+                    <RewardCard
+                      post={item}
+                      Detailsvisible={Detailsvisible}
+                      setDetailsVisible={setDetailsVisible}
+                      RewardData={RewardData}
+                      SetRewardData={SetRewardData}
+                    />
+                  )}
+                  keyExtractor={item => item.pay_id}
+                  ListFooterComponent={RenderFooter}
+                  ListHeaderComponent={HeaderSection}
+                  onEndReached={HandleLoadMore}
+                  onEndReachedThreshold={0}
+                  showsVerticalScrollIndicator={true}
+                  scrollEventThrottle={16}
+                  numColumns={2}
+                />
+              </List>
+            ) : (
+              <View style={styles.empty_con}>
+                <FeatherIcon
+                  active
+                  name="award"
+                  size={150}
+                  color={colors.bglight}
+                />
+                <Text style={styles.no_rewards}>No Rewards Found!</Text>
+              </View>
+            )}
+            <View style={styles.bottomRightBtnsCon}>
+              <TouchableOpacity style={styles.qrScanBtn}>
+                <MaterialCommunityIcons
+                  name="qrcode-scan"
+                  style={styles.qrIcon}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.shareScanBtn} onPress={OnShare}>
+                <Ionicons
+                  name="md-arrow-redo-outline"
+                  style={styles.shareIcon}
+                />
+              </TouchableOpacity>
+            </View>
+          </>
+        )
       ) : (
         <>
-          {total_rows ? (
-            <List>
-              <FlatList
-                key={'#'}
-                data={data}
-                renderItem={({item}) => (
-                  <RewardCard
-                    post={item}
-                    Detailsvisible={Detailsvisible}
-                    setDetailsVisible={setDetailsVisible}
-                    RewardData={RewardData}
-                    SetRewardData={SetRewardData}
-                  />
-                )}
-                keyExtractor={item => item.pay_id}
-                ListFooterComponent={RenderFooter}
-                ListHeaderComponent={HeaderSection}
-                onEndReached={HandleLoadMore}
-                onEndReachedThreshold={0}
-                showsVerticalScrollIndicator={true}
-                scrollEventThrottle={16}
-                numColumns={2}
-              />
-            </List>
-          ) : (
-            <View style={styles.empty_con}>
-              <FeatherIcon
-                active
-                name="award"
-                size={150}
-                color={colors.bglight}
-              />
-              <Text style={styles.no_rewards}>No Rewards Found!</Text>
-            </View>
-          )}
+        <View  style={styles.OnlyHeaderSection}/>
+        <View style={styles.without_login_con}>
+          <Ionicons name="trophy-outline" size={150} color={colors.bglight} />
+          <Text style={styles.without_login_text}>
+            Login to view your Rewards here.
+          </Text>
+          <LoginBtn onPress={() => navigation.navigate('LoginScreen')} />
+        </View>
         </>
       )}
-      {/* </View> */}
-      <View style={styles.bottomRightBtnsCon}>
-        <TouchableOpacity style={styles.qrScanBtn}>
-          <MaterialCommunityIcons name="qrcode-scan" style={styles.qrIcon} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.shareScanBtn} onPress={OnShare}>
-          <Ionicons name="md-arrow-redo-outline" style={styles.shareIcon} />
-        </TouchableOpacity>
-      </View>
     </>
   );
 };

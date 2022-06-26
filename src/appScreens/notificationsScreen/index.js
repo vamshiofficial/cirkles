@@ -5,6 +5,7 @@ import {
   ScrollView,
   SafeAreaView,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
@@ -13,7 +14,8 @@ import {List} from 'native-base';
 import colors from '../../../assets/custom/colors';
 import {FlatList} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-const NotificationsScreen = () => {
+import LoginBtn from '../components/loginBtn';
+const NotificationsScreen = ({navigation}) => {
   // notification types
   // blackMESSAGE--- redDANGER--- greenSUCCESS--- yellowAPP
   //------------------------
@@ -39,7 +41,8 @@ const NotificationsScreen = () => {
     };
     GetUserId();
     if (!lastpage_reached) {
-      fetchdata(54);
+      console.log('user_id', Currect_UserId);
+      fetchdata(Currect_UserId);
     }
   }, [pageCurrent]);
   //===============
@@ -101,47 +104,60 @@ const NotificationsScreen = () => {
     setPageCurrent(pageCurrent + 1);
   };
   return (
-    <ScrollView style={styles.con}>
+    <ScrollView contentContainerStyle={styles.con}>
       <View style={styles.HeaderSection} />
-      <View style={styles.body}>
+      {Currect_UserId !== null ? (
         <>
-          {loading ? (
-            // <Comment_Follow_Shimmer />
-            <ActivityIndicator size={'large'} color={colors.Primary} />
-          ) : total_rows ? (
-            <List>
-              <FlatList
-                style={{backgroundColor: colors.white}}
-                scrollEnabled={true}
-                data={data}
-                renderItem={({item}) => <NotificationCard Data={item} />}
-                keyExtractor={item =>
-                  item.ntf_id +
-                  new Date().getTime().toString() +
-                  Math.floor(
-                    Math.random() * Math.floor(new Date().getTime()),
-                  ).toString()
-                }
-                ListFooterComponent={RenderFooter}
-                onEndReached={HandleLoadMore}
-                onEndReachedThreshold={0}
-                showsVerticalScrollIndicator={false}
-              />
-            </List>
-          ) : (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: 0,
-              }}>
-              <Icon name="bell-outline" size={150} color={colors.bglight} />
-              <Text style={styles.only_text}>No Notifications Yet!</Text>
-            </View>
-          )}
+          <View style={styles.body}>
+            <>
+              {loading ? (
+                // <Comment_Follow_Shimmer />
+                <ActivityIndicator size={'large'} color={colors.Primary} />
+              ) : total_rows ? (
+                <List>
+                  <FlatList
+                    style={{backgroundColor: colors.white}}
+                    scrollEnabled={true}
+                    data={data}
+                    renderItem={({item}) => <NotificationCard Data={item} />}
+                    keyExtractor={item =>
+                      item.ntf_id +
+                      new Date().getTime().toString() +
+                      Math.floor(
+                        Math.random() * Math.floor(new Date().getTime()),
+                      ).toString()
+                    }
+                    ListFooterComponent={RenderFooter}
+                    onEndReached={HandleLoadMore}
+                    onEndReachedThreshold={0}
+                    showsVerticalScrollIndicator={false}
+                  />
+                </List>
+              ) : (
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: 0,
+                  }}>
+                  <Icon name="bell-outline" size={150} color={colors.bglight} />
+                  <Text style={styles.only_text}>No Notifications Yet!</Text>
+                </View>
+              )}
+            </>
+          </View>
         </>
-      </View>
+      ) : (
+        <View
+          style={styles.without_login_con}>
+          <Icon name="bell-outline" size={150} color={colors.bglight} />
+          <Text style={styles.without_login_text}>
+            Login to view your notifications here.
+          </Text>
+          <LoginBtn onPress={() => navigation.navigate('LoginScreen')} />
+        </View>
+      )}
     </ScrollView>
   );
 };

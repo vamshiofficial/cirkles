@@ -4,7 +4,8 @@ import colors from '../../../assets/custom/colors';
 import fonts from '../../../assets/custom/fonts';
 const styles = StyleSheet.create({
   con: {
-    height:'100%',
+    // height:'100%',
+    flex:1,
     backgroundColor: colors.white,
   },
   HeaderSection: {
@@ -27,6 +28,22 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.15,
     // shadowRadius: 3.84,
     // elevation: 5,
+  },
+  without_login_con:{
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 0,
+    backgroundColor: colors.white,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    marginTop: -35,
+  },
+  without_login_text:{
+    fontSize:fonts.FontBody,
+    fontFamily:fonts.PrimaryFont,
+    color:colors.black3,
+    alignSelf:'center'
   },
   only_text:{
     fontSize:fonts.FontSmall,
@@ -65,7 +82,7 @@ const styles = StyleSheet.create({
     color: colors.black3,
   },
   the_user_name_text: {
-    fontFamily: fonts.PrimaryFont,
+    fontFamily: fonts.PrimarySemiBoldFont,
     fontSize: fonts.FontSubHeadding,
     color: colors.black,
     paddingRight: 5,
