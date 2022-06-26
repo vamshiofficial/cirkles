@@ -6,12 +6,13 @@ import LoginScreen from '../authScreens/loginScreen';
 import RegisterScreen from '../authScreens/registerScreen';
 import OnBoarding from '../authScreens/onBoarding';
 import AccountSettingsScreen from '../appScreens/accountSettings';
+import AppNav from './appNav.js';
 // const Stack = createNativeStackNavigator();
 const Stack = createStackNavigator();
 const AuthNav = () => {
   return (
     <Stack.Navigator
-      initialRouteName="LoginScreen"
+      initialRouteName="AppNav"
       screenOptions={{
         headerShown: false,
       }}>
@@ -57,6 +58,15 @@ const AuthNav = () => {
         }}
         name="OnBoardingScreen"
         component={OnBoarding}
+      />
+       <Stack.Screen
+        options={{
+          animationEnabled: true,
+          headerShown: false,
+          headerTitle: '',
+        }}
+        name="AppNav"
+        component={AppNav}
       />
     </Stack.Navigator>
   );

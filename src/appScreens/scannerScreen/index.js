@@ -23,6 +23,8 @@ const ScannerSheet = props => {
   const [RewardModal, setRewardModal] = useState(false);
   const [isRewardGetting, setisRewardGetting] = useState(false);
   const [isGotRewarded, setisGotRewarded] = useState(false);
+  const [isFlashOn, setisFlashOn] = useState(false);
+  const [isFrontCameraOn, setisFrontCameraOn] = useState(false);
   const onSuccess = e => {
     // Linking.openURL(e.data).catch(err =>
     //   console.error('An error occured', err),
@@ -69,9 +71,13 @@ const ScannerSheet = props => {
     console.warn('dfsdfdf');
   };
   const CameraRotate = () => {
-    RNCamera.Constants.FlashMode.on;
+    setisFrontCameraOn(!isFrontCameraOn);
   };
-  const FlashOnOff = () => {};
+  const FlashOnOff = () => {
+    if(!isFrontCameraOn){
+      setisFlashOn(!isFlashOn);
+    }
+  };
   const TopConatiner = () => {
     return (
       <View style={{marginTop: 0}}>
@@ -85,18 +91,29 @@ const ScannerSheet = props => {
   };
   const BottomContainer = () => (
     <View style={styles.btnGrp}>
-      <TouchableOpacity style={styles.ActionBtn} onPress={() => CameraRotate()}>
+      <TouchableOpacity style={styles.ActionBtn} onPress={CameraRotate}>
+        {isFrontCameraOn?
+        <Ionicons
+          name={'camera-reverse'}
+          style={styles.CamReverseIcon}
+        />
+        :
         <Ionicons
           name={'camera-reverse-outline'}
           style={styles.CamReverseIcon}
         />
+      }
       </TouchableOpacity>
       <TouchableOpacity style={styles.ActionBtn} onPress={FlashOnOff}>
-        <Ionicons name={'flash-outline'} style={styles.FlashIcon} />
+        {isFlashOn ? (
+          <Ionicons name={'flash-off-outline'} style={styles.FlashIcon} />
+        ) : (
+          <Ionicons name={'flash-outline'} style={styles.FlashIcon} />
+        )}
       </TouchableOpacity>
-      <TouchableOpacity style={styles.ActionBtn}>
+      {/* <TouchableOpacity style={styles.ActionBtn}>
         <Ionicons name={'checkmark-outline'} style={styles.SubmitIcon} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
   const CustomMarker = () => (
@@ -125,7 +142,12 @@ const ScannerSheet = props => {
         ) : (
           <QRCodeScanner
             onRead={onSuccess}
-            flashMode={RNCamera.Constants.FlashMode.off}
+            flashMode={
+              isFlashOn
+                ? RNCamera.Constants.FlashMode.torch
+                : RNCamera.Constants.FlashMode.off
+            }
+            cameraType={isFrontCameraOn ? "front" : "back"}
             containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
             showMarker={true}
             customMarker={<CustomMarker />}

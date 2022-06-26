@@ -25,7 +25,8 @@ function AppNav() {
             backgroundColor: colors.white,
             shadowOpacity: 0,
             elevation: 0,
-            borderWidth: 0,
+            borderTopWidth: 0,
+            borderTopColor:'red'
           },
           tabBarItemStyle: {marginHorizontal: 0},
         }}>

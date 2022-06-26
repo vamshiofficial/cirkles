@@ -56,6 +56,8 @@ const styles = StyleSheet.create({
   },
   btnGrp: {
     flexDirection: 'row',
+    width:'100%',
+    justifyContent:'space-evenly'
   },
   ActionBtn: {
     width: 50,

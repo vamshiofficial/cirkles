@@ -21,7 +21,7 @@ const AppNavigations = () => {
     <StatusBar backgroundColor={colors.PrimaryBlack} />
     <NavigationContainer>
       {/* {userToken !== null ? <AppNav /> : <AuthNav />} */}
-      <AppNav />
+      <AuthNav />
     </NavigationContainer>
     </>
   );
