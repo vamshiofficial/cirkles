@@ -17,7 +17,7 @@ const MenuListSheet = props => {
             <MaterialIcons name="segment" style={styles.menuIcon} />
             <Text style={styles.menuText}>MENU</Text>
           </View>
-          <List style={{paddingHorizontal:20}}>
+          <List style={{paddingHorizontal:20,marginTop:25}}>
             <ListItem icon noBorder style={styles.ListItm}>
               <Left>
                 <Image
@@ -70,26 +70,38 @@ const styles = StyleSheet.create({
   bottomMainView: {
     backgroundColor: colors.white,
     height: '40%',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
   },
   menuBtn: {
-    paddingHorizontal: 15,
+    height:50,
     flexDirection: 'row',
-    paddingVertical: 7,
+    // paddingVertical: 15,
+    paddingLeft:15,
     alignItems: 'center',
-    borderBottomColor:colors.bglight,
-    borderBottomWidth:1,
-    paddingVertical:15,
-    marginBottom:15
+    // borderBottomColor:colors.bglight,
+    // borderBottomWidth:1,
+    marginBottom:25,
+    backgroundColor:colors.Primary,
+    borderBottomLeftRadius:15,
+    borderBottomRightRadius:15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   menuIcon: {
-    fontSize: 15,
+    fontSize: 20,
     marginRight: 10,
   },
   menuText: {
     fontFamily: fonts.PrimaryBoldFont,
-    fontSize: fonts.FontSubHeadding,
+    fontSize: fonts.FontHeadding,
   },
   ListItm:{
     marginLeft:0,

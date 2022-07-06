@@ -114,7 +114,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius:0,
     paddingBottom: 50,
     paddingHorizontal: 15,
-    marginBottom:15
   },
   without_login_con:{
     height: '100%',

@@ -47,14 +47,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   without_login_con: {
-    height: '50%',
+    // height: '50%',
+    paddingVertical:50,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 0,
     backgroundColor: colors.white,
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     marginTop: -35,
   },
   without_login_text: {
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.PrimaryFont,
     color: colors.black3,
     alignSelf: 'center',
+    marginTop:25,
   },
   login_image: {
     width:500,

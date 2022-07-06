@@ -22,6 +22,7 @@ const HomeScreen = ({navigation}) => {
       </Animatable.View>
       <TouchableOpacity
         onPress={() => navigation.navigate('OutletScreen')}
+        style={{alignSelf:'center',backgroundColor:'red'}}
         // onPress={LogOutNow()}
       >
         <Text>outlet Ui</Text>
@@ -41,7 +42,7 @@ const HomeScreen = ({navigation}) => {
         LearnmoreBtn={false}
         onClickLearnmore={() => alert('done')}
       />
-      <ListCardUi
+      {/* <ListCardUi
         ImageUrl="https://cdn.icon-icons.com/icons2/1875/PNG/512/qrcodescan_120401.png"
         HeaddingText="Scan a cup to get FREE tea"
         BodyText="You can get a absolutly free tea or coffee when you got FREE message when youscaned a QR Code with our app."
@@ -61,7 +62,7 @@ const HomeScreen = ({navigation}) => {
         BodyText="You can get a absolutly free tea or coffee when you got FREE message when youscaned a QR Code with our app."
         LearnmoreBtn={false}
         onClickLearnmore={() => alert('done')}
-      />
+      /> */}
       <SubmitBtn
         onPress={() => {
           LogOutNow();

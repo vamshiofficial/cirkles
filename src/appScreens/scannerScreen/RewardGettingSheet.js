@@ -74,11 +74,11 @@ const RewardGettingSheet = props => {
           ) : (
             <View style={styles.without_login_con}>
               <UserLoginImg
-                width={DeviceWidth * 0.5}
-                height={DeviceWidth * 0.5}
+                width={DeviceWidth * 0.4}
+                height={DeviceWidth * 0.4}
               />
               <Text style={styles.without_login_text}>
-                Login to view your notifications here.
+               Please login to scan and view your reward. It's less than a minute process.
               </Text>
               <LoginBtn
                 onPress={() => {

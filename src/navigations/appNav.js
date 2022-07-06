@@ -50,10 +50,10 @@ function AppNav() {
                   name="settings-outline"
                   style={styles.HomeTopMenuIcon}
                 />
-                <IonIcon
+                {/* <IonIcon
                   name="ios-search-outline"
                   style={styles.HomeTopMenuIcon}
-                />
+                /> */}
               </View>
             ),
             tabBarLabel: 'Home',

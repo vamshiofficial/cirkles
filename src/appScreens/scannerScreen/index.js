@@ -132,15 +132,16 @@ const ScannerSheet = ({navigation}) => {
           <Ionicons name={'flash-outline'} style={styles.FlashIcon} />
         )}
       </TouchableOpacity>
-      <TouchableOpacity style={styles.ActionBtn}
+      <TouchableOpacity
+        style={styles.ActionBtn}
         onPress={() =>
           Toast.show({
-            text: "Wrong password!",
-            buttonText: "Okay",
-            buttonTextStyle: { color: "#008000" },
-            buttonStyle: { backgroundColor: "#5cb85c" }
-          })}
-      >
+            text: 'Wrong password!',
+            buttonText: 'Okay',
+            buttonTextStyle: {color: '#008000'},
+            buttonStyle: {backgroundColor: '#5cb85c'},
+          })
+        }>
         <Ionicons name={'checkmark-outline'} style={styles.SubmitIcon} />
       </TouchableOpacity>
     </View>
