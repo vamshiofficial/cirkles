@@ -4,12 +4,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import AboutPage from '../appScreens/settingsScreen/pages/AboutPage';
 import SettingsScreen from '../appScreens/settingsScreen';
 import TermsConditionsPage from '../appScreens/settingsScreen/pages/terms_conditions';
+import PrivacyPolicyPage from '../appScreens/settingsScreen/pages/privacy_policy';
 const Stack = createStackNavigator();
 
 const SettingsScreensNav = () => {
   return (
     <Stack.Navigator
-    initialRouteName="SettingsPage"
+    initialRouteName="PrivacyPolicyPage"
     screenOptions={{
       headerShown: false,
     }}
@@ -29,6 +30,13 @@ const SettingsScreensNav = () => {
       }}
       />
       <Stack.Screen name="TermsConditionsPage" component={TermsConditionsPage} 
+       options={{
+        animationEnabled: false,
+        headerShown: false,
+        headerTitle: '',
+      }}
+      />
+       <Stack.Screen name="PrivacyPolicyPage" component={PrivacyPolicyPage} 
        options={{
         animationEnabled: false,
         headerShown: false,

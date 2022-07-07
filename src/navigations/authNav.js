@@ -9,10 +9,13 @@ import AccountSettingsScreen from '../appScreens/accountSettings';
 import AppNav from './appNav.js';
 import SettingsScreen from '../appScreens/settingsScreen/index.js';
 import SettingsScreensNav from './settingsNav';
+import FranchiseRequestScreen from '../appScreens/FranchiseRequestScreen/index.js';
+import colors from '../../assets/custom/colors.js';
 // const Stack = createNativeStackNavigator();
 const Stack = createStackNavigator();
 const AuthNav = () => {
   return (
+    // AppNav
     <Stack.Navigator
       initialRouteName="AppNav"
       screenOptions={{
@@ -78,6 +81,20 @@ const AuthNav = () => {
         }}
         name="AppNav"
         component={AppNav}
+      />
+      <Stack.Screen
+        options={{
+          animationEnabled: true,
+          headerShown: false,
+          headerTitle: '',
+          headerStyle: {
+            backgroundColor: colors.white,
+            elevation: 0,
+            shadowOpacity: 0,
+          },
+        }}
+        name="FranchiseRequestScreen"
+        component={FranchiseRequestScreen}
       />
     </Stack.Navigator>
   );
