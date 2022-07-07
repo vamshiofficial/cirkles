@@ -22,6 +22,7 @@ const AppNavigations = () => {
     <NavigationContainer>
       {/* {userToken !== null ? <AppNav /> : <AuthNav />} */}
       <AuthNav />
+      {/* <AppNav /> */}
     </NavigationContainer>
     </>
   );

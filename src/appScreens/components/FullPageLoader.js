@@ -4,6 +4,9 @@ import colors from '../../../assets/custom/colors';
 import fonts from '../../../assets/custom/fonts';
 
 const FullPageLoader = props => {
+  //send following props
+  // 1.visible
+  // 2.bigText
   return (
     <>
       {props.visible ? (

@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 const AuthNav = () => {
   return (
     <Stack.Navigator
-      initialRouteName="AppNav"
+      initialRouteName="RegisterScreen"
       screenOptions={{
         headerShown: false,
       }}>

@@ -52,21 +52,37 @@ const styles = StyleSheet.create({
   mobileInput: {
     width: DeviceWidth * 0.85,
     alignSelf: 'center',
-    borderColor: colors.bglight,
-    borderWidth: 1,
+    borderBottomColor: colors.bglight,
+    borderBottomWidth: 2,
     height: 45,
-    paddingHorizontal: 15,
+    marginTop: 10,
+    // paddingHorizontal: 15,
     fontFamily: fonts.PrimaryFont,
-    borderRadius: 5,
+    // borderRadius: 5,
   },
-  genderText: {
-    fontFamily: fonts.PrimarySemiBoldFont,
+  inputCon: {
+    flexDirection: 'row',
+  },
+  username_intro: {
+    fontFamily: fonts.PrimaryFont,
+    marginTop: 5,
+    color: colors.white3,
+    fontSize: fonts.FontSmall,
+  },
+  LableText: {
+    fontFamily: fonts.PrimaryBoldFont,
     marginTop: 25,
     color: colors.black,
   },
+  errorText: {
+    fontFamily: fonts.PrimaryFont,
+    fontSize: fonts.FontBody,
+    marginTop: 5,
+    color: colors.red,
+  },
   gendersCon: {
     flexDirection: 'row',
-    justifyContent:'flex-start'
+    justifyContent: 'flex-start',
   },
   genderBtn: {
     marginTop: 15,
@@ -78,6 +94,29 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: colors.bglight,
     marginRight: 15,
+  },
+  // ===============with out login
+  without_login_con: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 0,
+    backgroundColor: colors.white,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    marginTop: -35,
+  },
+  without_login_text: {
+    fontSize: fonts.FontBody,
+    fontFamily: fonts.PrimaryFont,
+    color: colors.black3,
+    alignSelf: 'center',
+  },
+  only_text: {
+    fontSize: fonts.FontSmall,
+    fontFamily: fonts.PrimaryFont,
+    color: colors.black3,
+    alignSelf: 'center',
   },
 });
 export default styles;
