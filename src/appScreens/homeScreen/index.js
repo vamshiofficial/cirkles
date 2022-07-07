@@ -63,11 +63,11 @@ const HomeScreen = ({navigation}) => {
         LearnmoreBtn={false}
         onClickLearnmore={() => alert('done')}
       /> */}
-      <SubmitBtn
+      {/* <SubmitBtn
         onPress={() => {
           LogOutNow();
         }}
-      />
+      /> */}
     </ScrollView>
   );
 };

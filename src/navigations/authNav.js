@@ -7,24 +7,26 @@ import RegisterScreen from '../authScreens/registerScreen';
 import OnBoarding from '../authScreens/onBoarding';
 import AccountSettingsScreen from '../appScreens/accountSettings';
 import AppNav from './appNav.js';
+import SettingsScreen from '../appScreens/settingsScreen/index.js';
+import SettingsScreensNav from './settingsNav';
 // const Stack = createNativeStackNavigator();
 const Stack = createStackNavigator();
 const AuthNav = () => {
   return (
     <Stack.Navigator
-      initialRouteName="RegisterScreen"
+      initialRouteName="AppNav"
       screenOptions={{
         headerShown: false,
       }}>
-        <Stack.Screen
-          options={{
-            animationEnabled: false,
-            headerShown: false,
-            headerTitle: '',
-          }}
-          name="LoginScreen"
-          component={LoginScreen}
-        />
+      <Stack.Screen
+        options={{
+          animationEnabled: false,
+          headerShown: false,
+          headerTitle: '',
+        }}
+        name="LoginScreen"
+        component={LoginScreen}
+      />
       <Stack.Screen
         options={{
           animationEnabled: false,
@@ -52,6 +54,15 @@ const AuthNav = () => {
       />
       <Stack.Screen
         options={{
+          animationEnabled: false,
+          headerShown: false,
+          headerTitle: '',
+        }}
+        name="SettingsScreen"
+        component={SettingsScreensNav}
+      />
+      <Stack.Screen
+        options={{
           animationEnabled: true,
           headerShown: false,
           headerTitle: '',
@@ -59,7 +70,7 @@ const AuthNav = () => {
         name="OnBoardingScreen"
         component={OnBoarding}
       />
-       <Stack.Screen
+      <Stack.Screen
         options={{
           animationEnabled: true,
           headerShown: false,
@@ -70,5 +81,5 @@ const AuthNav = () => {
       />
     </Stack.Navigator>
   );
-}
+};
 export default AuthNav;

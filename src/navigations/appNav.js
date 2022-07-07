@@ -9,11 +9,12 @@ import colors from '../../assets/custom/colors';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import styles from './styles';
-import {Text, View, Image} from 'react-native';
+import {Text, View, Image, TouchableOpacity} from 'react-native';
 import fonts from '../../assets/custom/fonts';
 import ScannerSheet from '../appScreens/scannerScreen';
+import { useNavigation } from '@react-navigation/native';
 function AppNav() {
-  const [visible, setVisible] = useState(false);
+  const navigation = useNavigation();
   return (
     <>
       <Tab.Navigator
@@ -45,7 +46,9 @@ function AppNav() {
               />
             ),
             headerLeft: () => (
-              <View style={styles.HomeTopMenuCon}>
+              <TouchableOpacity style={styles.HomeTopMenuCon}
+              onPress={() => navigation.navigate('SettingsScreen')}
+              >
                 <IonIcon
                   name="settings-outline"
                   style={styles.HomeTopMenuIcon}
@@ -54,7 +57,7 @@ function AppNav() {
                   name="ios-search-outline"
                   style={styles.HomeTopMenuIcon}
                 /> */}
-              </View>
+              </TouchableOpacity>
             ),
             tabBarLabel: 'Home',
             headerTitle: '',
