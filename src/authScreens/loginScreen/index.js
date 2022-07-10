@@ -27,12 +27,12 @@ const LoginScreen = props => {
   const [OtpModalVisible, setOtpModalVisible] = useState(false);
   const [LoginModalVisible, setLoginModalVisible] = useState(true);
   const [OtpNumber, setOtpNumber] = useState('');
-  const [PageLoader, setPageLoader] = useState(false)
+  const [PageLoader, setPageLoader] = useState(false);
   const GetOtp = ThisMobile => {
-    setPageLoader(true)
+    setPageLoader(true);
     if (ThisMobile.length <= 9) {
       alert('enter correct number');
-      setPageLoader(false)
+      setPageLoader(false);
     } else {
       var InsertAPIURL = 'https://esigm.com/thecircle/v1/server.php';
       var headers = {
@@ -74,6 +74,34 @@ const LoginScreen = props => {
         });
     }
   };
+  const LoginRightNow = () => {
+    var InsertAPIURL = 'https://esigm.com/thecircle/v1/server.php';
+    var headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    };
+    var Data = {
+      action: 'ACCOUNT_LOGIN_WITH_THIS_MOBILE',
+      TheMobile: Mobile,
+    };
+    fetch(InsertAPIURL, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(Data),
+    })
+      .then(response => response.json())
+      .then(RES => {
+        if (RES[0].message !== 'FAILED') {
+          setPageLoader(false);
+          LoginNow(RES[0].userId, RES[0].userMobile);
+        } else {
+          alert('login failed');
+        }
+      })
+      .catch(function (gg) {
+        console.log(gg);
+      });
+  };
   return (
     <View style={{flex: 1}}>
       <FullPageLoader
@@ -112,6 +140,8 @@ const LoginScreen = props => {
             setOtpNumber={setOtpNumber}
             Mobile={Mobile}
             ResendOtp={GetOtp}
+            onSuccessFunction={LoginRightNow}
+            LoadingText={'Logging in'}
           />
         ) : null}
       </View>

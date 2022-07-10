@@ -34,8 +34,8 @@ const FranchiseRequestModal = props => {
               Request posted successfully{' '}
             </Text>
             <Text style={styles.body_text}>
-              CYour request has been successfully submitted. You will get a
-              phone call to (9505504113) to continue to forther steps.
+              Your request has been successfully submitted. You will get a
+              phone call to <Text style={{fontFamily:fonts.PrimaryBoldFont,fontSize:fonts.FontSubHeadding}}>{props.UserMobile}</Text> to continue to forther steps.
             </Text>
             <Pressable
               style={styles.okay_btn}

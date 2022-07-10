@@ -54,11 +54,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     fontFamily: fonts.PrimaryFont,
     borderRadius: 5,
-    backgroundColor: colors.bglight,
   },
   changeMobileText: {
     fontFamily: fonts.PrimaryFont,
     marginLeft: 10,
+  },
+  error_text:{
+    fontFamily: fonts.PrimaryFont,
+    color: colors.red,
+    fontSize: fonts.FontBody,
   },
   LableText: {
     marginTop: 25,

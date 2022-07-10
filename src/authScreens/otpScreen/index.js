@@ -22,10 +22,20 @@ import FullPageLoader from '../../appScreens/components/FullPageLoader';
 import {Toast} from 'native-base';
 import fonts from '../../../assets/custom/fonts';
 const OtpVerifyModal = props => {
+  // OtpModalVisible={}
+  // setOtpModalVisible={}
+  // setLoginModalVisible={}
+  // OtpNumber={}
+  // setOtpNumber={}
+  // Mobile={}
+  // ResendOtp={}
+  // onSuccessFunction={}
+  // LoadingText={}
   const {LoginNow} = useContext(AuthContext);
   // const [modalVisible, setModalVisible] = useState(true);
   const [PageLoader, setPageLoader] = useState(false);
   const [otp, setotp] = useState('');
+  const [errorOtp, seterrorOtp] = useState(false)
   const [isAutoVerifyVisible, setisAutoVerifyVisible] = useState(true);
   useEffect(() => {
     RNOtpVerify.getHash().then(console.log).catch(console.log);
@@ -46,7 +56,7 @@ const OtpVerifyModal = props => {
       const otpNum = /(\d{4})/g.exec(message)[1];
       console.log('otp,', otpNum);
       setotp(otpNum);
-      CheckOtpNow();
+      CheckOtpNow(otpNum);
       RNOtpVerify.removeListener();
       Keyboard.dismiss();
     } catch (error) {
@@ -54,9 +64,10 @@ const OtpVerifyModal = props => {
     }
     // this.setState({ otp });
   };
-  const CheckOtpNow = () => {
+  const CheckOtpNow = (TheOtp) => {
     setPageLoader(true);
-    if (otp === props.OtpNumber) {
+    if (TheOtp === props.OtpNumber) {
+      seterrorOtp(false)
       // setPageLoader(false)
       var InsertAPIURL = 'https://esigm.com/thecircle/v1/server.php';
       var headers = {
@@ -75,11 +86,11 @@ const OtpVerifyModal = props => {
         .then(response => response.json())
         .then(RES => {
           if (RES[0].message !== 'FAILED') {
-            setPageLoader(false);
+            // setPageLoader(false);
             // console.log('retrun message', RES[0].message);
             // console.log('retrun user mobile', RES[0].userMobile);
             // console.log('retrun user Id', RES[0].userId);
-            LoginNow(RES[0].userId, RES[0].userMobile);
+            props.onSuccessFunction();
           } else {
             alert('login failed');
           }
@@ -89,7 +100,8 @@ const OtpVerifyModal = props => {
         });
     } else {
       setPageLoader(false);
-      alert('otp incorrect');
+      seterrorOtp(true)
+      // alert('otp incorrect');
     }
   };
   const ChangeMobile = () => {
@@ -101,22 +113,24 @@ const OtpVerifyModal = props => {
     props.ResendOtp(props.Mobile);
   };
   return (
-    <KeyboardAvoidingView
+    <View
       style={{flex: 1}}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      // behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
       <View style={styles.centeredView}>
         <Modal
           animationType="slide"
           transparent={true}
           visible={props.OtpModalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-            // props.setOtpModalVisible(!props.OtpModalVisible);
-          }}>
+          // onRequestClose={() => {
+          //   Alert.alert('Modal has been closed.');
+          //   // props.setOtpModalVisible(!props.OtpModalVisible);
+          // }}
+          >
           <View style={styles.centeredView}>
             <FullPageLoader
               visible={PageLoader}
-              bigtext={'Getting Account details'}
+              bigtext={props.LoadingText}
               text={'Please wait a sec'}
             />
             <View style={styles.bottomNavigationView}>
@@ -135,11 +149,11 @@ const OtpVerifyModal = props => {
                   keyboardType="phone-pad"
                   //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
                   onCodeChanged={code => setotp(code)}
-                  //   autoFocusOnLoad
+                  autoFocusOnLoad={false}
                   codeInputFieldStyle={styles.underlineStyleBase}
                   codeInputHighlightStyle={styles.underlineStyleHighLighted}
                   onCodeFilled={code => {
-                    CheckOtpNow();
+                    CheckOtpNow(code);
                   }}
                 />
                 {isAutoVerifyVisible ? (
@@ -168,18 +182,22 @@ const OtpVerifyModal = props => {
                     </TouchableOpacity>
                   </Animatable.View>
                 )}
-                <Text style={styles.incorrectOtpText}>Otp is not correct!</Text>
+                {
+                  errorOtp?
+                  <Text style={styles.incorrectOtpText}>Otp is not correct!</Text>
+                  :null
+                }
               </View>
               <SubmitBtn
                 onPress={() => {
-                  CheckOtpNow();
+                  CheckOtpNow(otp);
                 }}
               />
             </View>
           </View>
         </Modal>
       </View>
-    </KeyboardAvoidingView>
+    </View>
   );
 };
 export default OtpVerifyModal;
