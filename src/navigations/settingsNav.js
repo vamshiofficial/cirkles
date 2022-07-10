@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 const SettingsScreensNav = () => {
   return (
     <Stack.Navigator
-    initialRouteName="PrivacyPolicyPage"
+    initialRouteName="SettingsPage"
     screenOptions={{
       headerShown: false,
     }}

@@ -184,6 +184,7 @@ const SettingsScreen = ({navigation}) => {
           <ListItem
             icon
             style={styles.list_con}
+            noBorder
             onPress={() => navigation.navigate('AboutPage')}>
             <Left style={styles.list_left}>
               <Icon name="information-outline" style={styles.list_icon} />
@@ -196,6 +197,7 @@ const SettingsScreen = ({navigation}) => {
           <ListItem
             icon
             style={styles.list_con}
+            noBorder
             onPress={() => navigation.navigate('TermsConditionsPage')}>
             <Left style={styles.list_left}>
               <Icon name="information-outline" style={styles.list_icon} />
@@ -203,6 +205,21 @@ const SettingsScreen = ({navigation}) => {
             <Body style={styles.list_body}>
               <Text style={styles.list_body_text}>
                 Terms of Use and Conditions
+              </Text>
+            </Body>
+            <Right />
+          </ListItem>
+          <ListItem
+            icon
+            style={styles.list_con}
+            noBorder
+            onPress={() => navigation.navigate('PrivacyPolicyPage')}>
+            <Left style={styles.list_left}>
+              <Icon name="information-outline" style={styles.list_icon} />
+            </Left>
+            <Body style={styles.list_body}>
+              <Text style={styles.list_body_text}>
+              Privacy Policy
               </Text>
             </Body>
             <Right />

@@ -22,10 +22,17 @@ const HomeScreen = ({navigation}) => {
       </Animatable.View>
       <TouchableOpacity
         onPress={() => navigation.navigate('OutletScreen')}
-        style={{alignSelf:'center',backgroundColor:'red'}}
+        style={{alignSelf:'center',backgroundColor:'#ddd',padding:15}}
         // onPress={LogOutNow()}
       >
         <Text>outlet Ui</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('FranchiseRequestScreen')}
+        style={{alignSelf:'center',backgroundColor:'#ddd',padding:15}}
+        // onPress={LogOutNow()}
+      >
+        <Text>FranchiseRequestScreen Ui</Text>
       </TouchableOpacity>
       <ListCardUi
         ImageUrl="https://esigm.com/opens/used_imgs/opens-logo.png"
