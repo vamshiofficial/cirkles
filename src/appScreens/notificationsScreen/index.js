@@ -35,13 +35,14 @@ const NotificationsScreen = ({navigation}) => {
       try {
         id = await AsyncStorage.getItem('userToken');
         setCurrect_UserId(id);
+        console.log('id', id);
       } catch (e) {
         console.log(e);
       }
     };
     GetUserId();
     if (!lastpage_reached) {
-      console.log('user_id', Currect_UserId);
+      // console.log('user_id', Currect_UserId);
       fetchdata(Currect_UserId);
     }
   }, [pageCurrent]);
@@ -104,7 +105,7 @@ const NotificationsScreen = ({navigation}) => {
     setPageCurrent(pageCurrent + 1);
   };
   return (
-    <ScrollView contentContainerStyle={styles.con}>
+    <View style={styles.con}>
       <View style={styles.HeaderSection} />
       {Currect_UserId !== null ? (
         <>
@@ -149,8 +150,7 @@ const NotificationsScreen = ({navigation}) => {
           </View>
         </>
       ) : (
-        <View
-          style={styles.without_login_con}>
+        <View style={styles.without_login_con}>
           <Icon name="bell-outline" size={150} color={colors.bglight} />
           <Text style={styles.without_login_text}>
             Login to view your notifications here.
@@ -158,7 +158,7 @@ const NotificationsScreen = ({navigation}) => {
           <LoginBtn onPress={() => navigation.navigate('LoginScreen')} />
         </View>
       )}
-    </ScrollView>
+    </View>
   );
 };
 

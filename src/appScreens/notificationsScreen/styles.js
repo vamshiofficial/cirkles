@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
     color: colors.white5,
   },
   text_con: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    // flexDirection: 'row',
+    // alignItems: 'center',
   },
   messageText: {
     fontFamily: fonts.PrimaryFont,

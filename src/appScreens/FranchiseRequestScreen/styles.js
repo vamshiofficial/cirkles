@@ -7,13 +7,13 @@ const DeviceHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   header_bg_img: {
     width: DeviceWidth,
-    // height:DeviceHeight*0.30,
-    paddingTop: 30,
-    paddingBottom: 40,
+    // height:DeviceHeight*0.25,
+    paddingTop: 60,
+    paddingBottom: 50,
     borderBottomLeftRadius: 35,
-    paddingHorizontal: 15,
     borderBottomRightRadius: 35,
-    backgroundColor: colors.white,
+    paddingHorizontal: 15,
+    backgroundColor: colors.black,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -23,15 +23,17 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+    marginBottom:10
   },
   header_heading_text: {
     fontFamily: fonts.PrimaryBoldFont,
     fontSize: 23,
+    color:colors.white,
   },
   header_text: {
     fontFamily: fonts.PrimarySemiBoldFont,
     fontSize: fonts.FontSubHeadding,
-    color: colors.black2,
+    color: colors.white2,
   },
   NoteText: {
     fontFamily: fonts.PrimaryFont,
@@ -42,9 +44,17 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   // ======
+  body_con:{
+    // borderTopLeftRadius: 35,
+    // borderTopRightRadius: 35,
+    // marginTop:-35,
+    // paddingBottom:50,
+    // backgroundColor:colors.red,
+  },
   formCon: {
     width: DeviceWidth * 0.9,
     alignSelf: 'center',
+    backgroundColor:colors.white
   },
   mobileInput: {
     borderBottomColor: colors.bglight,
@@ -96,7 +106,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     alignItems: 'center',
     marginTop: 30,
-    marginBottom: 30,
+    marginBottom: 50,
     borderRadius: 35,
   },
   submit_btn_text: {

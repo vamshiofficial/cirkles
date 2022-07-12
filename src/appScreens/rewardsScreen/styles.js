@@ -219,5 +219,18 @@ const styles = StyleSheet.create({
       fontSize: fonts.FontBody,
       color: colors.black3,
     },
+    // ------
+    empty_con:{
+      flex:1,
+      justifyContent:'center',
+      alignItems:'center',
+      backgroundColor:colors.white
+    },
+    no_rewards_text:{
+      fontFamily: fonts.PrimaryFont,
+      fontSize: fonts.FontBody,
+      color: colors.black3,
+      marginTop:15
+    }
 });
 export default styles;

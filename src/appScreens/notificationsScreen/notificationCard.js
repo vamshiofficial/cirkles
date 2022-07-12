@@ -18,7 +18,7 @@ import {
 
 const NotificationCard = props => {
   return (
-    <Animatable.View animation={'slideInUp'} style={styles.NTFcon}>
+    <Animatable.View animation={'fadeIn'} style={styles.NTFcon}>
       <ListItem avatar noBorder>
         <Left>
           <Thumbnail
@@ -46,7 +46,7 @@ const NotificationCard = props => {
         <Body>
           <View style={styles.text_con}>
             <Text style={styles.the_user_name_text}>
-              {props.Data.ntf_id} {props.Data.the_user_name}
+               {props.Data.the_user_name}
             </Text>
             <Text note style={styles.messageText}>
               {' '}

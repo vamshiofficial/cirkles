@@ -22,12 +22,18 @@ import {Toast} from 'native-base';
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 const ScannerSheet = ({navigation}) => {
-  const [RewardModal, setRewardModal] = useState(false);
-  const [isRewardGetting, setisRewardGetting] = useState(false);
-  const [isGotRewarded, setisGotRewarded] = useState(false);
+  // ---
   const [isFlashOn, setisFlashOn] = useState(false);
   const [isFrontCameraOn, setisFrontCameraOn] = useState(false);
   const [Currect_UserId, setCurrect_UserId] = useState('');
+  // ---reward modal
+  const [isRewardGetting, setisRewardGetting] = useState(true);
+  const [RewardModal, setRewardModal] = useState(false);
+  const [RewardModalType, setRewardModalType] = useState('');
+  const [RewardModalMsg, setRewardModalMsg] = useState('');
+  const [RewardModalAmount, setRewardModalAmount] = useState(0);
+  // reward statuses (CUP_INVALID | REWARD_SUCCESS | REWARD_FAILED)
+  const [rewardStatus, setrewardStatus] = useState(null);
   //============
   useEffect(() => {
     const GetUserId = async () => {
@@ -43,6 +49,12 @@ const ScannerSheet = ({navigation}) => {
   }, []);
   //===============
   const onSuccess = e => {
+    setrewardStatus(null);
+    setisRewardGetting(true);
+    setRewardModal(false);
+    setRewardModalType('');
+    setRewardModalMsg('');
+    setRewardModalAmount(0);
     if (Currect_UserId !== null) {
       let text = e.data;
       console.log('scanned data', e.data);
@@ -51,14 +63,13 @@ const ScannerSheet = ({navigation}) => {
       let cupResult = text.slice(0, 9);
       console.log('the cup res is:', cupResult);
       if (cupResult === 'CIRCLECUP') {
-        GetTheReward(result, 450);
-        setRewardModal(true);
-        setisRewardGetting(true);
+        GetTheReward(result, Currect_UserId);
         // alert('cup scanned please redirect!');
       } else {
         alert('invalid qr code');
       }
     } else {
+      alert('login first');
       // Toast.show({
       //   text: 'Wrong password!',
       //   buttonText: 'Okay',
@@ -69,30 +80,45 @@ const ScannerSheet = ({navigation}) => {
   };
 
   const GetTheReward = (cup_id, user_id) => {
-    const CallTheApi = `https://esigm.com/thecircle/v1/action.php?action=GetCupReward&user_id=${user_id}&cup_id=${cup_id}`;
+    setRewardModal(true);
+    const CallTheApi = `https://esigm.com/thecircle/v1/rewards.php?action=GetCupReward&user_id=${user_id}&cup_id=${cup_id}`;
     fetch(CallTheApi)
       .then(res => res.json())
       .then(ResultJson => {
         console.log('the returned data', ResultJson);
-        if (ResultJson === 'CUP_NOT_FOUND') {
+        if (ResultJson === 'CUP_INVALID') {
+          setTimeout(() => {
+            setisRewardGetting(false);
+            setrewardStatus('CUP_INVALID');
+          }, 5000);
           // show invalid cup message
-          alert('invalid qr code');
-        } else if (ResultJson !== 'FAIL') {
-          // show success and reward message
-          setisRewardGetting(false);
-          setisGotRewarded(true);
+          // alert('invalid qr code');
+        } else if (ResultJson[0].type === 'REWARD_SUCCESS') {
+          setTimeout(() => {
+            // show success and reward message
+            setisRewardGetting(false);
+            setrewardStatus(ResultJson[0].type);
+            setRewardModalType(ResultJson[0].type);
+            setRewardModalMsg(ResultJson[0].msg);
+            setRewardModalAmount(ResultJson[0].amount);
+          }, 6000);
         } else {
-          //show somthing went wrong message
-          alert('somthing is going wrong');
+          setTimeout(() => {
+            //show somthing went wrong messag
+            setisRewardGetting(false);
+            setrewardStatus(ResultJson[0].type);
+            setRewardModalType(ResultJson[0].type);
+            setRewardModalMsg(ResultJson[0].msg);
+            setRewardModalAmount(ResultJson[0].amount);
+          }, 5000);
         }
-        s;
       });
   };
   const RewardSaveItForLater = () => {
-    console.warn('afsd');
+    console.warn('save for later');
   };
   const RewardUseNow = () => {
-    console.warn('dfsdfdf');
+    console.warn('use now');
   };
   const CameraRotate = () => {
     setisFrontCameraOn(!isFrontCameraOn);
@@ -110,6 +136,14 @@ const ScannerSheet = ({navigation}) => {
           Please point your camera to the qr code that is presented on a cup.If
           it’s broken or not scanning Enter the below to get your reward.
         </Text>
+        <TouchableOpacity
+          onPress={() => {
+            GetTheReward('5', 54);
+            setRewardModal(true);
+            setisRewardGetting(true);
+          }}>
+          <Text>get my reward</Text>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -167,9 +201,14 @@ const ScannerSheet = ({navigation}) => {
             RewardModal={RewardModal}
             setRewardModal={setRewardModal}
             isRewardGetting={isRewardGetting}
-            isGotRewarded={isGotRewarded}
+            rewardStatus={rewardStatus}
+            RewardModalType={RewardModalType}
+            RewardModalMsg={RewardModalMsg}
+            RewardModalAmount={RewardModalAmount}
             Currect_UserId={Currect_UserId}
             navigation={navigation}
+            useNow={RewardUseNow}
+            useLater={RewardSaveItForLater}
           />
         ) : (
           <QRCodeScanner

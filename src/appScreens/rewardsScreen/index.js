@@ -83,7 +83,7 @@ const RewardsScreen = () => {
   const fetchdata = id => {
     SetDataLoading(true);
     const apiURL =
-      `https://esigm.com/thecircle/v1/action.php?action=get_all_rewards_list&user_id=${id}&page=` +
+      `https://esigm.com/thecircle/v1/rewards.php?action=get_all_rewards_list&user_id=${id}&page=` +
       pageCurrent;
     fetch(apiURL)
       .then(res => res.json())
@@ -211,7 +211,7 @@ const RewardsScreen = () => {
                   size={150}
                   color={colors.bglight}
                 />
-                <Text style={styles.no_rewards}>No Rewards Found!</Text>
+                <Text style={styles.no_rewards_text}>No Rewards Found!</Text>
               </View>
             )}
             <View style={styles.bottomRightBtnsCon}>

@@ -37,33 +37,34 @@ const OtpVerifyModal = props => {
   const [otp, setotp] = useState('');
   const [errorOtp, seterrorOtp] = useState(false)
   const [isAutoVerifyVisible, setisAutoVerifyVisible] = useState(true);
-  useEffect(() => {
-    RNOtpVerify.getHash().then(console.log).catch(console.log);
+  //un comment below 41 to 67 lines to auto read OTP
+  // useEffect(() => {
+  //   RNOtpVerify.getHash().then(console.log).catch(console.log);
 
-    RNOtpVerify.getOtp()
-      .then(p => RNOtpVerify.addListener(otpHandler))
-      .catch(p => console.log('from use effect', p));
-    return () => {
-      RNOtpVerify.removeListener();
-    };
-  }, []);
-  const otpHandler = message => {
-    try {
-      setTimeout(() => {
-        setisAutoVerifyVisible(false);
-      }, 2000);
-      console.log('message', message);
-      const otpNum = /(\d{4})/g.exec(message)[1];
-      console.log('otp,', otpNum);
-      setotp(otpNum);
-      CheckOtpNow(otpNum);
-      RNOtpVerify.removeListener();
-      Keyboard.dismiss();
-    } catch (error) {
-      console.log(error);
-    }
-    // this.setState({ otp });
-  };
+  //   RNOtpVerify.getOtp()
+  //     .then(p => RNOtpVerify.addListener(otpHandler))
+  //     .catch(p => console.log('from use effect', p));
+  //   return () => {
+  //     RNOtpVerify.removeListener();
+  //   };
+  // }, []);
+  // const otpHandler = message => {
+  //   try {
+  //     setTimeout(() => {
+  //       setisAutoVerifyVisible(false);
+  //     }, 2000);
+  //     console.log('message', message);
+  //     const otpNum = /(\d{4})/g.exec(message)[1];
+  //     console.log('otp,', otpNum);
+  //     setotp(otpNum);
+  //     CheckOtpNow(otpNum);
+  //     RNOtpVerify.removeListener();
+  //     Keyboard.dismiss();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   // this.setState({ otp });
+  // };
   const CheckOtpNow = (TheOtp) => {
     setPageLoader(true);
     if (TheOtp === props.OtpNumber) {

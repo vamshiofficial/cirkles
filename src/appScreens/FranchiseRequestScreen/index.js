@@ -1,5 +1,6 @@
 import {
   ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -147,8 +148,8 @@ const FranchiseRequestScreen = () => {
         if (RES !== 'REQUEST_FAILED') {
           console.log(RES);
           setSuccessModalVisible(!SuccessModalVisible);
-          setLocationDetails('')
-          setReasons('')
+          setLocationDetails('');
+          setReasons('');
         } else {
           alert('failed');
         }
@@ -172,93 +173,102 @@ const FranchiseRequestScreen = () => {
           LoadingText={'Posting your request'}
         />
       ) : null}
-      <Content>
+      <ScrollView>
         <FullPageLoader
           visible={PageLoader}
           bigtext={'Getting OTP'}
           text={'Please wait a sec'}
         />
-        <View
-          //   source={{
-          //       uri: 'https://esigm.com/thecircle/v1/used_images/image-chai.jpeg',
-          //     }}
+        <ImageBackground
+        borderBottomLeftRadius={35}
+        borderBottomRightRadius={35}
+          source={{
+            uri: 'https://esigm.com/thecircle/v1/used_images/franchise_bg.png',
+          }}
           style={styles.header_bg_img}>
           <Text style={styles.header_heading_text}>Ohoo Vamshi</Text>
           <Text style={styles.header_text}>
             We are happy that you want to join our misssion to serve people with
             our Tea & snacks.
           </Text>
-        </View>
-        <Text style={styles.NoteText}>
-          Let us know some details about your location and reasons to approve
-          the outlet.So please verify and answer the followings.
-        </Text>
-        <View style={styles.formCon}>
-          <Text style={styles.LableText}>Mobile number:</Text>
-          {ChangeMobile ? (
-            <Input
-              style={styles.mobileInput}
-              defaultValue={UserMobile}
-              onChangeText={e => setUserMobile(e)}
-              onBlur={() => ValidatePhone()}
-            />
-          ) : (
-            <Input
-              placeholder="Mobile number"
-              style={[styles.mobileInput, {backgroundColor: colors.bglight}]}
-              disabled
-              defaultValue={UserMobile}
-            />
-          )}
-          <ListItem
-            noBorder
-            style={{marginLeft: 0}}
-            onPress={() => setChangeMobile(!ChangeMobile)}>
-            <CheckBox checked={ChangeMobile} color={colors.black} />
-            <Body>
-              <Text
-                style={[
-                  styles.changeMobileText,
-                  {color: ChangeMobile ? colors.black : colors.black3},
-                ]}>
-                Change number
-              </Text>
-            </Body>
-          </ListItem>
-          <Text style={styles.error_text}>{PhoneErrorText}</Text>
-          <Text style={styles.LableText}>Location:</Text>
-          <Textarea
-            style={styles.locationInput}
-            rowSpan={5}
-            placeholder="Please add address
+        </ImageBackground>
+        <View style={styles.body_con}>
+          <Text style={styles.NoteText}>
+            Let us know some details about your location and reasons to approve
+            the outlet.So please verify and answer the followings.
+          </Text>
+          <View style={styles.formCon}>
+            <Form>
+              <Text style={styles.LableText}>Mobile number:</Text>
+              {ChangeMobile ? (
+                <Input
+                  style={styles.mobileInput}
+                  defaultValue={UserMobile}
+                  onChangeText={e => setUserMobile(e)}
+                  onBlur={() => ValidatePhone()}
+                />
+              ) : (
+                <Input
+                  placeholder="Mobile number"
+                  style={[
+                    styles.mobileInput,
+                    {backgroundColor: colors.bglight},
+                  ]}
+                  disabled
+                  defaultValue={UserMobile}
+                />
+              )}
+              <ListItem
+                noBorder
+                style={{marginLeft: 0}}
+                onPress={() => setChangeMobile(!ChangeMobile)}>
+                <CheckBox checked={ChangeMobile} color={colors.black} />
+                <Body>
+                  <Text
+                    style={[
+                      styles.changeMobileText,
+                      {color: ChangeMobile ? colors.black : colors.black3},
+                    ]}>
+                    Change number
+                  </Text>
+                </Body>
+              </ListItem>
+              <Text style={styles.error_text}>{PhoneErrorText}</Text>
+              <Text style={styles.LableText}>Location:</Text>
+              <Textarea
+                style={styles.locationInput}
+                rowSpan={5}
+                placeholder="Please add address
 Village/City
 Pincode
 District,State"
-            onChangeText={e => setLocationDetails(e)}
-            defaultValue={LocationDetails}
-          />
-          <Text style={styles.LableText}>Reasons:</Text>
-          <Textarea
-            style={styles.ResonsInput}
-            rowSpan={5}
-            placeholder="What motivates you to get this interest?"
-            onChangeText={e => setReasons(e)}
-            defaultValue={Reasons}
+                onChangeText={e => setLocationDetails(e)}
+                defaultValue={LocationDetails}
+              />
+              <Text style={styles.LableText}>Reasons:</Text>
+              <Textarea
+                style={styles.ResonsInput}
+                rowSpan={5}
+                placeholder="What motivates you to get this interest?"
+                onChangeText={e => setReasons(e)}
+                defaultValue={Reasons}
+              />
+            </Form>
+          </View>
+          <TouchableOpacity
+            style={styles.submit_btn}
+            onPress={() => {
+              SendOtpToThisMobile();
+            }}>
+            <Text style={styles.submit_btn_text}>SUBMIT</Text>
+          </TouchableOpacity>
+          <FranchiseRequestModal
+            visible={SuccessModalVisible}
+            setVisible={setSuccessModalVisible}
+            UserMobile={UserMobile}
           />
         </View>
-        <TouchableOpacity
-          style={styles.submit_btn}
-          onPress={() => {
-            SendOtpToThisMobile();
-          }}>
-          <Text style={styles.submit_btn_text}>SUBMIT</Text>
-        </TouchableOpacity>
-        <FranchiseRequestModal
-          visible={SuccessModalVisible}
-          setVisible={setSuccessModalVisible}
-          UserMobile={UserMobile}
-        />
-      </Content>
+      </ScrollView>
     </Container>
   );
 };
