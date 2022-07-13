@@ -11,6 +11,7 @@ import SettingsScreen from '../appScreens/settingsScreen/index.js';
 import SettingsScreensNav from './settingsNav';
 import FranchiseRequestScreen from '../appScreens/FranchiseRequestScreen/index.js';
 import colors from '../../assets/custom/colors.js';
+import AllOutletsScreen from '../appScreens/allOutletsScreen/index.js';
 // const Stack = createNativeStackNavigator();
 const Stack = createStackNavigator();
 const AuthNav = () => {
@@ -37,6 +38,14 @@ const AuthNav = () => {
         name="OutletScreen"
         component={OutletScreen}
       />
+      <Stack.Screen
+        options={{
+          animationEnabled: false,
+        }}
+        name="AllOutletsScreen"
+        component={AllOutletsScreen}
+      />
+
       <Stack.Screen
         options={{
           animationEnabled: false,

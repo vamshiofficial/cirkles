@@ -75,47 +75,56 @@ const RewardsScreen = () => {
       }
     };
     GetUserId();
-    if (!lastpage_reached) {
-      fetchdata(54);
+  }, []);
+  // ====
+  useEffect(() => {
+    return () => {
+      fetchdata(5445)
     }
-  }, [pageCurrent, reload]);
+  }, [pageCurrent])
   //-------------------------------
   const fetchdata = id => {
-    SetDataLoading(true);
-    const apiURL =
-      `https://esigm.com/thecircle/v1/rewards.php?action=get_all_rewards_list&user_id=${id}&page=` +
-      pageCurrent;
-    fetch(apiURL)
-      .then(res => res.json())
-      .then(resJson => {
-        if (resJson === 'no_data_found') {
-          Set_total_rows(false);
-        } else {
-          // setRewardsList(resJson)
-          // console.log(resJson);
-          if (resJson[0].total_rows === 0) {
-            Setlastpage_reached(true);
-            Set_total_rows_count(resJson[0].total_rows);
-            Set_total_rows(false);
-          } else {
-            Set_total_rows_count(resJson[0].total_rows);
-            Set_total_rows(true);
-            SetDataLoading(false);
-            // console.log(resJson);
-            //----
-            if (resJson[0].total_pages === pageCurrent) {
-              Setlastpage_reached(true);
-              SetData(data.concat(resJson));
+    if (lastpage_reached === true) {
+      Set_total_rows(true);
+      Setlastpage_reached(true);
+    } else {
+      SetDataLoading(true);
+      const apiURL = `https://esigm.com/thecircle/v1/rewards.php?action=get_all_rewards_list&user_id=${id}&page=${pageCurrent}`;
+      fetch(apiURL)
+        .then(res => res.json())
+        .then(resJson => {
+          if (resJson !== "NO_DATA_FOUND") {
+            if (resJson[0].total_rows > 0) {
+              if (resJson[0].total_pages !== pageCurrent) {
+                console.log('if !== page num',resJson,pageCurrent);
+                // Set_total_rows(true);
+                SetDataLoading(false);
+                Setlastpage_reached(false);
+                SetData(data.concat(resJson));
+              } else {
+                console.log('else !== page num',resJson,pageCurrent);
+                // Set_total_rows(true);
+                SetDataLoading(false);
+                Setlastpage_reached(true);
+                SetData(data.concat(resJson));
+              }
+              // Set_total_rows(true);
+              // SetDataLoading(false);
             } else {
-              SetData(data.concat(resJson));
-              Setlastpage_reached(false);
+              console.log('else rows >',resJson,pageCurrent);
+              Setlastpage_reached(true);
+              //----
             }
+          } else {
+            console.log('main else',resJson,pageCurrent);
+            Set_total_rows(true);
+            Setlastpage_reached(true);
           }
-        }
-      })
-      .catch(function () {
-        // console.warn('error');
-      });
+        })
+        .catch(function () {
+          // console.warn('error');
+        });
+    }
   };
   // ==========render footer data
   const RenderFooter = () => {
@@ -136,8 +145,9 @@ const RewardsScreen = () => {
   };
   // =============load more data
   const HandleLoadMore = () => {
-    SetDataLoading(true);
+    // SetDataLoading(true);
     setPageCurrent(pageCurrent + 1);
+    console.warn(pageCurrent);
   };
   // ===========================
   const ShowRewardDetails = (
@@ -198,8 +208,8 @@ const RewardsScreen = () => {
                   ListHeaderComponent={HeaderSection}
                   onEndReached={HandleLoadMore}
                   onEndReachedThreshold={0}
-                  showsVerticalScrollIndicator={true}
-                  scrollEventThrottle={16}
+                  // showsVerticalScrollIndicator={true}
+                  // scrollEventThrottle={0}
                   numColumns={2}
                 />
               </List>
@@ -232,14 +242,14 @@ const RewardsScreen = () => {
         )
       ) : (
         <>
-        <View  style={styles.OnlyHeaderSection}/>
-        <View style={styles.without_login_con}>
-          <Ionicons name="trophy-outline" size={150} color={colors.bglight} />
-          <Text style={styles.without_login_text}>
-            Login to view your Rewards here.
-          </Text>
-          <LoginBtn onPress={() => navigation.navigate('LoginScreen')} />
-        </View>
+          <View style={styles.OnlyHeaderSection} />
+          <View style={styles.without_login_con}>
+            <Ionicons name="trophy-outline" size={150} color={colors.bglight} />
+            <Text style={styles.without_login_text}>
+              Login to view your Rewards here.
+            </Text>
+            <LoginBtn onPress={() => navigation.navigate('LoginScreen')} />
+          </View>
         </>
       )}
     </>

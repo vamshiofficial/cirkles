@@ -22,18 +22,25 @@ const HomeScreen = ({navigation}) => {
       </Animatable.View>
       <TouchableOpacity
         onPress={() => navigation.navigate('OutletScreen')}
-        style={{alignSelf:'center',backgroundColor:'#ddd',padding:15}}
+        style={{alignSelf: 'center', backgroundColor: '#ddd', padding: 15}}
         // onPress={LogOutNow()}
       >
         <Text>outlet Ui</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => navigation.navigate('FranchiseRequestScreen')}
-        style={{alignSelf:'center',backgroundColor:'#ddd',padding:15}}
+        style={{alignSelf: 'center', backgroundColor: '#ddd', padding: 15}}
         // onPress={LogOutNow()}
       >
         <Text>FranchiseRequestScreen Ui</Text>
       </TouchableOpacity>
+      <ListCardUi
+        ImageUrl="https://cdn.icon-icons.com/icons2/1875/PNG/512/qrcodescan_120401.png"
+        HeaddingText="Visit all our outlets"
+        BodyText="Know how our circle getting bigger. If you can't find by near you.You can be the part of Vahh family."
+        LearnmoreBtn={true}
+        onClickLearnmore={() => navigation.navigate('AllOutletsScreen',{OutletId:1})}
+      />
       <ListCardUi
         ImageUrl="https://esigm.com/opens/used_imgs/opens-logo.png"
         HeaddingText="Share a moment on Opens"

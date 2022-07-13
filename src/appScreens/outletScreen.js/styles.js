@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
   mainBgImg: {
     width: DeviceWidth,
     height: DeviceHeight * 0.25,
+    backgroundColor:colors.bglight
   },
   topBtnGrp: {
     flexDirection: 'row',
@@ -45,7 +46,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.white,
     flex: 1,
     borderRadius: 25,
     shadowColor: '#000',
