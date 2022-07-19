@@ -7,8 +7,8 @@ const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   con: {
-    // flex: 1,
-    justifyContent: 'center',
+    flex: 1,
+    // justifyContent: 'center',
     alignItems: 'center',
   },
   headerSection: {

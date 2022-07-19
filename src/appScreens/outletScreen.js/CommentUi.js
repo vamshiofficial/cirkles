@@ -2,6 +2,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import fonts from '../../../assets/custom/fonts';
 import colors from '../../../assets/custom/colors';
+import Octicons from 'react-native-vector-icons/Octicons';
 import {
   Container,
   Header,
@@ -17,20 +18,24 @@ import {
 const OutletCommentCard = props => {
   return (
     <View style={styles.con}>
-      <ListItem avatar noBorder>
+      <ListItem avatar noBorder style={{marginLeft: 0}}>
         <Left>
           <Thumbnail
             style={[styles.profileImage]}
             source={{
-              uri: props.ImageUrl,
+              uri: props.post.profile_image,
             }}
           />
         </Left>
         <Body>
           <Text note style={styles.messageText}>
-            {props.CommentText}
+            {props.post.feedback_text}
           </Text>
-          <Text style={styles.time}>{props.CommentTime}</Text>
+          <View style={styles.flex}>
+            <Text style={styles.user_name}>{props.post.the_user_name}</Text>
+            <Octicons name="dot-fill" style={styles.dot_icon} />
+            <Text style={styles.time}>{props.post.post_time}</Text>
+          </View>
         </Body>
         <Right />
       </ListItem>
@@ -46,13 +51,27 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     // marginVertical: 10,
     paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.white1,
+    borderBottomWidth: 0.2,
+    borderBottomColor: colors.bglight,
   },
   profileImage: {
     borderRadius: 13,
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
+  },
+  flex: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  user_name: {
+    fontFamily: fonts.PrimarySemiBoldFont,
+    fontSize: fonts.FontSmall,
+    color: colors.black,
+  },
+  dot_icon: {
+    paddingHorizontal: 5,
+    fontSize: 5,
+    color: colors.white4,
   },
   time: {
     fontFamily: fonts.PrimaryFont,

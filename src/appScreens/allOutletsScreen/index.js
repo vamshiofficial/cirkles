@@ -1,4 +1,10 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import styles from './styles';
 import {
@@ -42,12 +48,12 @@ const AllOutletsScreen = ({route, navigation}) => {
     // fet
   }, []);
   const GetData = () => {
-    const apiURL = `https://esigm.com/thecircle/v1/action.php?action=get_this_outlet_data&outletid=1`;
+    const apiURL = `https://esigm.com/thecircle/v1/action.php?action=get_this_outlet_data&outletid=2`;
     fetch(apiURL)
       .then(res => res.json())
       .then(resJson => {
         if (resJson !== 'DATA_NOT_FOUND') {
-          setData(resJson);
+          setData(resJson[0]);
           setdataFound(true);
         } else {
           setdataFound(false);
@@ -69,7 +75,21 @@ const AllOutletsScreen = ({route, navigation}) => {
           <Right />
         </Header>
       </View>
-      <View style={styles.con}>{dataFound ? <OutletUiCard data={Data} /> : null}</View>
+      <View style={styles.con}>
+        {dataFound ? (
+          <OutletUiCard data={Data} />
+        ) : (
+          <View
+            style={{
+              flex: 1,
+              width:'100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <ActivityIndicator size={'large'} color="#333" />
+          </View>
+        )}
+      </View>
     </Container>
   );
 };

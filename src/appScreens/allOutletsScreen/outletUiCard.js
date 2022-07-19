@@ -1,5 +1,5 @@
 import {View, Text, TouchableOpacity} from 'react-native';
-import React, {} from 'react';
+import React from 'react';
 import styles from './styles';
 import {
   Left,
@@ -12,8 +12,8 @@ import {
 } from 'native-base';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import { useNavigation } from '@react-navigation/native';
-const OutletUiCard = (props) => {
+import {useNavigation} from '@react-navigation/native';
+const OutletUiCard = props => {
   const navigation = useNavigation();
   return (
     <View>
@@ -60,7 +60,9 @@ const OutletUiCard = (props) => {
               <Text style={styles.main_text}>Sitting capacity</Text>
             </Body>
             <Right>
-              <Text style={styles.right_text}>{props.data.sitting_capacity}</Text>
+              <Text style={styles.right_text}>
+                {props.data.sitting_capacity}
+              </Text>
             </Right>
           </ListItem>
           <ListItem icon style={styles.list_item} noBorder>
@@ -75,11 +77,15 @@ const OutletUiCard = (props) => {
               <Text style={styles.main_text}>Self service</Text>
             </Body>
             <Right>
-              <Text style={styles.right_text}>{props.data.is_self_service}</Text>
+              <Text style={styles.right_text}>
+                {props.data.is_self_service}
+              </Text>
             </Right>
           </ListItem>
         </View>
-        <TouchableOpacity style={styles.details_btn} onPress={()=>navigation.navigate('OutletScreen',{outletId:1})}>
+        <TouchableOpacity
+          style={styles.details_btn}
+          onPress={() => navigation.navigate('OutletScreen', {outletId: 2})}>
           <Text style={styles.details_btn_text}>Full Details</Text>
         </TouchableOpacity>
       </Card>
