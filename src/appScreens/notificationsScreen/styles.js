@@ -46,10 +46,10 @@ const styles = StyleSheet.create({
     alignSelf:'center'
   },
   only_text:{
-    fontSize:fonts.FontSmall,
+    fontSize:fonts.FontBody,
     fontFamily:fonts.PrimaryFont,
-    color:colors.black3,
-    alignSelf:'center'
+    color:colors.black,
+    alignSelf:'center',
   },
   // =================notification ui
   NTFcon: {

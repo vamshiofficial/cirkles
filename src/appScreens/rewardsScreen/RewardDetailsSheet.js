@@ -4,7 +4,7 @@ import styles from './styles';
 import {BottomSheet} from 'react-native-btr';
 
 const RewardDetailsSheet = props => {
-  console.log('sheet', props);
+  // console.log('sheet', props);
   const RewardData = {
     image:
       'https://i.pinimg.com/236x/08/c0/90/08c09014b4405020915298a6cf874b6a--female-faces-girl-photography.jpg',

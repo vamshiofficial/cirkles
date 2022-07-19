@@ -26,7 +26,7 @@ function HeaderSection({navigation}) {
     <View style={styles.HeaderSection}>
       <View style={styles.rewardCount}>
         <FontAwesome name="rupee" style={styles.rewardCountIcon} />
-        <Text style={styles.rewardCountText}>8732</Text>
+        <Text style={styles.rewardCountText}>873</Text>
       </View>
       <Text style={styles.rewardfooter}>
         Vamshi, Your total un used rewards
@@ -35,7 +35,7 @@ function HeaderSection({navigation}) {
   );
 }
 
-const RewardsScreen = () => {
+const RewardsScreen = ({navigation}) => {
   const [Detailsvisible, setDetailsVisible] = useState(false);
   const [Currect_UserId, setCurrect_UserId] = useState('');
   const [visible, setvisible] = useState(false);
@@ -78,76 +78,76 @@ const RewardsScreen = () => {
   }, []);
   // ====
   useEffect(() => {
-    return () => {
-      fetchdata(5445)
+    // return () => {
+    if (!lastpage_reached) {
+      fetchdata();
     }
-  }, [pageCurrent])
+    // };
+  }, [pageCurrent]);
   //-------------------------------
-  const fetchdata = id => {
-    if (lastpage_reached === true) {
-      Set_total_rows(true);
-      Setlastpage_reached(true);
+  const fetchdata = () => {
+    SetDataLoading(true);
+    id = '';
+    if (Currect_UserId !== null) {
+      id = 54;
     } else {
-      SetDataLoading(true);
-      const apiURL = `https://esigm.com/thecircle/v1/rewards.php?action=get_all_rewards_list&user_id=${id}&page=${pageCurrent}`;
-      fetch(apiURL)
-        .then(res => res.json())
-        .then(resJson => {
-          if (resJson !== "NO_DATA_FOUND") {
-            if (resJson[0].total_rows > 0) {
-              if (resJson[0].total_pages !== pageCurrent) {
-                console.log('if !== page num',resJson,pageCurrent);
-                // Set_total_rows(true);
-                SetDataLoading(false);
-                Setlastpage_reached(false);
-                SetData(data.concat(resJson));
-              } else {
-                console.log('else !== page num',resJson,pageCurrent);
-                // Set_total_rows(true);
-                SetDataLoading(false);
-                Setlastpage_reached(true);
-                SetData(data.concat(resJson));
-              }
-              // Set_total_rows(true);
-              // SetDataLoading(false);
-            } else {
-              console.log('else rows >',resJson,pageCurrent);
-              Setlastpage_reached(true);
-              //----
-            }
-          } else {
-            console.log('main else',resJson,pageCurrent);
-            Set_total_rows(true);
-            Setlastpage_reached(true);
-          }
-        })
-        .catch(function () {
-          // console.warn('error');
-        });
+      id = 54;
     }
+    const apiURL =
+      `https://esigm.com/thecircle/v1/rewards.php?action=get_all___rewards_list&user_id=${id}&page=` +
+      pageCurrent;
+    fetch(apiURL)
+      .then(res => res.json())
+      .then(resJson => {
+        console.log(resJson);
+        SetDataLoading(false);
+        if (resJson === 'NO_DATA_FOUND') {
+          SetDataLoading(false);
+          Set_total_rows(false);
+        } else if (resJson === 'NO_MORE_RECORDS_FOUND') {
+          Setlastpage_reached(true);
+          SetDataLoading(false);
+          Set_total_rows(true);
+        } else {
+          SetDataLoading(false);
+          Set_total_rows(true);
+          if (pageCurrent === 1) {
+            SetData(resJson);
+          } else {
+            SetData(data.concat(resJson));
+          }
+        }
+      })
+      .catch(function (e) {
+        console.warn(e);
+      });
   };
   // ==========render footer data
   const RenderFooter = () => {
-    return dataLoading ? (
+    return (
       <View style={styles.footer_con}>
-        {lastpage_reached ? (
-          <Text style={styles.footer_text}>No More Rewards.</Text>
-        ) : (
+        {dataLoading ? (
           <ActivityIndicator
             animating={true}
             size="large"
             style={{opacity: 1}}
-            color={colors.Primary}
+            color={colors.green}
           />
-        )}
+        ) : 
+        null
+        }
+        {lastpage_reached ? (
+          <Text style={styles.footer_text}>No More Rewards.</Text>
+        ) : // <Text style={styles.footer_text}>No More Rewards.</Text>
+        null}
       </View>
-    ) : null;
+    );
   };
   // =============load more data
   const HandleLoadMore = () => {
     // SetDataLoading(true);
     setPageCurrent(pageCurrent + 1);
-    console.warn(pageCurrent);
+    // console.warn(pageCurrent);
   };
   // ===========================
   const ShowRewardDetails = (
@@ -207,7 +207,7 @@ const RewardsScreen = () => {
                   ListFooterComponent={RenderFooter}
                   ListHeaderComponent={HeaderSection}
                   onEndReached={HandleLoadMore}
-                  onEndReachedThreshold={0}
+                  onEndReachedThreshold={1}
                   // showsVerticalScrollIndicator={true}
                   // scrollEventThrottle={0}
                   numColumns={2}

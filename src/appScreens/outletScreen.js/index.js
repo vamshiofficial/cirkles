@@ -254,8 +254,9 @@ const OutletScreen = ({navigation, route}) => {
           // setFeedbacksData([...FeedbacksData,{resJson}])
         }
       })
-      .catch(function () {
+      .catch(function (e) {
         // CheckTheNetwork()
+        console.log(e);
       });
   };
   // ==============updating comment text state

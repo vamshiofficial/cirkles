@@ -12,12 +12,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   HeaderSection: {
-    backgroundColor: colors.PrimaryBlack,
-    borderBottomLeftRadius:35,
-    borderBottomRightRadius:35,
+    backgroundColor: colors.opens,
+    borderBottomLeftRadius: 35,
+    borderBottomRightRadius: 35,
     paddingBottom: 50,
     paddingHorizontal: 15,
-    marginBottom:15
+    marginBottom: 15,
   },
   rewardCount: {
     flexDirection: 'row',
@@ -73,49 +73,51 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 15,
     backgroundColor: colors.PrimaryBlack,
-    alignItems:'center',
-    justifyContent:'center'
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   qrIcon: {
-    color:colors.white,
-    fontSize:25
+    color: colors.white,
+    fontSize: 25,
   },
   shareScanBtn: {
     width: 50,
     height: 50,
     borderRadius: 15,
     backgroundColor: colors.PrimaryBlack,
-    alignItems:'center',
-    justifyContent:'center',
-    marginTop:20
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
   },
   shareIcon: {
-    color:colors.white,
-    fontSize:25
+    color: colors.white,
+    fontSize: 25,
   },
-  nomore_rewards:{
+  nomore_rewards: {
     fontFamily: fonts.PrimaryFont,
     fontSize: fonts.FontSubHeadding,
     color: colors.white5,
     paddingVertical: 5,
-    alignSelf:'center'
+    alignSelf: 'center',
   },
-  footer_text:{
+  footer_text: {
     fontFamily: fonts.PrimaryFont,
     fontSize: fonts.FontSubHeadding,
     color: colors.white5,
-    paddingVertical: 15,
-    alignSelf:'center'
+    paddingVertical: 10,
+    paddingHorizontal:25,
+    alignSelf: 'center',
+    borderColor:colors.white,borderRadius:25,borderWidth:0.9,
   },
-  // ======without login 
+  // ======without login
   OnlyHeaderSection: {
     backgroundColor: colors.PrimaryBlack,
-    borderBottomLeftRadius:0,
-    borderBottomRightRadius:0,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
     paddingBottom: 50,
     paddingHorizontal: 15,
   },
-  without_login_con:{
+  without_login_con: {
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -125,11 +127,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 35,
     marginTop: -35,
   },
-  without_login_text:{
-    fontSize:fonts.FontBody,
-    fontFamily:fonts.PrimaryFont,
-    color:colors.black3,
-    alignSelf:'center'
+  without_login_text: {
+    fontSize: fonts.FontBody,
+    fontFamily: fonts.PrimaryFont,
+    color: colors.black3,
+    alignSelf: 'center',
   },
   //   ==========reward card
   bottomNavigationView: {
@@ -188,49 +190,59 @@ const styles = StyleSheet.create({
     color: colors.white5,
     paddingVertical: 5,
   },
-   // -----------------
-   reward_card:{
-    backgroundColor: colors.bglight, width: DeviceWidth * 50 / 100,
-    height: DeviceWidth * 50 / 100, padding: 2, justifyContent: 'center'
-},
-    con: {
-      marginLeft: 0,
-      width: '95%',
-      // height:'100%',
-      alignSelf: 'center',
-      // marginVertical: 10,
-      paddingVertical: 10,
-      borderBottomWidth: 1,
-      borderBottomColor: colors.white1,
-      backgroundColor:'red'
-    },
-    profileImage: {
-      borderRadius: 13,
-      width: 60,
-      height: 60,
-    },
-    time: {
-      fontFamily: fonts.PrimaryFont,
-      fontSize: fonts.FontSmall,
-      color: colors.white5,
-    },
-    messageText: {
-      fontFamily: fonts.PrimaryFont,
-      fontSize: fonts.FontBody,
-      color: colors.black3,
-    },
-    // ------
-    empty_con:{
-      flex:1,
-      justifyContent:'center',
-      alignItems:'center',
-      backgroundColor:colors.white
-    },
-    no_rewards_text:{
-      fontFamily: fonts.PrimaryFont,
-      fontSize: fonts.FontBody,
-      color: colors.black3,
-      marginTop:15
-    }
+  // -----------------
+  reward_card: {
+    backgroundColor: colors.bglight,
+    width: (DeviceWidth * 50) / 100,
+    height: (DeviceWidth * 50) / 100,
+    padding: 2,
+    justifyContent: 'center',
+  },
+  con: {
+    marginLeft: 0,
+    width: '95%',
+    // height:'100%',
+    alignSelf: 'center',
+    // marginVertical: 10,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.white1,
+    backgroundColor: 'red',
+  },
+  profileImage: {
+    borderRadius: 13,
+    width: 60,
+    height: 60,
+  },
+  time: {
+    fontFamily: fonts.PrimaryFont,
+    fontSize: fonts.FontSmall,
+    color: colors.white5,
+  },
+  messageText: {
+    fontFamily: fonts.PrimaryFont,
+    fontSize: fonts.FontBody,
+    color: colors.black3,
+  },
+  // ------
+  empty_con: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.white,
+  },
+  no_rewards_text: {
+    fontFamily: fonts.PrimaryFont,
+    fontSize: fonts.FontBody,
+    color: colors.black3,
+    marginTop: 15,
+  },
+  // ==== footer
+  footer_con: {
+    paddingTop: 15,
+    paddingBottom: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 export default styles;

@@ -43,65 +43,62 @@ const NotificationsScreen = ({navigation}) => {
     GetUserId();
     if (!lastpage_reached) {
       // console.log('user_id', Currect_UserId);
-      fetchdata(Currect_UserId);
+      fetchdata();
     }
   }, [pageCurrent]);
   //===============
 
-  const fetchdata = id => {
+  const fetchdata = () => {
     SetDataLoading(true);
     const apiURL =
-      `https://esigm.com/thecircle/v1/action.php?action=get_notifications_list&the_user_id=${id}&page=` +
+      `https://esigm.com/thecircle/v1/action.php?action=get_notifications_list&the_user_id=${5017}&page=` +
       pageCurrent;
-    fetch(apiURL)
+      fetch(apiURL)
       .then(res => res.json())
       .then(resJson => {
         console.log(resJson);
-        if (resJson === 'no_data_found') {
+        SetDataLoading(false);
+        if (resJson === 'NO_DATA_FOUND') {
+          SetDataLoading(false);
           Set_total_rows(false);
+        } else if (resJson === 'NO_MORE_RECORDS_FOUND') {
+          Setlastpage_reached(true);
+          SetDataLoading(false);
+          Set_total_rows(true);
         } else {
-          if (resJson[0].total_rows === 0) {
-            Set_total_rows(false);
-            Set_total_rows_count(resJson[0].total_rows);
-            Setlastpage_reached(true);
+          SetDataLoading(false);
+          Set_total_rows(true);
+          if (pageCurrent === 1) {
+            SetData(resJson);
           } else {
-            Set_total_rows(true);
-            Set_total_rows_count(resJson[0].total_rows);
-            //----
-            if (resJson[0].total_pages === pageCurrent) {
-              SetData(data.concat(resJson));
-              Setlastpage_reached(true);
-            } else {
-              SetData(data.concat(resJson));
-              Setlastpage_reached(false);
-            }
+            SetData(data.concat(resJson));
           }
         }
       })
-      .catch(function () {
-        // CheckTheNetwork()
+      .catch(function (e) {
+        console.warn(e);
       });
   };
   // ============render footer data
   const RenderFooter = () => {
-    return dataLoading ? (
-      <View style={{paddingVertical: 30, marginBottom: 50}}>
-        {lastpage_reached ? (
-          <Text style={styles.only_text}>You are reached bottom</Text>
-        ) : (
+    return (
+      <View>
+        {dataLoading ? (
           <ActivityIndicator
             animating={true}
             size="large"
             style={{opacity: 1}}
             color={colors.Primary}
           />
-        )}
+        ) : null}
+        {lastpage_reached ? (
+          <Text style={styles.only_text}>You are reached bottom</Text>
+        ) : null}
       </View>
-    ) : null;
+    );
   };
   // ========load more data
   const HandleLoadMore = () => {
-    SetDataLoading(true);
     setPageCurrent(pageCurrent + 1);
   };
   return (
@@ -130,7 +127,7 @@ const NotificationsScreen = ({navigation}) => {
                     }
                     ListFooterComponent={RenderFooter}
                     onEndReached={HandleLoadMore}
-                    onEndReachedThreshold={0}
+                    onEndReachedThreshold={0.5}
                     showsVerticalScrollIndicator={false}
                   />
                 </List>

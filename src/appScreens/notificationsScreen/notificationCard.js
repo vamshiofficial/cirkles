@@ -19,7 +19,7 @@ import {
 const NotificationCard = props => {
   return (
     <Animatable.View animation={'fadeIn'} style={styles.NTFcon}>
-      <ListItem avatar noBorder>
+      <ListItem avatar noBorder style={{marginLeft:0}}>
         <Left>
           <Thumbnail
             style={[

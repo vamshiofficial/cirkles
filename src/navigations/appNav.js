@@ -137,6 +137,25 @@ function AppNav() {
             ),
           }}
         />
+        <Tab.Screen
+          name="Pay"
+          component={NotificationsScreen}
+          options={{
+            headerShown: true,
+            headerTitleAlign: 'left',
+            headerTitleStyle: {fontFamily: fonts.PrimaryBoldFont},
+            tabBarLabel: 'Pay',
+            headerStyle: {backgroundColor: colors.Primary,shadowOpacity:0,elevation:0},
+            tabBarShowLabel: false,
+            tabBarIcon: ({color, size, focused}) => (
+              <SimpleLineIcons
+                name="bell"
+                color={color}
+                size={focused ? 20 : 18}
+              />
+            ),
+          }}
+        />
       </Tab.Navigator>
       {/* <ScannerSheet visible={visible} setVisible={setVisible} /> */}
     </>
