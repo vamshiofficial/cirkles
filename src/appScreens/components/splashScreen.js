@@ -9,13 +9,12 @@ import OtpVerifyModal from './otpVerifyModal';
 const SplashScreen = () => {
   return (
     <View style={styles.SplashCon}>
-      {/* <Animatable.View animation={'zoomIn'} duration={1000} iterationCount={2}>
+      <Animatable.View animation={'zoomIn'} duration={1000} iterationCount={1}>
         <Image
-          source={require('../../../assets/images/logo.png')}
+          source={require('../../../assets/images/vahh_logo.jpeg')}
           style={styles.logo}
         />
-      </Animatable.View> */}
-      <OtpVerifyModal />
+      </Animatable.View>
     </View>
   );
 };

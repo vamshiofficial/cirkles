@@ -6,13 +6,15 @@ import AppNav from './appNav';
 import AuthNav from './authNav';
 import {AuthContext, AuthProvider} from './context/authContest';
 import colors from '../../assets/custom/colors';
+import SplashScreen from '../appScreens/components/splashScreen';
 const AppNavigations = () => {
   const {isLoading, userToken} = useContext(AuthContext);
 
   if (isLoading) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <ActivityIndicator size={'large'} />
+      <View style={{flex: 1}}>
+        {/* <ActivityIndicator size={'large'} /> */}
+        <SplashScreen />
       </View>
     );
   }

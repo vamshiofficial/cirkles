@@ -2,34 +2,34 @@ import React, {createContext, useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 export const AuthContext = createContext();
 export const AuthProvider = ({children}) => {
-  const [isLoading, setisLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
   const [userToken, setuserToken] = useState(null);
   const test = 'test';
   useEffect(() => {
     isUserLoggedIn();
   }, []);
-  const LoginNow = (UserToken,UserMobile) => {
+  const LoginNow = (UserToken, UserMobile) => {
     const TheUserToken = String(UserToken);
     const TheUserMobile = String(UserMobile);
     setisLoading(true);
     setuserToken(TheUserToken);
     AsyncStorage.setItem('userToken', TheUserToken);
     AsyncStorage.setItem('userMobile', TheUserMobile);
-    setisLoading(false);
+    setTimeout(() => setisLoading(false), 5000);
   };
   const LogOutNow = () => {
     setisLoading(true);
     setuserToken(null);
     AsyncStorage.removeItem('userToken');
     AsyncStorage.removeItem('userMobile');
-    setisLoading(false);
+    setTimeout(() => setisLoading(false), 5000);
   };
   const isUserLoggedIn = async () => {
     try {
       setisLoading(true);
       let UserToken = await AsyncStorage.getItem('userToken');
       setuserToken(UserToken);
-      setisLoading(false);
+      setTimeout(() => setisLoading(false), 5000);
     } catch (error) {
       console.log('login error', error);
     }
