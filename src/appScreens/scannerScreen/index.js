@@ -28,7 +28,7 @@ const ScannerSheet = ({navigation}) => {
   const [Currect_UserId, setCurrect_UserId] = useState('');
   // ---reward modal
   const [isRewardGetting, setisRewardGetting] = useState(true);
-  const [RewardModal, setRewardModal] = useState(false);
+  const [RewardModal, setRewardModal] = useState(true);
   const [RewardModalType, setRewardModalType] = useState('');
   const [RewardModalMsg, setRewardModalMsg] = useState('');
   const [RewardModalAmount, setRewardModalAmount] = useState(0);

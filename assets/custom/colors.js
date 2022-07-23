@@ -1,6 +1,8 @@
 export default {
-    // DA2824 //F4D23F
-    Primary:'#F4D23F',
+    // DA2824 
+    // yellow F4D23F
+    // voilet #833AB4
+    Primary:'#833AB4',
     PrimaryBlack:'#17202A',
     black:'#000',
     white:'#fff',

@@ -12,6 +12,7 @@ import SettingsScreensNav from './settingsNav';
 import FranchiseRequestScreen from '../appScreens/FranchiseRequestScreen/index.js';
 import colors from '../../assets/custom/colors.js';
 import AllOutletsScreen from '../appScreens/allOutletsScreen/index.js';
+import PaymentsNav from './paymentsNav.js';
 // const Stack = createNativeStackNavigator();
 const Stack = createStackNavigator();
 const AuthNav = () => {
@@ -90,6 +91,15 @@ const AuthNav = () => {
         }}
         name="AppNav"
         component={AppNav}
+      />
+      <Stack.Screen
+        options={{
+          animationEnabled: true,
+          headerShown: false,
+          headerTitle: '',
+        }}
+        name="PaymentsNav"
+        component={PaymentsNav}
       />
       <Stack.Screen
         options={{

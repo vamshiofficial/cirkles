@@ -109,11 +109,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.Primary,
   },
   modalView: {
-    width: DeviceWidth,
-    height: DeviceHeight*0.7,
+    width: DeviceWidth*0.90,
+    // height: DeviceHeight*0.7,
     backgroundColor: colors.white,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
+    borderRadius:30,
+    marginBottom:25,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
   },
   HeaderSection: {
     // flex: 1,
-    width: DeviceWidth,
+    width: '100%',
     backgroundColor: colors.white,
     // paddingBottom: 60,
     // paddingVertical: 30,
@@ -161,6 +163,7 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.25,
     // shadowRadius: 3.84,
     // elevation: 5,
+    borderRadius:30,
     justifyContent: 'center',
   },
   // ===================== celebrations styling

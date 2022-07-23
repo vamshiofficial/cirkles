@@ -29,7 +29,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import FranchiseRequestModal from './successModal';
 import FullPageLoader from '../components/FullPageLoader';
 import OtpVerifyModal from '../../authScreens/otpScreen';
+import { useNavigation } from '@react-navigation/native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 const FranchiseRequestScreen = () => {
+  const navigation = useNavigation();
   const [SuccessModalVisible, setSuccessModalVisible] = useState(false);
   // input related
   const [UserMobile, setUserMobile] = useState();
@@ -186,6 +189,11 @@ const FranchiseRequestScreen = () => {
             uri: 'https://esigm.com/thecircle/v1/used_images/franchise_bg.png',
           }}
           style={styles.header_bg_img}>
+            <View style={styles.sub_header}>
+              <TouchableOpacity style={styles.back_btn} onPress={()=>navigation.goBack()}>
+              <MaterialIcons name='keyboard-arrow-left' style={styles.back_icon} />
+              </TouchableOpacity>
+            </View>
           <Text style={styles.header_heading_text}>Ohoo Vamshi</Text>
           <Text style={styles.header_text}>
             We are happy that you want to join our misssion to serve people with

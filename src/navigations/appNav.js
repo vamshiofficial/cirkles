@@ -98,11 +98,11 @@ function AppNav() {
           name="Rewards"
           component={RewardsScreen}
           options={{
-            tabBarLabel: 'Rewards',
+            tabBarLabel: '',
             headerTitleAlign: 'left',
             headerShown: true,
             headerStyle: {
-              backgroundColor: colors.PrimaryBlack,
+              backgroundColor: colors.white,
               borderBottomWidth: 0,
               shadowOpacity: 0,
               elevation:0

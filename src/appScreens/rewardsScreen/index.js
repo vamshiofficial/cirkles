@@ -17,11 +17,14 @@ import Share from 'react-native-share';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Octicons from 'react-native-vector-icons/Octicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../../../assets/custom/colors';
 import LoginBtn from '../components/loginBtn';
+import {useNavigation} from '@react-navigation/native';
 
-function HeaderSection({navigation}) {
+function HeaderSection() {
+  const navigation = useNavigation();
   return (
     <View style={styles.HeaderSection}>
       <View style={styles.rewardCount}>
@@ -31,6 +34,28 @@ function HeaderSection({navigation}) {
       <Text style={styles.rewardfooter}>
         Vamshi, Your total un used rewards
       </Text>
+      <View style={styles.top_btn_grp}>
+        <TouchableOpacity
+          style={styles.top_btn}
+          onPress={() => navigation.navigate('PaymentsNav')}>
+          <MaterialCommunityIcons name="qrcode-scan" style={styles.top_icon} />
+          <Text style={styles.top_btn_text}>Scan esy pay</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.top_btn}>
+          <Ionicons name="md-arrow-redo-outline" style={styles.top_icon} />
+          <Text style={styles.top_btn_text}>Gift to friend.</Text>
+        </TouchableOpacity>
+      </View>
+      {/* <View style={styles.top_btn_grp}>
+        <TouchableOpacity style={styles.top_btn}>
+          <Octicons name="history" style={styles.top_icon} />
+          <Text style={styles.top_btn_text}>Transactions history</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.top_btn}>
+          <Ionicons name="md-arrow-redo-outline" style={styles.top_icon} />
+          <Text style={styles.top_btn_text}>Invite friend</Text>
+        </TouchableOpacity>
+      </View> */}
     </View>
   );
 }
@@ -49,6 +74,8 @@ const RewardsScreen = ({navigation}) => {
   const [lastpage_reached, Setlastpage_reached] = useState(false);
   const [pageCurrent, setPageCurrent] = useState(1);
   const [reload, setReload] = useState(true);
+  // ------payments related
+  const [PayScanVisible, setPayScanVisible] = useState(false)
   //-------
   const [RewardData, SetRewardData] = useState({
     id: '',
@@ -87,40 +114,38 @@ const RewardsScreen = ({navigation}) => {
   //-------------------------------
   const fetchdata = () => {
     SetDataLoading(true);
-    id = '';
     if (Currect_UserId !== null) {
-      id = 54;
-    } else {
-      id = 54;
-    }
-    const apiURL =
-      `https://esigm.com/thecircle/v1/rewards.php?action=get_all___rewards_list&user_id=${id}&page=` +
-      pageCurrent;
-    fetch(apiURL)
-      .then(res => res.json())
-      .then(resJson => {
-        console.log(resJson);
-        SetDataLoading(false);
-        if (resJson === 'NO_DATA_FOUND') {
+      const apiURL =
+        `https://esigm.com/thecircle/v1/rewards.php?action=get_all___rewards_list&user_id=${Currect_UserId}&page=` +
+        pageCurrent;
+      fetch(apiURL)
+        .then(res => res.json())
+        .then(resJson => {
+          console.log(resJson);
           SetDataLoading(false);
-          Set_total_rows(false);
-        } else if (resJson === 'NO_MORE_RECORDS_FOUND') {
-          Setlastpage_reached(true);
-          SetDataLoading(false);
-          Set_total_rows(true);
-        } else {
-          SetDataLoading(false);
-          Set_total_rows(true);
-          if (pageCurrent === 1) {
-            SetData(resJson);
+          if (resJson === 'NO_DATA_FOUND') {
+            SetDataLoading(false);
+            Set_total_rows(false);
+          } else if (resJson === 'NO_MORE_RECORDS_FOUND') {
+            Setlastpage_reached(true);
+            SetDataLoading(false);
+            Set_total_rows(true);
           } else {
-            SetData(data.concat(resJson));
+            SetDataLoading(false);
+            Set_total_rows(true);
+            if (pageCurrent === 1) {
+              SetData(resJson);
+            } else {
+              SetData(data.concat(resJson));
+            }
           }
-        }
-      })
-      .catch(function (e) {
-        console.warn(e);
-      });
+        })
+        .catch(function (e) {
+          console.warn(e);
+        });
+    } else {
+      alert('login required');
+    }
   };
   // ==========render footer data
   const RenderFooter = () => {
@@ -133,9 +158,7 @@ const RewardsScreen = ({navigation}) => {
             style={{opacity: 1}}
             color={colors.green}
           />
-        ) : 
-        null
-        }
+        ) : null}
         {lastpage_reached ? (
           <Text style={styles.footer_text}>No More Rewards.</Text>
         ) : // <Text style={styles.footer_text}>No More Rewards.</Text>
@@ -214,29 +237,31 @@ const RewardsScreen = ({navigation}) => {
                 />
               </List>
             ) : (
-              <View style={styles.empty_con}>
-                <FeatherIcon
-                  active
-                  name="award"
-                  size={150}
-                  color={colors.bglight}
+              <>
+                <HeaderSection 
+                
                 />
-                <Text style={styles.no_rewards_text}>No Rewards Found!</Text>
-              </View>
+                <View style={styles.empty_con}>
+                  <FeatherIcon
+                    active
+                    name="award"
+                    size={150}
+                    color={colors.bglight}
+                  />
+                  <Text style={styles.no_rewards_text}>No Rewards Found!</Text>
+                </View>
+              </>
             )}
             <View style={styles.bottomRightBtnsCon}>
               <TouchableOpacity style={styles.qrScanBtn}>
-                <MaterialCommunityIcons
-                  name="qrcode-scan"
-                  style={styles.qrIcon}
-                />
+                <FeatherIcon name="menu" style={styles.qrIcon} />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.shareScanBtn} onPress={OnShare}>
+              {/* <TouchableOpacity style={styles.shareScanBtn} onPress={OnShare}>
                 <Ionicons
                   name="md-arrow-redo-outline"
                   style={styles.shareIcon}
                 />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </>
         )

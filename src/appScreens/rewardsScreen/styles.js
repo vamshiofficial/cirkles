@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   HeaderSection: {
-    backgroundColor: colors.opens,
+    backgroundColor: colors.white,
     borderBottomLeftRadius: 35,
     borderBottomRightRadius: 35,
     paddingBottom: 50,
@@ -25,16 +25,16 @@ const styles = StyleSheet.create({
   },
   rewardCountIcon: {
     fontSize: 27,
-    color: colors.white,
+    color: colors.black,
   },
   rewardCountText: {
     fontFamily: fonts.PrimaryBoldFont,
     fontSize: 30,
-    color: colors.white,
+    color: colors.black,
     marginLeft: 10,
   },
   rewardfooter: {
-    color: colors.white,
+    color: colors.white3,
     fontFamily: fonts.PrimaryBoldFont,
     fontSize: 15,
   },
@@ -244,5 +244,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // ===== top bottons
+  top_btn_grp:{
+    flexDirection:'row',
+    justifyContent:'space-evenly'
+  },
+  top_btn:{
+    flexDirection:'row',
+    justifyContent:'flex-start',
+    paddingHorizontal:30,
+    alignItems:'center',
+    paddingVertical:10,
+    borderRadius:25,
+    backgroundColor:colors.bglight,
+    marginTop:25
+  },
+top_icon:{
+  fontSize:20,
+  marginRight:10
+},
+top_btn_text:{
+  fontFamily:fonts.PrimaryBoldFont,
+},
 });
 export default styles;

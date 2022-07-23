@@ -23,12 +23,12 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
-    marginBottom:10
+    marginBottom: 10,
   },
   header_heading_text: {
     fontFamily: fonts.PrimaryBoldFont,
     fontSize: 23,
-    color:colors.white,
+    color: colors.white,
   },
   header_text: {
     fontFamily: fonts.PrimarySemiBoldFont,
@@ -43,8 +43,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginVertical: 15,
   },
+  sub_header: {
+    width: '100%',
+  },
+  back_btn: {
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    width: 35,
+    height: 35,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  back_icon: {
+    fontSize: 25,
+  },
   // ======
-  body_con:{
+  body_con: {
     // borderTopLeftRadius: 35,
     // borderTopRightRadius: 35,
     // marginTop:-35,
@@ -54,7 +68,7 @@ const styles = StyleSheet.create({
   formCon: {
     width: DeviceWidth * 0.9,
     alignSelf: 'center',
-    backgroundColor:colors.white
+    backgroundColor: colors.white,
   },
   mobileInput: {
     borderBottomColor: colors.bglight,
@@ -69,7 +83,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.PrimaryFont,
     marginLeft: 10,
   },
-  error_text:{
+  error_text: {
     fontFamily: fonts.PrimaryFont,
     color: colors.red,
     fontSize: fonts.FontBody,

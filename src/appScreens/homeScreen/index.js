@@ -21,13 +21,6 @@ const HomeScreen = ({navigation}) => {
         </Text>
       </Animatable.View>
       <TouchableOpacity
-        onPress={() => navigation.navigate('OutletScreen')}
-        style={{alignSelf: 'center', backgroundColor: '#ddd', padding: 15}}
-        // onPress={LogOutNow()}
-      >
-        <Text>outlet Ui</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
         onPress={() => navigation.navigate('FranchiseRequestScreen')}
         style={{alignSelf: 'center', backgroundColor: '#ddd', padding: 15}}
         // onPress={LogOutNow()}
@@ -39,15 +32,9 @@ const HomeScreen = ({navigation}) => {
         HeaddingText="Visit all our outlets"
         BodyText="Know how our circle getting bigger. If you can't find by near you.You can be the part of Vahh family."
         LearnmoreBtn={true}
-        onClickLearnmore={() => navigation.navigate('AllOutletsScreen',{OutletId:1})}
-      />
-      <ListCardUi
-        ImageUrl="https://esigm.com/opens/used_imgs/opens-logo.png"
-        HeaddingText="Share a moment on Opens"
-        BodyText="You will get a reward when you create a post on opens app which is
-        ailso one of the main platform of ESY"
-        LearnmoreBtn={true}
-        onClickLearnmore={() => alert('done')}
+        onClickLearnmore={() =>
+          navigation.navigate('AllOutletsScreen', {OutletId: 1})
+        }
       />
       <ListCardUi
         ImageUrl="https://cdn.icon-icons.com/icons2/1875/PNG/512/qrcodescan_120401.png"
@@ -56,6 +43,21 @@ const HomeScreen = ({navigation}) => {
         LearnmoreBtn={false}
         onClickLearnmore={() => alert('done')}
       />
+      <ListCardUi
+        ImageUrl="https://cdn.icon-icons.com/icons2/1875/PNG/512/qrcodescan_120401.png"
+        HeaddingText="Pay at outlet"
+        BodyText="You can get a absolutly free tea or coffee when you got FREE message when youscaned a QR Code with our app."
+        LearnmoreBtn={false}
+        onClickLearnmore={() => alert('done')}
+      />
+      {/* <ListCardUi
+        ImageUrl="https://esigm.com/opens/used_imgs/opens-logo.png"
+        HeaddingText="Share a moment on Opens"
+        BodyText="You will get a reward when you create a post on opens app which is
+        ailso one of the main platform of ESY"
+        LearnmoreBtn={true}
+        onClickLearnmore={() => alert('done')}
+      /> */}
       {/* <ListCardUi
         ImageUrl="https://cdn.icon-icons.com/icons2/1875/PNG/512/qrcodescan_120401.png"
         HeaddingText="Scan a cup to get FREE tea"
