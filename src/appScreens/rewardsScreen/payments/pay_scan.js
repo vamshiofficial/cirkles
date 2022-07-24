@@ -8,13 +8,17 @@ import {Toast} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import colors from '../../../../assets/custom/colors';
 import fonts from '../../../../assets/custom/fonts';
-import PayingModal from './payingModal';
+import PayingModal from './result_modal';
+import ENTER_ESY_PIN from './esy_pin_modal';
+import ENTER_AMOUNT from './amount_modal';
 //------------
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 const PayScanerSheet = () => {
   const navigation = useNavigation();
   const [isPaying, setisPaying] = useState(false);
+  // below statuses {SCANNER,AMOUNTMODAL,PINMODAL,RESULTMODAL}
+  const [ThePageStatus, setThePageStatus] = useState('AMOUNTMODAL');
   // ---
   const [isFlashOn, setisFlashOn] = useState(false);
   const [isFrontCameraOn, setisFrontCameraOn] = useState(false);
@@ -50,7 +54,7 @@ const PayScanerSheet = () => {
       let cupResult = text.slice(0, 13);
       console.log('the cup res is:', cupResult);
       if (cupResult === 'PAYVAHHCIRCLE') {
-        PayThisNow(result, Currect_UserId,amount);
+        PayThisNow(result, Currect_UserId, amount);
         // alert('cup scanned please redirect!');
       } else {
         alert('invalid qr code', result);
@@ -59,46 +63,13 @@ const PayScanerSheet = () => {
       alert('login first');
     }
   };
-  const PayThisNow = (_outlet_id, _user_id, _amount) => {
-    setisPaying(true);
-    setPayingModalVisible(true);
-    var InsertAPIURL = 'https://esigm.com/thecircle/v1/payments_server.php';
-    var headers = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    };
-
-    var Data = {
-      action: 'PAY_THIS_NOW',
-      outlet_id: _outlet_id,
-      user_id: _user_id,
-      amount: _amount,
-    };
-    fetch(InsertAPIURL, {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify(Data),
-    })
-      .then(response => response.json())
-      .then(RES => {
-        setTimeout(() => {
-          setPModalType(RES[0].type),
-            setPBodyText(RES[0].message),
-            setclosePayingModal(true);
-        }, 5000);
-      })
-      .catch(function (gg) {
-        //handle error
-        console.log(gg);
-      });
-  };
-  const closePaying = () => {
-    setisPaying(false);
-    setPayingModalVisible(false);
-    setclosePayingModal(false);
-    setPModalType('loading');
-    setPBodyText("Don't press back or close the app.");
-  };
+  // const closePaying = () => {
+  //   setisPaying(false);
+  //   setPayingModalVisible(false);
+  //   setclosePayingModal(false);
+  //   setPModalType('loading');
+  //   setPBodyText("Don't press back or close the app.");
+  // };
   //  ---
   const CustomMarker = () => (
     <View
@@ -123,7 +94,7 @@ const PayScanerSheet = () => {
             // setRewardModal(true);
             // setisRewardGetting(true);
           }}>
-            <Ionicons name='close-circle' style={styles.close_sheet_icon} />
+          <Ionicons name="close-circle" style={styles.close_sheet_icon} />
         </TouchableOpacity>
         <Text style={styles.topHeding}>Scan a QR Code to PAY</Text>
         <Text style={styles.topText}>
@@ -168,37 +139,26 @@ const PayScanerSheet = () => {
   );
   return (
     <View style={{flex: 1}}>
-      {isPaying ? (
-        <PayingModal
-          PayingModalVisible={PayingModalVisible}
-          setPayingModalVisible={setPayingModalVisible}
-          PBodyText={PBodyText}
-          PModalType={PModalType}
-          closePayingModal={closePayingModal}
-          closePaying={closePaying}
-        />
-      ) : (
-        <QRCodeScanner
-          onRead={onSuccess}
-          flashMode={
-            isFlashOn
-              ? RNCamera.Constants.FlashMode.torch
-              : RNCamera.Constants.FlashMode.off
-          }
-          cameraType={isFrontCameraOn ? 'front' : 'back'}
-          containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
-          showMarker={true}
-          customMarker={<CustomMarker />}
-          topContent={<TopConatiner />}
-          topViewStyle={styles.topCon}
-          bottomContent={<BottomContainer />}
-          bottomViewStyle={styles.bottomCon}
-          cameraContainerStyle={styles.cameraContainerStyle}
-          cameraStyle={styles.cameraStyle}
-          reactivate={true}
-          reactivateTimeout={1000}
-        />
-      )}
+      <QRCodeScanner
+        onRead={onSuccess}
+        flashMode={
+          isFlashOn
+            ? RNCamera.Constants.FlashMode.torch
+            : RNCamera.Constants.FlashMode.off
+        }
+        cameraType={isFrontCameraOn ? 'front' : 'back'}
+        containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
+        showMarker={true}
+        customMarker={<CustomMarker />}
+        topContent={<TopConatiner />}
+        topViewStyle={styles.topCon}
+        bottomContent={<BottomContainer />}
+        bottomViewStyle={styles.bottomCon}
+        cameraContainerStyle={styles.cameraContainerStyle}
+        cameraStyle={styles.cameraStyle}
+        reactivate={true}
+        reactivateTimeout={1000}
+      />
     </View>
   );
 };

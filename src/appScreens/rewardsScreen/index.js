@@ -37,7 +37,7 @@ function HeaderSection() {
       <View style={styles.top_btn_grp}>
         <TouchableOpacity
           style={styles.top_btn}
-          onPress={() => navigation.navigate('PaymentsNav')}>
+          onPress={() => navigation.navigate('PaymentsSection')}>
           <MaterialCommunityIcons name="qrcode-scan" style={styles.top_icon} />
           <Text style={styles.top_btn_text}>Scan esy pay</Text>
         </TouchableOpacity>
