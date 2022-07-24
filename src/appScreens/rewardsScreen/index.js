@@ -25,6 +25,23 @@ import {useNavigation} from '@react-navigation/native';
 
 function HeaderSection() {
   const navigation = useNavigation();
+  const endTime = new Date('July 26, 2022 00:00:00').getTime();
+  const [currentTime,setcurrentTime] = useState(new Date().getTime());
+  const gap = endTime - currentTime; //177670892
+
+  const seconds = 1000; // in milliseconds
+  const minutes = seconds * 60;
+  const hours = minutes * 60;
+  const days = hours * 24;
+
+  const remainingDays = Math.floor(gap / days);
+  const remainingHours = Math.floor( (gap % days) / hours);
+  const remainingMinutes = Math.floor( (gap % hours) / minutes);
+  const remainingSeconds = Math.floor( (gap % minutes) / seconds);
+
+  useEffect(()=>{
+    setTimeout(()=>setcurrentTime(new Date().getTime()),1000);
+  },[currentTime]) // 11:30:55
   return (
     <View style={styles.HeaderSection}>
       <View style={styles.rewardCount}>
@@ -41,10 +58,15 @@ function HeaderSection() {
           <MaterialCommunityIcons name="qrcode-scan" style={styles.top_icon} />
           <Text style={styles.top_btn_text}>Scan esy pay</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.top_btn}>
+        <TouchableOpacity style={styles.top_btn}
+          onPress={() => navigation.navigate('SearchFriend')}
+        >
           <Ionicons name="md-arrow-redo-outline" style={styles.top_icon} />
           <Text style={styles.top_btn_text}>Gift to friend.</Text>
         </TouchableOpacity>
+        <View>
+          <Text>{remainingDays}:{remainingHours}:{remainingMinutes}:{remainingSeconds}</Text>
+        </View>
       </View>
       {/* <View style={styles.top_btn_grp}>
         <TouchableOpacity style={styles.top_btn}>
