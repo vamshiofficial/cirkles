@@ -15,7 +15,7 @@ export const AuthProvider = ({children}) => {
     setuserToken(TheUserToken);
     AsyncStorage.setItem('userToken', TheUserToken);
     AsyncStorage.setItem('userMobile', TheUserMobile);
-    setTimeout(() => setisLoading(false), 5000);
+    setTimeout(() => setisLoading(false), 100);
   };
   const LogOutNow = () => {
     setisLoading(true);

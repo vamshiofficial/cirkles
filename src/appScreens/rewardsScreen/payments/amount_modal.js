@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
 import colors from '../../../../assets/custom/colors';
@@ -15,60 +16,67 @@ import fonts from '../../../../assets/custom/fonts';
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 const ENTER_AMOUNT = props => {
-  const [otp, setotp] = useState('');
-  const [errorOtp, seterrorOtp] = useState(false);
   //header
   // type
   // text
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={props.EnterPinModalVisible}
-      onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
-      }}>
-      <View
-        style={[
-          styles.centeredView,
-          {
-            backgroundColor: colors.bglight,
-          },
-        ]}>
-        <KeyboardAvoidingView>
-          <View style={[styles.modalView]}>
-            <Text style={styles.header_text}>Paying to Vamshi at Siddipet</Text>
-            <View style={styles.main_view}>
-              <Text style={styles.body_text}>You are paying</Text>
-              <View style={styles.input_row}>
-                <Text style={styles.rupee_text}>₹</Text>
-                <TextInput
-                  placeholder="0"
-                  style={styles.amount_input}
-                  keyboardType="number-pad"
-                />
-              </View>
-            </View>
-            <View style={styles.note_view}>
-              <Text style={styles.note_text}>
-                Note: This not your bank balance. It's just an amount that you
-                won by rewards in our platforms. This is not linked to any
-                banks/UPI's ... others.
-                <TouchableOpacity style={styles.learn_more}>
-                  <Text style={styles.learn_more_text}>Learnmore.</Text>
-                </TouchableOpacity>
+    <View style={{flex: 1}}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={true}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}>
+          <KeyboardAvoidingView
+             behavior={Platform.OS === "ios" ? "padding" : "height"}
+          >
+        <View
+          style={[
+            styles.centeredView,
+            {
+              backgroundColor: colors.bglight,
+            },
+          ]}>
+            <View style={[styles.modalView]}>
+              <Text style={styles.header_text}>
+                Paying to {props.ManagerName} at {props.Address}
               </Text>
+              <View style={styles.main_view}>
+                <Text style={styles.body_text}>You are paying</Text>
+                <View style={styles.input_row}>
+                  <Text style={styles.rupee_text}>₹</Text>
+                  <TextInput
+                    placeholder="0"
+                    style={styles.amount_input}
+                    keyboardType="number-pad"
+                    maxLength={2}
+                    onChangeText={e => props.setPayingAmount(e)}
+                    // defaultValue={props.PayingAmount}
+                  />
+                </View>
+              </View>
+              <View style={styles.note_view}>
+                <Text style={styles.note_text}>
+                  Note: This not your bank balance. It's just an amount that you
+                  won by rewards in our platforms. This is not linked to any
+                  banks/UPI's ... others.
+                  <TouchableOpacity style={styles.learn_more}>
+                    <Text style={styles.learn_more_text}>Learnmore.</Text>
+                  </TouchableOpacity>
+                </Text>
+              </View>
+              <TouchableOpacity
+                style={styles.action_btn}
+                // onPress={props.closePaying}
+              >
+                <Text style={styles.action_btn_text}>Okay</Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity
-              style={styles.action_btn}
-              // onPress={props.closePaying}
-            >
-              <Text style={styles.action_btn_text}>Okay</Text>
-            </TouchableOpacity>
-          </View>
-        </KeyboardAvoidingView>
-      </View>
-    </Modal>
+        </View>
+          </KeyboardAvoidingView>
+      </Modal>
+    </View>
   );
 };
 
@@ -153,7 +161,7 @@ const styles = StyleSheet.create({
   amount_input: {
     fontSize: 35,
     fontFamily: fonts.PrimaryBoldFont,
-    textAlign: 'center',
+    // textAlign: 'center',
   },
   note_view: {
     width: '100%',

@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Dimensions, LogBox, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Dimensions,
+  LogBox,
+  Modal,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -14,22 +21,11 @@ import ENTER_AMOUNT from './amount_modal';
 //------------
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
-const PayScanerSheet = () => {
+const PayScanerSheet = props => {
   const navigation = useNavigation();
-  const [isPaying, setisPaying] = useState(false);
-  // below statuses {SCANNER,AMOUNTMODAL,PINMODAL,RESULTMODAL}
-  const [ThePageStatus, setThePageStatus] = useState('AMOUNTMODAL');
   // ---
   const [isFlashOn, setisFlashOn] = useState(false);
   const [isFrontCameraOn, setisFrontCameraOn] = useState(false);
-  const [Currect_UserId, setCurrect_UserId] = useState('');
-  // ---
-  const [PayingModalVisible, setPayingModalVisible] = useState(false);
-  const [PModalType, setPModalType] = useState('loading');
-  const [PBodyText, setPBodyText] = useState(
-    "Don't press back or close the app.",
-  );
-  const [closePayingModal, setclosePayingModal] = useState(false);
   const CameraRotate = () => {
     setisFrontCameraOn(!isFrontCameraOn);
   };
@@ -40,13 +36,7 @@ const PayScanerSheet = () => {
   };
   // ---
   const onSuccess = () => {
-    // setrewardStatus(null);
-    // setisRewardGetting(true);
-    // setRewardModal(false);
-    // setRewardModalType('');
-    // setRewardModalMsg('');
-    // setRewardModalAmount(0);
-    if (Currect_UserId !== null) {
+    if (props.Currect_UserId !== null) {
       let text = e.data;
       console.log('scanned data', e.data);
       let result = text.slice(9);
@@ -54,8 +44,7 @@ const PayScanerSheet = () => {
       let cupResult = text.slice(0, 13);
       console.log('the cup res is:', cupResult);
       if (cupResult === 'PAYVAHHCIRCLE') {
-        PayThisNow(result, Currect_UserId, amount);
-        // alert('cup scanned please redirect!');
+        props.EnterAmount(result);
       } else {
         alert('invalid qr code', result);
       }
@@ -63,14 +52,6 @@ const PayScanerSheet = () => {
       alert('login first');
     }
   };
-  // const closePaying = () => {
-  //   setisPaying(false);
-  //   setPayingModalVisible(false);
-  //   setclosePayingModal(false);
-  //   setPModalType('loading');
-  //   setPBodyText("Don't press back or close the app.");
-  // };
-  //  ---
   const CustomMarker = () => (
     <View
       style={{
@@ -88,12 +69,12 @@ const PayScanerSheet = () => {
     return (
       <View style={{marginTop: 0}}>
         <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-            // PayThisNow(2, 5017, 5);
+          onPress={() => 
+            // navigation.goBack();
+            props.EnterAmount(2)
             // setRewardModal(true);
             // setisRewardGetting(true);
-          }}>
+          }>
           <Ionicons name="close-circle" style={styles.close_sheet_icon} />
         </TouchableOpacity>
         <Text style={styles.topHeding}>Scan a QR Code to PAY</Text>
@@ -139,26 +120,34 @@ const PayScanerSheet = () => {
   );
   return (
     <View style={{flex: 1}}>
-      <QRCodeScanner
-        onRead={onSuccess}
-        flashMode={
-          isFlashOn
-            ? RNCamera.Constants.FlashMode.torch
-            : RNCamera.Constants.FlashMode.off
-        }
-        cameraType={isFrontCameraOn ? 'front' : 'back'}
-        containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
-        showMarker={true}
-        customMarker={<CustomMarker />}
-        topContent={<TopConatiner />}
-        topViewStyle={styles.topCon}
-        bottomContent={<BottomContainer />}
-        bottomViewStyle={styles.bottomCon}
-        cameraContainerStyle={styles.cameraContainerStyle}
-        cameraStyle={styles.cameraStyle}
-        reactivate={true}
-        reactivateTimeout={1000}
-      />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={true}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+        }}>
+        <QRCodeScanner
+          onRead={onSuccess}
+          flashMode={
+            isFlashOn
+              ? RNCamera.Constants.FlashMode.torch
+              : RNCamera.Constants.FlashMode.off
+          }
+          cameraType={isFrontCameraOn ? 'front' : 'back'}
+          containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
+          showMarker={true}
+          customMarker={<CustomMarker />}
+          topContent={<TopConatiner />}
+          topViewStyle={styles.topCon}
+          bottomContent={<BottomContainer />}
+          bottomViewStyle={styles.bottomCon}
+          cameraContainerStyle={styles.cameraContainerStyle}
+          cameraStyle={styles.cameraStyle}
+          reactivate={true}
+          reactivateTimeout={1000}
+        />
+      </Modal>
     </View>
   );
 };

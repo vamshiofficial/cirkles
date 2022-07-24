@@ -51,6 +51,16 @@ const ENTER_ESY_PIN = props => {
             // //   CheckOtpNow(code);
             // }}
           />
+          <View style={styles.note_view}>
+            <Text style={styles.note_text}>
+              Note: This not your bank balance. It's just an amount that you won
+              by rewards in our platforms. This is not linked to any banks/UPI's
+              ... others.
+              <TouchableOpacity style={styles.learn_more}>
+                <Text style={styles.learn_more_text}>Learnmore.</Text>
+              </TouchableOpacity>
+            </Text>
+          </View>
           <TouchableOpacity
             style={styles.action_btn}
             // onPress={props.closePaying}
@@ -95,7 +105,7 @@ const styles = StyleSheet.create({
   header_text: {
     fontFamily: fonts.PrimaryBoldFont,
     fontSize: fonts.FontMainHeading,
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
   },
   body_text: {
     fontFamily: fonts.PrimaryFont,
@@ -132,5 +142,21 @@ const styles = StyleSheet.create({
 
   underlineStyleHighLighted: {
     borderColor: colors.black,
+  },
+  note_view: {
+    width: '100%',
+    marginTop: DeviceHeight * 0.35,
+  },
+  note_text: {
+    fontFamily: fonts.PrimaryFont,
+    color: colors.white4,
+  },
+  learn_more: {
+    paddingLeft: 10,
+    marginTop: -2,
+  },
+  learn_more_text: {
+    color: colors.directs,
+    fontFamily: fonts.PrimarySemiBoldFont,
   },
 });

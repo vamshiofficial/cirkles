@@ -18,11 +18,12 @@ const PayingModal = props => {
   //header
   // type
   // text
+  // props.PayingModalVisible
   return (
     <Modal
       animationType="slide"
       transparent={true}
-      visible={props.PayingModalVisible}
+      visible={true}
       onRequestClose={() => {
         Alert.alert('Modal has been closed.');
       }}>
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 10,
     paddingHorizontal: 25,
-    // paddingBottom: 25,
+    paddingBottom: 25,
     // minHeight: DeviceHeight * 0.25,
     maxHeight: DeviceHeight,
     shadowColor: '#000',

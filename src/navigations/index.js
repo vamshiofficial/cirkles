@@ -13,8 +13,8 @@ const AppNavigations = () => {
   if (isLoading) {
     return (
       <View style={{flex: 1}}>
-        {/* <ActivityIndicator size={'large'} /> */}
-        <SplashScreen />
+        <ActivityIndicator size={'large'} />
+        {/* <SplashScreen /> */}
       </View>
     );
   }
