@@ -25,7 +25,7 @@ import {useNavigation} from '@react-navigation/native';
 
 function HeaderSection() {
   const navigation = useNavigation();
-  const endTime = new Date('July 26, 2022 00:00:00').getTime();
+  const endTime = new Date('July 28, 2022 00:00:00').getTime();
   const [currentTime,setcurrentTime] = useState(new Date().getTime());
   const gap = endTime - currentTime; //177670892
 
@@ -64,10 +64,25 @@ function HeaderSection() {
           <Ionicons name="md-arrow-redo-outline" style={styles.top_icon} />
           <Text style={styles.top_btn_text}>Gift to friend.</Text>
         </TouchableOpacity>
-        <View>
-          <Text>{remainingDays}:{remainingHours}:{remainingMinutes}:{remainingSeconds}</Text>
-        </View>
       </View>
+        <View style={styles.countdown_row}>
+          <View style={styles.countdown}>
+              <Text style={styles.countdown_text}>{remainingDays}</Text>
+              <Text style={styles.countdown_name}>Days</Text>
+          </View>
+          <View style={styles.countdown}>
+              <Text style={styles.countdown_text}>{remainingHours}</Text>
+              <Text style={styles.countdown_name}>Hours</Text>
+          </View>
+          <View style={styles.countdown}>
+              <Text style={styles.countdown_text}>{remainingMinutes}</Text>
+              <Text style={styles.countdown_name}>Minutes</Text>
+          </View>
+          <View style={styles.countdown}>
+              <Text style={styles.countdown_text}>{remainingSeconds}</Text>
+              <Text style={styles.countdown_name}>Seconds</Text>
+          </View>
+        </View>
       {/* <View style={styles.top_btn_grp}>
         <TouchableOpacity style={styles.top_btn}>
           <Octicons name="history" style={styles.top_icon} />
@@ -111,7 +126,7 @@ const RewardsScreen = ({navigation}) => {
   //===load for page shimmer
   setTimeout(() => {
     SetLoading(false);
-  }, 2000);
+  }, 1000);
   //-------------------------------
   useEffect(() => {
     const GetUserId = async () => {

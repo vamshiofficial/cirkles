@@ -12,6 +12,7 @@ import {
 import React, {useState} from 'react';
 import colors from '../../../../assets/custom/colors';
 import fonts from '../../../../assets/custom/fonts';
+import * as Animatable from 'react-native-animatable';
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 const PayingModal = props => {
@@ -20,13 +21,7 @@ const PayingModal = props => {
   // text
   // props.PayingModalVisible
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={true}
-      onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
-      }}>
+    <Animatable.View animation={'slideInUp'} duration={500} style={{flex: 1}}>
       <View
         style={[
           styles.centeredView,
@@ -56,7 +51,7 @@ const PayingModal = props => {
           ) : null}
         </View>
       </View>
-    </Modal>
+    </Animatable.View>
   );
 };
 

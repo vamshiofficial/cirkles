@@ -24,7 +24,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 // --
 import colors from '../../../../assets/custom/colors';
 import fonts from '../../../../assets/custom/fonts';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 function UserCard() {
@@ -76,13 +76,15 @@ const UserNotFound = () => (
   </ListItem>
 );
 const SearchFriend = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   return (
     <Container>
       <Header style={{margin: 0}}>
         <View style={styles.header}>
           <View style={styles.left}>
-            <TouchableOpacity style={styles.back_btn} onPress={()=>navigation.goBack()}>
+            <TouchableOpacity
+              style={styles.back_btn}
+              onPress={() => navigation.goBack()}>
               <MaterialIcons
                 name="keyboard-arrow-left"
                 style={styles.back_icon}
@@ -159,34 +161,34 @@ const styles = StyleSheet.create({
     fontFamily: fonts.PrimaryBoldFont,
   },
   send_btn: {
-    borderColor:colors.white,
-    borderWidth:2,
-    paddingHorizontal:25,
-    paddingVertical:5,
-    borderRadius:20
+    borderColor: colors.white,
+    borderWidth: 2,
+    paddingHorizontal: 25,
+    paddingVertical: 5,
+    borderRadius: 20,
   },
   send_text: {
     fontFamily: fonts.PrimaryBoldFont,
-    textTransform:'uppercase'
+    textTransform: 'uppercase',
   },
-//   =============user not found
-usernot__con:{
-    borderLeftColor:colors.red,
-    borderLeftWidth:10,
+  //   =============user not found
+  usernot__con: {
+    borderLeftWidth: 10,
+    borderColor: colors.red,
     backgroundColor: colors.bglight,
     marginLeft: 0,
     paddingHorizontal: 15,
     marginVertical: 25,
-},
-usernot__image:{
+  },
+  usernot__image: {
     width: 50,
     height: 50,
-},
-not_username:{
+  },
+  not_username: {
     fontFamily: fonts.PrimaryFont,
-},
-not_user_phone:{
+  },
+  not_user_phone: {
     fontFamily: fonts.PrimaryBoldFont,
-    color:colors.red
-},
+    color: colors.red,
+  },
 });

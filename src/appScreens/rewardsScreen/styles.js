@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderBottomLeftRadius: 35,
     borderBottomRightRadius: 35,
-    paddingBottom: 50,
+    paddingBottom: 10,
     paddingHorizontal: 15,
     marginBottom: 15,
   },
@@ -105,9 +105,11 @@ const styles = StyleSheet.create({
     fontSize: fonts.FontSubHeadding,
     color: colors.white5,
     paddingVertical: 10,
-    paddingHorizontal:25,
+    paddingHorizontal: 25,
     alignSelf: 'center',
-    borderColor:colors.white,borderRadius:25,borderWidth:0.9,
+    borderColor: colors.white,
+    borderRadius: 25,
+    borderWidth: 0.9,
   },
   // ======without login
   OnlyHeaderSection: {
@@ -245,26 +247,49 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   // ===== top bottons
-  top_btn_grp:{
-    flexDirection:'row',
-    justifyContent:'space-evenly'
+  top_btn_grp: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
-  top_btn:{
-    flexDirection:'row',
-    justifyContent:'flex-start',
-    paddingHorizontal:30,
-    alignItems:'center',
-    paddingVertical:10,
-    borderRadius:25,
-    backgroundColor:colors.bglight,
-    marginTop:25
+  top_btn: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    paddingHorizontal: 30,
+    alignItems: 'center',
+    paddingVertical: 10,
+    borderRadius: 25,
+    backgroundColor: colors.bglight,
+    marginTop: 25,
   },
-top_icon:{
-  fontSize:20,
-  marginRight:10
-},
-top_btn_text:{
-  fontFamily:fonts.PrimaryBoldFont,
-},
+  top_icon: {
+    fontSize: 20,
+    marginRight: 10,
+  },
+  top_btn_text: {
+    fontFamily: fonts.PrimaryBoldFont,
+  },
+  // =====================count down
+  countdown_row: {
+    flexDirection: 'row',
+    width: '70%',
+    alignSelf: 'center',
+    justifyContent: 'space-evenly',
+    marginVertical: 10,
+  },
+  countdown: {
+    width: 50,
+    height: 50,
+    backgroundColor: colors.bglight,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  countdown_text: {
+    fontFamily: fonts.PrimaryBoldFont,
+    fontSize: fonts.FontHeadding,
+  },
+  countdown_name: {
+    fontFamily: fonts.PrimaryFont,
+    fontSize: fonts.FontSmall,
+  },
 });
 export default styles;

@@ -13,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import {Toast} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
+import * as Animatable from 'react-native-animatable';
 import colors from '../../../../assets/custom/colors';
 import fonts from '../../../../assets/custom/fonts';
 import PayingModal from './result_modal';
@@ -35,16 +36,17 @@ const PayScanerSheet = props => {
     }
   };
   // ---
-  const onSuccess = () => {
+  const onSuccess = e => {
     if (props.Currect_UserId !== null) {
       let text = e.data;
       console.log('scanned data', e.data);
-      let result = text.slice(9);
+      let result = text.slice(13);
       console.log('the cup id is:', result);
       let cupResult = text.slice(0, 13);
       console.log('the cup res is:', cupResult);
       if (cupResult === 'PAYVAHHCIRCLE') {
         props.EnterAmount(result);
+        props.setOutletId(result);
       } else {
         alert('invalid qr code', result);
       }
@@ -69,15 +71,18 @@ const PayScanerSheet = props => {
     return (
       <View style={{marginTop: 0}}>
         <TouchableOpacity
-          onPress={() => 
-            // navigation.goBack();
-            props.EnterAmount(2)
+          onPress={
+            () =>
+              // navigation.goBack();
+              props.EnterAmount(2)
             // setRewardModal(true);
             // setisRewardGetting(true);
           }>
           <Ionicons name="close-circle" style={styles.close_sheet_icon} />
         </TouchableOpacity>
-        <Text style={styles.topHeding}>Scan a QR Code to PAY</Text>
+        <Text style={styles.topHeding}>
+          Scan a QR Code to PAY {props.userPaymentsPin}{' '}
+        </Text>
         <Text style={styles.topText}>
           Please point your camera to the qr code that is presented in our
           outlet.
@@ -119,36 +124,28 @@ const PayScanerSheet = props => {
     </View>
   );
   return (
-    <View style={{flex: 1}}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={true}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
-        <QRCodeScanner
-          onRead={onSuccess}
-          flashMode={
-            isFlashOn
-              ? RNCamera.Constants.FlashMode.torch
-              : RNCamera.Constants.FlashMode.off
-          }
-          cameraType={isFrontCameraOn ? 'front' : 'back'}
-          containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
-          showMarker={true}
-          customMarker={<CustomMarker />}
-          topContent={<TopConatiner />}
-          topViewStyle={styles.topCon}
-          bottomContent={<BottomContainer />}
-          bottomViewStyle={styles.bottomCon}
-          cameraContainerStyle={styles.cameraContainerStyle}
-          cameraStyle={styles.cameraStyle}
-          reactivate={true}
-          reactivateTimeout={1000}
-        />
-      </Modal>
-    </View>
+    <Animatable.View animation={'slideInUp'} duration={500} style={{flex: 1}}>
+      <QRCodeScanner
+        onRead={onSuccess}
+        flashMode={
+          isFlashOn
+            ? RNCamera.Constants.FlashMode.torch
+            : RNCamera.Constants.FlashMode.off
+        }
+        cameraType={isFrontCameraOn ? 'front' : 'back'}
+        containerStyle={{backgroundColor: 'rgba(0,0,0,0.8)'}}
+        showMarker={true}
+        customMarker={<CustomMarker />}
+        topContent={<TopConatiner />}
+        topViewStyle={styles.topCon}
+        bottomContent={<BottomContainer />}
+        bottomViewStyle={styles.bottomCon}
+        cameraContainerStyle={styles.cameraContainerStyle}
+        cameraStyle={styles.cameraStyle}
+        reactivate={true}
+        reactivateTimeout={1000}
+      />
+    </Animatable.View>
   );
 };
 
