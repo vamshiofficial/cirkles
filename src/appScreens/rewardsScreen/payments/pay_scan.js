@@ -37,6 +37,7 @@ const PayScanerSheet = props => {
   };
   // ---
   const onSuccess = e => {
+    props.setPageLoader(true);
     if (props.Currect_UserId !== null) {
       let text = e.data;
       console.log('scanned data', e.data);
@@ -72,16 +73,17 @@ const PayScanerSheet = props => {
       <View style={{marginTop: 0}}>
         <TouchableOpacity
           onPress={
-            () =>
-              // navigation.goBack();
-              props.EnterAmount(2)
+            () => props.setCancelModal(true)
+            // navigation.goBack();
+            // props.EnterAmount(2)
+
             // setRewardModal(true);
             // setisRewardGetting(true);
           }>
           <Ionicons name="close-circle" style={styles.close_sheet_icon} />
         </TouchableOpacity>
         <Text style={styles.topHeding}>
-          Scan a QR Code to PAY {props.userPaymentsPin}{' '}
+          Scan a QR Code to PAY
         </Text>
         <Text style={styles.topText}>
           Please point your camera to the qr code that is presented in our

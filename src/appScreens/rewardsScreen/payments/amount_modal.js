@@ -36,7 +36,7 @@ const ENTER_AMOUNT = props => {
           <View style={styles.header_sec}>
             <TouchableOpacity
               onPress={
-                () => alert('close it')
+                () => props.setCancelModal(true)
                 // navigation.goBack()
               }
               style={[

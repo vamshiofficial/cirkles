@@ -14,12 +14,13 @@ import ENTER_AMOUNT from './amount_modal';
 import PayScanerSheet from './pay_scan';
 import Generate_Pin from '../../settingsScreen/pages/generate_pin';
 import CancelPaymentModal from './cancel_payment';
+import FullPageLoader from '../../components/FullPageLoader';
 //------------
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 const PaymentsSection = () => {
   // back press handler
-  const [CancelModal, setCancelModal] = useState(false)
+  const [CancelModal, setCancelModal] = useState(false);
   useEffect(() => {
     const backAction = () => {
       // Alert.alert('Hold on!', 'Are you sure you want to go back?', [
@@ -30,7 +31,7 @@ const PaymentsSection = () => {
       //   },
       //   {text: 'YES', onPress: () => BackHandler.exitApp()},
       // ]);
-      setCancelModal(true)
+      setCancelModal(true);
       return true;
     };
 
@@ -49,7 +50,7 @@ const PaymentsSection = () => {
   // pay scan page related
   const [OutletId, setOutletId] = useState('');
   // -----enter amount modal related
-  const [enterAmountModal, setenterAmountModal] = useState(true);
+  const [PageLoader, setPageLoader] = useState(false);
   const [Address, setAddress] = useState('no');
   const [ManagerName, setManagerName] = useState('no');
   const [PayingAmount, setPayingAmount] = useState(0);
@@ -64,7 +65,7 @@ const PaymentsSection = () => {
   const [GeneratePinModal, setGeneratePinModal] = useState(false);
   const [PinCreateSucess, setPinCreateSucess] = useState(false);
   // -----
-  const [isPaying, setisPaying] = useState(false)
+  const [isPaying, setisPaying] = useState(false);
   const [PayingModalVisible, setPayingModalVisible] = useState(true);
   const [PModalType, setPModalType] = useState('loading');
   const [PBodyText, setPBodyText] = useState(
@@ -84,6 +85,9 @@ const PaymentsSection = () => {
   }, []);
   // ------------------------------------------enter amount
   const EnterAmount = __outlet_id => {
+    setTimeout(() => {
+      setPageLoader(false);
+    }, 2000);
     // alert(__outlet_id);
     var InsertAPIURL = 'https://esigm.com/thecircle/v1/payments_server.php';
     var headers = {
@@ -212,7 +216,7 @@ const PaymentsSection = () => {
   const PayThisNow = (_outlet_id, _user_id, _amount) => {
     setisPaying(true);
     setPayingModalVisible(true);
-    setThePageStatus('RESULTMODAL')
+    setThePageStatus('RESULTMODAL');
     var InsertAPIURL = 'https://esigm.com/thecircle/v1/payments_server.php';
     var headers = {
       Accept: 'application/json',
@@ -255,6 +259,8 @@ const PaymentsSection = () => {
           EnterAmount={EnterAmount}
           userPaymentsPin={userPaymentsPin}
           setOutletId={setOutletId}
+          setCancelModal={setCancelModal}
+          setPageLoader={setPageLoader}
         />
       ) : ThePageStatus === 'AMOUNTMODAL' ? (
         <ENTER_AMOUNT
@@ -263,6 +269,7 @@ const PaymentsSection = () => {
           PayingAmount={PayingAmount}
           setPayingAmount={setPayingAmount}
           EnterPayPin={EnterPayPin}
+          setCancelModal={setCancelModal}
         />
       ) : ThePageStatus === 'PINMODAL' ? (
         <ENTER_ESY_PIN
@@ -270,6 +277,7 @@ const PaymentsSection = () => {
           setPinInput={setPinInput}
           CheckPayPinNow={CheckPayPinNow}
           GenerateThePin={GenerateThePin}
+          setCancelModal={setCancelModal}
         />
       ) : ThePageStatus === 'RESULTMODAL' ? (
         <RESULT_MODAL
@@ -294,9 +302,14 @@ const PaymentsSection = () => {
         OtpNumberVerify={OtpNumberVerify}
         PinCreateSucess={PinCreateSucess}
       />
-      <CancelPaymentModal 
-      CancelModal={CancelModal}
-      setCancelModal={setCancelModal}
+      <CancelPaymentModal
+        CancelModal={CancelModal}
+        setCancelModal={setCancelModal}
+      />
+      <FullPageLoader
+        visible={PageLoader}
+        bigtext={'Please wait a sec'}
+        // text={'Please wait a sec'}
       />
     </>
   );

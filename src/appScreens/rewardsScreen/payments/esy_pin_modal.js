@@ -40,7 +40,7 @@ const ENTER_ESY_PIN = props => {
           <View style={styles.header_sec}>
             <TouchableOpacity
               onPress={
-                () => alert('close it')
+                () => props.setCancelModal(true)
                 // navigation.goBack()
               }
               style={[
@@ -80,18 +80,19 @@ const ENTER_ESY_PIN = props => {
                       <Text style={styles.learn_more_text}>Learnmore.</Text>
                     </TouchableOpacity>
                   </View>
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     style={styles.action_btn}
                     // onPress={props.closePaying}
                   >
                     <Text style={styles.action_btn_text}>Okay</Text>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </>
               ) : (
                 <View>
-                   <View style={styles.note_view}>
+                  <View style={styles.note_view}>
                     <Text style={styles.note_text}>
-                    It's look like you have not set your payments PIN for the transactions.Please click on below to create Pin.
+                      It's look like you have not set your payments PIN for the
+                      transactions.Please click on below to create Pin.
                     </Text>
                     <TouchableOpacity style={styles.learn_more}>
                       <Text style={styles.learn_more_text}>Learnmore.</Text>
@@ -99,8 +100,7 @@ const ENTER_ESY_PIN = props => {
                   </View>
                   <TouchableOpacity
                     style={styles.action_btn}
-                    onPress={props.GenerateThePin}
-                  >
+                    onPress={props.GenerateThePin}>
                     <Text style={styles.action_btn_text}>Genetate Pin</Text>
                   </TouchableOpacity>
                 </View>
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.PrimaryBoldFont,
     fontSize: fonts.FontMainHeading,
     alignSelf: 'center',
-    color:colors.black
+    color: colors.black,
   },
   body_text: {
     fontFamily: fonts.PrimaryFont,
