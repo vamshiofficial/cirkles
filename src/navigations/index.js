@@ -20,7 +20,7 @@ const AppNavigations = () => {
   }
   return (
     <>
-    <StatusBar backgroundColor={colors.PrimaryBlack} />
+    <StatusBar backgroundColor={colors.black} barStyle="dark-content" hidden />
     <NavigationContainer>
       {/* {userToken !== null ? <AppNav /> : <AuthNav />} */}
       <AuthNav />

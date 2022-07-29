@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.Primary,
     paddingHorizontal: 20,
     borderRadius: 0,
-    marginBottom: 0,
+    marginBottom: 50,
     // alignItems:'center'
   },
   topHeding: {
@@ -94,12 +94,15 @@ const styles = StyleSheet.create({
   },
   CamReverseIcon: {
     fontSize: 20,
+    color:colors.black
   },
   FlashIcon: {
     fontSize: 20,
+    color:colors.black
   },
   SubmitIcon: {
     fontSize: 20,
+    color:colors.black
   },
   // =========================Reward getting sheet styles
   centeredView: {

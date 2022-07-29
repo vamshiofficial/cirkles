@@ -30,10 +30,11 @@ const styles = StyleSheet.create({
   HeaderHedding: {
     fontFamily: fonts.PrimarySemiBoldFont,
     fontSize: fonts.FontHeadding,
+    color:colors.black
   },
   HeaderBody: {
     fontFamily: fonts.PrimarySemiBoldFont,
-    fontSize: fonts.FontSubHeadding,
+    fontSize: fonts.FontBody,
     color: colors.black2,
   },
   // =======================home items

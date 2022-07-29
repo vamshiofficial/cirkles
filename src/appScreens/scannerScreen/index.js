@@ -130,7 +130,7 @@ const ScannerSheet = ({navigation}) => {
   };
   const TopConatiner = () => {
     return (
-      <View style={{marginTop: 0}}>
+      <View style={{marginTop: 0,}}>
         <Text style={styles.topHeding}>Scan a QR Code</Text>
         <Text style={styles.topText}>
           Please point your camera to the qr code that is presented on a cup.If

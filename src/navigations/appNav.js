@@ -12,7 +12,7 @@ import styles from './styles';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 import fonts from '../../assets/custom/fonts';
 import ScannerSheet from '../appScreens/scannerScreen';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 function AppNav() {
   const navigation = useNavigation();
   return (
@@ -20,14 +20,15 @@ function AppNav() {
       <Tab.Navigator
         initialRouteName="Home"
         screenOptions={{
-          tabBarActiveTintColor: colors.Primary,
+          tabBarActiveTintColor: colors.black,
           tabBarInactiveTintColor: colors.white3,
           tabBarStyle: {
             backgroundColor: colors.white,
             shadowOpacity: 0,
             elevation: 0,
             borderTopWidth: 0,
-            borderTopColor:'red'
+            borderTopColor: 'red',
+            borderBottomWidth: 0,
           },
           tabBarItemStyle: {marginHorizontal: 0},
         }}>
@@ -36,7 +37,7 @@ function AppNav() {
           component={HomeScreen}
           options={{
             headerShown: true,
-            headerStyle: {backgroundColor: colors.Primary,elevation:0},
+            headerStyle: {backgroundColor: colors.Primary, elevation: 0},
             headerRight: () => (
               <Image
                 style={styles.HomeTopMenuImg}
@@ -46,9 +47,9 @@ function AppNav() {
               />
             ),
             headerLeft: () => (
-              <TouchableOpacity style={styles.HomeTopMenuCon}
-              onPress={() => navigation.navigate('SettingsScreen')}
-              >
+              <TouchableOpacity
+                style={styles.HomeTopMenuCon}
+                onPress={() => navigation.navigate('SettingsScreen')}>
                 <IonIcon
                   name="settings-outline"
                   style={styles.HomeTopMenuIcon}
@@ -61,13 +62,20 @@ function AppNav() {
             ),
             tabBarLabel: 'Home',
             headerTitle: '',
-            // tabBarShowLabel: false,
+            tabBarShowLabel: false,
             tabBarIcon: ({color, size, focused}) => (
-              <IonIcon
-                name="ios-home-outline"
-                color={color}
-                size={focused ? 20 : 18}
-              />
+              <View
+                style={{
+                  backgroundColor: focused ? colors.white : 'white',
+                  padding: 10,
+                  borderRadius: 25,
+                }}>
+                <IonIcon
+                  name="ios-home-outline"
+                  color={color}
+                  size={focused ? 20 : 18}
+                />
+              </View>
             ),
           }}
         />
@@ -83,14 +91,21 @@ function AppNav() {
           // })}
           options={{
             tabBarLabel: 'Scanner',
-            headerShown:false,
-            // tabBarShowLabel: false,
+            headerShown: false,
+            tabBarShowLabel: false,
             tabBarIcon: ({color, size, focused}) => (
-              <IonIcon
-                name="ios-scan-sharp"
-                color={color}
-                size={focused ? 20 : 18}
-              />
+              <View
+                style={{
+                  backgroundColor: focused ? colors.white : 'white',
+                  padding: 10,
+                  borderRadius: 25,
+                }}>
+                <IonIcon
+                  name="ios-scan-sharp"
+                  color={color}
+                  size={focused ? 20 : 18}
+                />
+              </View>
             ),
           }}
         />
@@ -105,16 +120,26 @@ function AppNav() {
               backgroundColor: colors.white,
               borderBottomWidth: 0,
               shadowOpacity: 0,
-              elevation:0
+              elevation: 0,
             },
-            headerTitleStyle: {fontFamily: fonts.PrimaryBoldFont,color:colors.white},
+            headerTitleStyle: {
+              fontFamily: fonts.PrimaryBoldFont,
+              color: colors.white,
+            },
             tabBarShowLabel: false,
             tabBarIcon: ({color, size, focused}) => (
-              <IonIcon
-                name="trophy-outline"
-                color={color}
-                size={focused ? 20 : 18}
-              />
+              <View
+                style={{
+                  backgroundColor: focused ? colors.white : 'white',
+                  padding: 10,
+                  borderRadius: 25,
+                }}>
+                <IonIcon
+                  name="trophy-outline"
+                  color={color}
+                  size={focused ? 20 : 18}
+                />
+              </View>
             ),
           }}
         />
@@ -126,18 +151,29 @@ function AppNav() {
             headerTitleAlign: 'left',
             headerTitleStyle: {fontFamily: fonts.PrimaryBoldFont},
             tabBarLabel: 'Notifications',
-            headerStyle: {backgroundColor: colors.Primary,shadowOpacity:0,elevation:0},
+            headerStyle: {
+              backgroundColor: colors.Primary,
+              shadowOpacity: 0,
+              elevation: 0,
+            },
             tabBarShowLabel: false,
             tabBarIcon: ({color, size, focused}) => (
-              <SimpleLineIcons
-                name="bell"
-                color={color}
-                size={focused ? 20 : 18}
-              />
+              <View
+                style={{
+                  backgroundColor: focused ? colors.white : 'white',
+                  padding: 10,
+                  borderRadius: 25,
+                }}>
+                <SimpleLineIcons
+                  name="bell"
+                  color={color}
+                  size={focused ? 20 : 18}
+                />
+              </View>
             ),
           }}
         />
-        <Tab.Screen
+        {/* <Tab.Screen
           name="Pay"
           component={NotificationsScreen}
           options={{
@@ -155,7 +191,7 @@ function AppNav() {
               />
             ),
           }}
-        />
+        /> */}
       </Tab.Navigator>
       {/* <ScannerSheet visible={visible} setVisible={setVisible} /> */}
     </>
