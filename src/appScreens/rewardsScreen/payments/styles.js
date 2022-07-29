@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     alignSelf:'flex-end',
     fontSize:30,
     color:colors.PrimaryBlack,
-    marginTop:25,
+    marginTop:0,
   },
   topHeding: {
     fontFamily: fonts.PrimaryBoldFont,

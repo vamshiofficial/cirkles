@@ -13,6 +13,7 @@ import fonts from '../../../../assets/custom/fonts';
 import colors from '../../../../assets/custom/colors';
 import RNOtpVerify from 'react-native-otp-verify';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 const Generate_Pin = props => {
@@ -32,6 +33,20 @@ const Generate_Pin = props => {
     Keyboard.dismiss();
     // this.setState({ otp });
   };
+  const [Mobile, setMobile] = useState('yes')
+  useEffect(() => {
+    const GetUserId = async () => {
+      let id = '';
+      try {
+        id = await AsyncStorage.getItem('userMobile');
+        setMobile(id);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    GetUserId();
+  }, [])
+  
   return (
     <View>
       <Modal
@@ -62,13 +77,13 @@ const Generate_Pin = props => {
               <View
                 style={{
                   alignItems: 'flex-start',
-                  width: '93%',
+                  width: '90%',
                 }}>
-                <Text style={styles.headingText}>Create ESY PIN</Text>
+                <Text style={styles.headingText}>Create/Update ESY PIN</Text>
                 <Text style={styles.enter_otp}>Enter Otp</Text>
                 <Text style={styles.enter_otp_text}>
                   Enter Otp that we just sent to your mobile number
-                  (9505504113).
+                  ({Mobile}).
                 </Text>
                 <View style={styles.otp_input_con}>
                   <OTPInputView
@@ -153,9 +168,14 @@ const styles = StyleSheet.create({
     fontFamily: fonts.PrimaryBoldFont,
     fontSize: fonts.FontMainHeading,
     color: colors.black,
+    marginBottom:15,
+    borderBottomWidth:1,
+    width:'100%',
+    paddingBottom:15,
+    borderColor:colors.white1
   },
   enter_otp: {
-    fontFamily: fonts.PrimarySemiBoldFont,
+    fontFamily: fonts.PrimaryBoldFont,
     fontSize: fonts.FontSubHeadding,
     textAlign: 'left',
     width: '100%',

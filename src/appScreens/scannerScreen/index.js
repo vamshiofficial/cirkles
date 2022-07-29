@@ -28,7 +28,7 @@ const ScannerSheet = ({navigation}) => {
   const [Currect_UserId, setCurrect_UserId] = useState('');
   // ---reward modal
   const [isRewardGetting, setisRewardGetting] = useState(true);
-  const [RewardModal, setRewardModal] = useState(true);
+  const [RewardModal, setRewardModal] = useState(false);
   const [RewardModalType, setRewardModalType] = useState('');
   const [RewardModalMsg, setRewardModalMsg] = useState('');
   const [RewardModalAmount, setRewardModalAmount] = useState(0);
@@ -136,14 +136,14 @@ const ScannerSheet = ({navigation}) => {
           Please point your camera to the qr code that is presented on a cup.If
           it’s broken or not scanning Enter the below to get your reward.
         </Text>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => {
             GetTheReward('5', 54);
             setRewardModal(true);
             setisRewardGetting(true);
           }}>
           <Text>get my reward</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     );
   };

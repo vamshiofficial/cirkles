@@ -48,8 +48,10 @@ const PayScanerSheet = props => {
       if (cupResult === 'PAYVAHHCIRCLE') {
         props.EnterAmount(result);
         props.setOutletId(result);
+        // props.setPageLoader(false);
       } else {
         alert('invalid qr code', result);
+        props.setPageLoader(false);
       }
     } else {
       alert('login first');

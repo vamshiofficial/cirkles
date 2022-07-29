@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.Primary,
     paddingHorizontal: 20,
     borderRadius: 0,
-    marginBottom: 65,
+    marginBottom: 0,
     // alignItems:'center'
   },
   topHeding: {

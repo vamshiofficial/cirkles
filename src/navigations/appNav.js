@@ -18,7 +18,7 @@ function AppNav() {
   return (
     <>
       <Tab.Navigator
-        initialRouteName="Rewards"
+        initialRouteName="Home"
         screenOptions={{
           tabBarActiveTintColor: colors.Primary,
           tabBarInactiveTintColor: colors.white3,

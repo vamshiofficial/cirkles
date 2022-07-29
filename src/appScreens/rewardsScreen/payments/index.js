@@ -57,6 +57,7 @@ const PaymentsSection = () => {
   // -----related to esy pin
   const [userPaymentsPin, setuserPaymentsPin] = useState('no');
   const [PinInput, setPinInput] = useState('');
+  const [PinError, setPinError] = useState(false)
   // --related to new pin
   const [NewPin, setNewPin] = useState('');
   const [NewPinVerify, setNewPinVerify] = useState(null);
@@ -130,7 +131,8 @@ const PaymentsSection = () => {
     if (userPaymentsPin === pin) {
       PayThisNow(OutletId, Currect_UserId, PayingAmount);
     } else {
-      alert('not matched pin');
+      // alert('not matched pin');
+      setPinError(true)
     }
   };
   // ----------------------------------------generate new pin
@@ -177,7 +179,7 @@ const PaymentsSection = () => {
     if (OtpNumber === num) {
       setOtpNumberVerify(true);
     } else {
-      setOtpNumberVerify(true);
+      setOtpNumberVerify(false);
     }
   };
   const CreateNewPinNow = num => {
@@ -278,6 +280,7 @@ const PaymentsSection = () => {
           CheckPayPinNow={CheckPayPinNow}
           GenerateThePin={GenerateThePin}
           setCancelModal={setCancelModal}
+          PinError={PinError}
         />
       ) : ThePageStatus === 'RESULTMODAL' ? (
         <RESULT_MODAL

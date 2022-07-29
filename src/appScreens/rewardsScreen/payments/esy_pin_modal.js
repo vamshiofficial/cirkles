@@ -45,7 +45,7 @@ const ENTER_ESY_PIN = props => {
               }
               style={[
                 styles.close_btn,
-                {marginTop: Platform.OS === 'android' ? 15 : 30},
+                {marginTop: Platform.OS === 'android' ? 10 : 30},
               ]}>
               <Ionicons name="close-circle" style={styles.close_sheet_icon} />
             </TouchableOpacity>
@@ -54,9 +54,9 @@ const ENTER_ESY_PIN = props => {
             <>
               {props.userPaymentsPin !== 'none' ? (
                 <>
-                  <Text style={styles.header_text}>Enter Esy pin</Text>
+                  <Text style={styles.header_text}>Esy pin</Text>
                   <Text style={styles.body_text}>
-                    pin used to make transactions
+                    Enter your ESY pin below.
                   </Text>
                   <OTPInputView
                     style={{width: '70%', height: 100, alignContent: 'center'}}
@@ -70,6 +70,14 @@ const ENTER_ESY_PIN = props => {
                       props.CheckPayPinNow(code);
                     }}
                   />
+                  {props.PinError ? (
+                    <View style={styles.row_error}>
+                      <Text style={styles.pin_error}>Entered pin is in correct.</Text>
+                      <TouchableOpacity style={styles.learn_more} onPress={props.GenerateThePin}>
+                      <Text style={styles.learn_more_text}>Update Pin.</Text>
+                    </TouchableOpacity>
+                    </View>
+                  ) : null}
                   <View style={styles.note_view}>
                     <Text style={styles.note_text}>
                       Note: This not your bank balance. It's just an amount that
@@ -214,4 +222,21 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: colors.white,
   },
+  row_error:{
+    flexDirection:'row',
+    alignItems:'center',
+    width:'100%',
+    justifyContent:'center',
+    borderTopWidth:1,
+    borderBottomWidth:1,
+    borderColor:colors.bglight
+  },
+  pin_error:{
+    color: colors.red,
+    fontFamily: fonts.PrimarySemiBoldFont,
+    textAlign:'center',
+    // width:'100%',
+    marginVertical:10,
+    marginRight:10
+  }
 });

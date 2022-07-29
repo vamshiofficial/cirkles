@@ -52,7 +52,7 @@ const ENTER_AMOUNT = props => {
             </Text>
             <View style={styles.main_view}>
               <Text style={styles.body_text}>
-                You are paying {props.PayingAmount}
+                You are paying
               </Text>
               <View style={styles.input_row}>
                 <Text style={styles.rupee_text}>₹</Text>

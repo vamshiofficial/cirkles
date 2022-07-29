@@ -60,13 +60,14 @@ export default PayingModal;
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.3)',
+    // paddingTop:DeviceHeight*0.2
   },
   modalView: {
     width: DeviceWidth * 0.9,
-    marginBottom: DeviceHeight * 0.06,
+    marginBottom: DeviceHeight * 0.1,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     borderRadius: 10,
