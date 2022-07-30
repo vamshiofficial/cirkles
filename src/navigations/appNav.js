@@ -18,7 +18,7 @@ function AppNav() {
   return (
     <>
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Rewards"
         screenOptions={{
           tabBarActiveTintColor: colors.black,
           tabBarInactiveTintColor: colors.white3,
@@ -37,7 +37,11 @@ function AppNav() {
           component={HomeScreen}
           options={{
             headerShown: true,
-            headerStyle: {backgroundColor: colors.Primary, elevation: 0},
+            headerStyle: {
+              backgroundColor: colors.black,
+              elevation: 0,
+              shadowOpacity: 0,
+            },
             headerRight: () => (
               <Image
                 style={styles.HomeTopMenuImg}

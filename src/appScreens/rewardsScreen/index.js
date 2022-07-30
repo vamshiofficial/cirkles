@@ -25,8 +25,8 @@ import {useNavigation} from '@react-navigation/native';
 
 function HeaderSection() {
   const navigation = useNavigation();
-  const endTime = new Date('July 28, 2022 00:00:00').getTime();
-  const [currentTime,setcurrentTime] = useState(new Date().getTime());
+  const endTime = new Date('July 31, 2022 00:00:00').getTime();
+  const [currentTime, setcurrentTime] = useState(new Date().getTime());
   const gap = endTime - currentTime; //177670892
 
   const seconds = 1000; // in milliseconds
@@ -35,13 +35,13 @@ function HeaderSection() {
   const days = hours * 24;
 
   const remainingDays = Math.floor(gap / days);
-  const remainingHours = Math.floor( (gap % days) / hours);
-  const remainingMinutes = Math.floor( (gap % hours) / minutes);
-  const remainingSeconds = Math.floor( (gap % minutes) / seconds);
+  const remainingHours = Math.floor((gap % days) / hours);
+  const remainingMinutes = Math.floor((gap % hours) / minutes);
+  const remainingSeconds = Math.floor((gap % minutes) / seconds);
 
-  useEffect(()=>{
-    setTimeout(()=>setcurrentTime(new Date().getTime()),1000);
-  },[currentTime]) // 11:30:55
+  useEffect(() => {
+    setTimeout(() => setcurrentTime(new Date().getTime()), 1000);
+  }, [currentTime]); // 11:30:55
   return (
     <View style={styles.HeaderSection}>
       <View style={styles.rewardCount}>
@@ -54,35 +54,46 @@ function HeaderSection() {
       <View style={styles.top_btn_grp}>
         <TouchableOpacity
           style={styles.top_btn}
-          onPress={() => navigation.navigate('PaymentsSection')}>
+          onPress={() =>
+            navigation.navigate('PayOutletScaner')
+            // navigation.navigate('PaymentsSection')
+            // navigation.navigate('PaymentsSection', {
+            //   GetOutletId: 2,
+            //   GetPayUserId:null,
+            // })
+          }>
           <MaterialCommunityIcons name="qrcode-scan" style={styles.top_icon} />
           <Text style={styles.top_btn_text}>Scan esy pay</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.top_btn}
-          onPress={() => navigation.navigate('SearchFriend')}
-        >
+        <TouchableOpacity
+          style={styles.top_btn}
+          onPress={() => navigation.navigate('SearchFriend')}>
           <Ionicons name="md-arrow-redo-outline" style={styles.top_icon} />
           <Text style={styles.top_btn_text}>Gift to friend.</Text>
         </TouchableOpacity>
       </View>
-        <View style={styles.countdown_row}>
-          <View style={styles.countdown}>
-              <Text style={styles.countdown_text}>{remainingDays}</Text>
-              <Text style={styles.countdown_name}>Days</Text>
-          </View>
-          <View style={styles.countdown}>
-              <Text style={styles.countdown_text}>{remainingHours}</Text>
-              <Text style={styles.countdown_name}>Hours</Text>
-          </View>
-          <View style={styles.countdown}>
-              <Text style={styles.countdown_text}>{remainingMinutes}</Text>
-              <Text style={styles.countdown_name}>Minutes</Text>
-          </View>
-          <View style={styles.countdown}>
-              <Text style={styles.countdown_text}>{remainingSeconds}</Text>
-              <Text style={styles.countdown_name}>Seconds</Text>
-          </View>
+      {/* <Image 
+      source={require('../../../assets/images/test.gif')}
+      style={{width:250,height:250}}
+      /> */}
+      <View style={styles.countdown_row}>
+        <View style={styles.countdown}>
+          <Text style={styles.countdown_text}>{remainingDays}</Text>
+          <Text style={styles.countdown_name}>Days</Text>
         </View>
+        <View style={styles.countdown}>
+          <Text style={styles.countdown_text}>{remainingHours}</Text>
+          <Text style={styles.countdown_name}>Hours</Text>
+        </View>
+        <View style={styles.countdown}>
+          <Text style={styles.countdown_text}>{remainingMinutes}</Text>
+          <Text style={styles.countdown_name}>Minutes</Text>
+        </View>
+        <View style={styles.countdown}>
+          <Text style={styles.countdown_text}>{remainingSeconds}</Text>
+          <Text style={styles.countdown_name}>Seconds</Text>
+        </View>
+      </View>
       {/* <View style={styles.top_btn_grp}>
         <TouchableOpacity style={styles.top_btn}>
           <Octicons name="history" style={styles.top_icon} />
@@ -112,7 +123,7 @@ const RewardsScreen = ({navigation}) => {
   const [pageCurrent, setPageCurrent] = useState(1);
   const [reload, setReload] = useState(true);
   // ------payments related
-  const [PayScanVisible, setPayScanVisible] = useState(false)
+  const [PayScanVisible, setPayScanVisible] = useState(false);
   //-------
   const [RewardData, SetRewardData] = useState({
     id: '',
@@ -142,23 +153,28 @@ const RewardsScreen = ({navigation}) => {
   }, []);
   // ====
   useEffect(() => {
-    // return () => {
     if (!lastpage_reached) {
       fetchdata();
     }
-    // };
   }, [pageCurrent]);
   //-------------------------------
-  const fetchdata = () => {
+  const fetchdata = async () => {
+    let id = '';
+    try {
+      id = await AsyncStorage.getItem('userToken');
+      setCurrect_UserId(id);
+    } catch (e) {
+      console.log(e);
+    }
     SetDataLoading(true);
-    if (Currect_UserId !== null) {
+    if (id !== null) {
       const apiURL =
-        `https://esigm.com/thecircle/v1/rewards.php?action=get_all___rewards_list&user_id=${Currect_UserId}&page=` +
+        `https://esigm.com/thecircle/v1/rewards.php?action=get_all___rewards_list&user_id=${id}&page=` +
         pageCurrent;
       fetch(apiURL)
         .then(res => res.json())
         .then(resJson => {
-          console.log(resJson);
+          // console.log(resJson);
           SetDataLoading(false);
           if (resJson === 'NO_DATA_FOUND') {
             SetDataLoading(false);
@@ -275,9 +291,7 @@ const RewardsScreen = ({navigation}) => {
               </List>
             ) : (
               <>
-                <HeaderSection 
-                
-                />
+                <HeaderSection />
                 <View style={styles.empty_con}>
                   <FeatherIcon
                     active

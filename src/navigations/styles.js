@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   HomeTopMenuIcon: {
     fontSize: 20,
     marginLeft: 15,
-    color: colors.black,
+    color: colors.white,
   },
   HomeTopMenuImg: {
     width: 25,

@@ -18,19 +18,24 @@ import FullPageLoader from '../../components/FullPageLoader';
 //------------
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
-const PaymentsSection = () => {
+const PaymentsSection = ({route}) => {
+  const {GetOutletId, GetPayUserId} = route.params;
+  useEffect(() => {
+    if (GetOutletId !== null && GetPayUserId === null) {
+      EnterAmount(GetOutletId, GetPayUserId, 'Outlet');
+      // alert('pay outlet');
+    } else if (GetPayUserId !== null && GetOutletId === null) {
+      // alert('pay/ share user');
+      EnterAmount(GetOutletId, GetPayUserId, 'User');
+    } else {
+      alert('somthing big wrong');
+    }
+  }, [GetOutletId, GetPayUserId]);
+
   // back press handler
   const [CancelModal, setCancelModal] = useState(false);
   useEffect(() => {
     const backAction = () => {
-      // Alert.alert('Hold on!', 'Are you sure you want to go back?', [
-      //   {
-      //     text: 'Cancel',
-      //     onPress: () => null,
-      //     style: 'cancel',
-      //   },
-      //   {text: 'YES', onPress: () => BackHandler.exitApp()},
-      // ]);
       setCancelModal(true);
       return true;
     };
@@ -45,19 +50,23 @@ const PaymentsSection = () => {
   //=================== states management
   // all pages
   const [Currect_UserId, setCurrect_UserId] = useState('');
-  // below statuses {SCANNER,AMOUNTMODAL,PINMODAL,RESULTMODAL}
-  const [ThePageStatus, setThePageStatus] = useState('SCANNER');
+  // below statuses {AMOUNTMODAL,PINMODAL,RESULTMODAL}
+  const [ThePageStatus, setThePageStatus] = useState('AMOUNTMODAL');
   // pay scan page related
-  const [OutletId, setOutletId] = useState('');
+  // const [OutletId, setOutletId] = useState('');
   // -----enter amount modal related
   const [PageLoader, setPageLoader] = useState(false);
-  const [Address, setAddress] = useState('no');
-  const [ManagerName, setManagerName] = useState('no');
+  const [PaymentType, setPaymentType] = useState(null);
+  const [ToUserProfileUrl, setToUserProfileUrl] = useState(
+    'https://esigm.com/thecircle/v1/used_images/no_user.png',
+  );
+  const [Address, setAddress] = useState('');
+  const [PayingToName, setPayingToName] = useState('');
   const [PayingAmount, setPayingAmount] = useState(0);
   // -----related to esy pin
-  const [userPaymentsPin, setuserPaymentsPin] = useState('no');
+  const [userPaymentsPin, setuserPaymentsPin] = useState('');
   const [PinInput, setPinInput] = useState('');
-  const [PinError, setPinError] = useState(false)
+  const [PinError, setPinError] = useState(false);
   // --related to new pin
   const [NewPin, setNewPin] = useState('');
   const [NewPinVerify, setNewPinVerify] = useState(null);
@@ -72,6 +81,13 @@ const PaymentsSection = () => {
   const [PBodyText, setPBodyText] = useState(
     "Don't press back or close the app.",
   );
+  const [TransId, setTransId] = useState('');
+  const [TransTime, setTransTime] = useState('');
+  const [TransToUserName, setTransToUserName] = useState('');
+  const [TransToUserPic, setTransToUserPic] = useState(
+    'https://esigm.com/thecircle/v1/used_images/no_user.png',
+  );
+  const [TransAmount, setTransAmount] = useState('');
   useEffect(() => {
     const GetUserId = async () => {
       let id = '';
@@ -85,11 +101,16 @@ const PaymentsSection = () => {
     GetUserId();
   }, []);
   // ------------------------------------------enter amount
-  const EnterAmount = __outlet_id => {
-    setTimeout(() => {
-      setPageLoader(false);
-    }, 2000);
-    // alert(__outlet_id);
+  const EnterAmount = async (__outlet_id, __user_id, __pay_type) => {
+    setPaymentType(__pay_type);
+    setPageLoader(true);
+    let id = '';
+    try {
+      id = await AsyncStorage.getItem('userToken');
+      setCurrect_UserId(id);
+    } catch (e) {
+      console.log(e);
+    }
     var InsertAPIURL = 'https://esigm.com/thecircle/v1/payments_server.php';
     var headers = {
       Accept: 'application/json',
@@ -99,7 +120,9 @@ const PaymentsSection = () => {
     var Data = {
       action: 'GET_OUTLET_INFO',
       outlet_id: __outlet_id,
-      user_id: Currect_UserId,
+      pay_to_user_id: __user_id,
+      pay_type: __pay_type,
+      user_id: id,
     };
     fetch(InsertAPIURL, {
       method: 'POST',
@@ -108,11 +131,20 @@ const PaymentsSection = () => {
     })
       .then(response => response.json())
       .then(resJson => {
+        // console.log('enter amount data', resJson);
         if (resJson !== 'INVALID_TRANSACTION') {
-          setAddress(resJson[0].address);
-          setManagerName(resJson[0].manager_name);
-          setuserPaymentsPin(resJson[0].user_pin);
-          setThePageStatus('AMOUNTMODAL');
+          if (__pay_type === 'Outlet') {
+            setAddress(resJson[0].address);
+            setToUserProfileUrl(resJson[0].to_user_profile_pic);
+            setPayingToName(resJson[0].to_user_name);
+            setuserPaymentsPin(resJson[0].user_pin);
+            setPageLoader(false);
+          } else if (__pay_type === 'User') {
+            setToUserProfileUrl(resJson[0].to_user_profile_pic);
+            setPayingToName(resJson[0].to_user_name);
+            setuserPaymentsPin(resJson[0].user_pin);
+            setPageLoader(false);
+          }
         } else {
           alert('error');
         }
@@ -129,10 +161,16 @@ const PaymentsSection = () => {
   // -----------------------------------------enter pin
   const CheckPayPinNow = pin => {
     if (userPaymentsPin === pin) {
-      PayThisNow(OutletId, Currect_UserId, PayingAmount);
+      PayThisNow(
+        GetOutletId,
+        GetPayUserId,
+        PaymentType,
+        Currect_UserId,
+        PayingAmount,
+      );
     } else {
       // alert('not matched pin');
-      setPinError(true)
+      setPinError(true);
     }
   };
   // ----------------------------------------generate new pin
@@ -215,7 +253,13 @@ const PaymentsSection = () => {
       });
   };
   // -----------------------------------------pay this now
-  const PayThisNow = (_outlet_id, _user_id, _amount) => {
+  const PayThisNow = (
+    _outlet_id,
+    _pay_to_user_id,
+    _payment_type,
+    _user_id,
+    _amount,
+  ) => {
     setisPaying(true);
     setPayingModalVisible(true);
     setThePageStatus('RESULTMODAL');
@@ -228,6 +272,8 @@ const PaymentsSection = () => {
     var Data = {
       action: 'PAY_THIS_NOW',
       outlet_id: _outlet_id,
+      to_user_id: _pay_to_user_id,
+      payment_type: _payment_type,
       user_id: _user_id,
       amount: _amount,
     };
@@ -239,7 +285,18 @@ const PaymentsSection = () => {
       .then(response => response.json())
       .then(RES => {
         setTimeout(() => {
-          setPModalType(RES[0].type), setPBodyText(RES[0].message);
+          // if (RES[0].type == 'success') {
+            setPModalType(RES[0].type);
+            setPBodyText(RES[0].message);
+            // setTransId(RES[0].trans_id);
+            // setTransTime(RES[0].trans_time);
+            // setTransToUserName(RES[0].to_username);
+            // setTransToUserPic(RES[0].to_profile_pic);
+            // setTransAmount(RES[0].amount);
+            // console.log(JSON.stringify(RES));
+          // } else {
+          //   setPModalType(RES[0].type), setPBodyText(RES[0].message);
+          // }
         }, 5000);
       })
       .catch(function (gg) {
@@ -255,46 +312,57 @@ const PaymentsSection = () => {
   };
   return (
     <>
-      {ThePageStatus === 'SCANNER' ? (
-        <PayScanerSheet
-          Currect_UserId={Currect_UserId}
-          EnterAmount={EnterAmount}
-          userPaymentsPin={userPaymentsPin}
-          setOutletId={setOutletId}
-          setCancelModal={setCancelModal}
-          setPageLoader={setPageLoader}
-        />
-      ) : ThePageStatus === 'AMOUNTMODAL' ? (
-        <ENTER_AMOUNT
-          Address={Address}
-          ManagerName={ManagerName}
-          PayingAmount={PayingAmount}
-          setPayingAmount={setPayingAmount}
-          EnterPayPin={EnterPayPin}
-          setCancelModal={setCancelModal}
-        />
-      ) : ThePageStatus === 'PINMODAL' ? (
-        <ENTER_ESY_PIN
-          PinInput={PinInput}
-          setPinInput={setPinInput}
-          CheckPayPinNow={CheckPayPinNow}
-          GenerateThePin={GenerateThePin}
-          setCancelModal={setCancelModal}
-          PinError={PinError}
-        />
-      ) : ThePageStatus === 'RESULTMODAL' ? (
-        <RESULT_MODAL
-          PayingModalVisible={PayingModalVisible}
-          setPayingModalVisible={setPayingModalVisible}
-          PBodyText={PBodyText}
-          PModalType={PModalType}
-          closePaying={closePaying}
-        />
-      ) : (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <Text>somthing wrong</Text>
-        </View>
-      )}
+      {
+        // ThePageStatus === 'SCANNER' ? (
+        //   <PayScanerSheet
+        //     Currect_UserId={Currect_UserId}
+        //     EnterAmount={EnterAmount}
+        //     userPaymentsPin={userPaymentsPin}
+        //     setOutletId={setOutletId}
+        //     setCancelModal={setCancelModal}
+        //     setPageLoader={setPageLoader}
+        //   />
+        // ) :
+        ThePageStatus === 'AMOUNTMODAL' ? (
+          <ENTER_AMOUNT
+            Address={Address}
+            PaymentType={PaymentType}
+            PayingToName={PayingToName}
+            ToUserProfileUrl={ToUserProfileUrl}
+            PayingAmount={PayingAmount}
+            setPayingAmount={setPayingAmount}
+            EnterPayPin={EnterPayPin}
+            setCancelModal={setCancelModal}
+          />
+        ) : ThePageStatus === 'PINMODAL' ? (
+          <ENTER_ESY_PIN
+            PinInput={PinInput}
+            setPinInput={setPinInput}
+            CheckPayPinNow={CheckPayPinNow}
+            GenerateThePin={GenerateThePin}
+            setCancelModal={setCancelModal}
+            PinError={PinError}
+          />
+        ) : ThePageStatus === 'RESULTMODAL' ? (
+          <RESULT_MODAL
+            PayingModalVisible={PayingModalVisible}
+            setPayingModalVisible={setPayingModalVisible}
+            PBodyText={PBodyText}
+            PModalType={PModalType}
+            closePaying={closePaying}
+            TransId={TransId}
+            TransTime={TransTime}
+            TransToUserName={TransToUserName}
+            TransToUserPic={TransToUserPic}
+            TransAmount={TransAmount}
+          />
+        ) : (
+          <View
+            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+            <Text>somthing wrong</Text>
+          </View>
+        )
+      }
       <Generate_Pin
         OtpNumber={OtpNumber}
         setOtpNumber={setOtpNumber}

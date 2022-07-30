@@ -9,12 +9,14 @@ import SubmitBtn from '../components/submitBtn';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Body, Left, ListItem, Right} from 'native-base';
 import colors from '../../../assets/custom/colors';
+import OurAlert from '../components/alert';
 // import { Body, Left, ListItem, Right } from 'native-base';
 const HomeScreen = ({navigation}) => {
   const {LogOutNow, LoginNow} = useContext(AuthContext);
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView contentContainerStyle={styles.con}>
+      {/* <OurAlert /> */}
         <Animatable.View
           animation={'bounce'}
           duration={1000}

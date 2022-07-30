@@ -10,10 +10,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   HeaderSection: {
-    backgroundColor: colors.Primary,
+    backgroundColor: colors.black,
     paddingTop: 20,
     paddingBottom: 30,
-    paddingHorizontal: 15,
+    paddingHorizontal: 25,
     borderBottomLeftRadius: 35,
     borderBottomRightRadius: 35,
     justifyContent: 'center',
@@ -30,12 +30,12 @@ const styles = StyleSheet.create({
   HeaderHedding: {
     fontFamily: fonts.PrimarySemiBoldFont,
     fontSize: fonts.FontHeadding,
-    color:colors.black
+    color:colors.white
   },
   HeaderBody: {
     fontFamily: fonts.PrimarySemiBoldFont,
     fontSize: fonts.FontBody,
-    color: colors.black2,
+    color: colors.white,
   },
   // =======================home items
   item__con: {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   item__left: {
     width: 55,
     height: 55,
-    backgroundColor: colors.Primary,
+    backgroundColor: colors.bglight,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius:50,

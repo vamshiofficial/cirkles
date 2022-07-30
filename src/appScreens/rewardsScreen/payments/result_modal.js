@@ -8,6 +8,7 @@ import {
   Alert,
   ActivityIndicator,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import React, {useState} from 'react';
 import colors from '../../../../assets/custom/colors';
@@ -15,6 +16,7 @@ import fonts from '../../../../assets/custom/fonts';
 import * as Animatable from 'react-native-animatable';
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
+import Ionicons from 'react-native-vector-icons/Ionicons';
 const PayingModal = props => {
   //header
   // type
@@ -22,35 +24,76 @@ const PayingModal = props => {
   // props.PayingModalVisible
   return (
     <Animatable.View animation={'slideInUp'} duration={500} style={{flex: 1}}>
-      <View
-        style={[
-          styles.centeredView,
-          {
-            backgroundColor:
-              props.PModalType === 'loading'
-                ? colors.bglight
-                : props.PModalType === 'success'
-                ? colors.green
-                : props.PModalType === 'failed'
-                ? colors.opens
-                : colors.bglight,
-          },
-        ]}>
-        <View style={[styles.modalView]}>
-          {props.PModalType === 'loading' ? (
+      {props.PModalType === 'loading' ? (
+        <View
+          style={[
+            styles.centeredView,
+            {
+              backgroundColor: colors.bglight,
+            },
+          ]}>
+          <View style={[styles.modalView]}>
             <ActivityIndicator size={'large'} color={colors.Primary} />
-          ) : null}
-          <Text style={styles.header_text}>{props.PModalType}</Text>
-          <Text style={styles.body_text}>{props.PBodyText}</Text>
-          {props.closePayingModal ? (
-            <TouchableOpacity
-              style={styles.action_btn}
-              onPress={props.closePaying}>
-              <Text style={styles.action_btn_text}>Okay</Text>
-            </TouchableOpacity>
-          ) : null}
+            <Text style={styles.header_text}>{props.PModalType}</Text>
+            <Text style={styles.body_text}>{props.PBodyText}</Text>
+          </View>
         </View>
-      </View>
+      ) : props.PModalType === 'success' ? (
+        <View style={{flex: 1, backgroundColor: colors.white}}>
+          <View style={styles.HeaderSection}>
+            <View style={styles.success_icon_con}>
+              <Ionicons
+                name="md-checkmark-done-circle-sharp"
+                style={styles.success_icon}
+              />
+            </View>
+            <View>
+              <Text style={styles.HedingText}>Transaction Successful </Text>
+              <Text style={styles.amount_text}>
+                ₹ {props.TransAmount} rupees only.
+              </Text>
+            </View>
+          </View>
+          <View style={styles.BodySection}>
+            <View style={styles.sent_to_con}>
+              <Text style={styles.sent_to_}>Sent to</Text>
+            </View>
+            <View style={[styles.row, {marginBottom: 25}]}>
+              <Image
+                source={{uri: props.TransToUserPic}}
+                style={styles.to_user_image}
+              />
+              <View style={styles.user_con}>
+                <Text style={styles.user_name}>{props.TransToUserName}</Text>
+                <Text style={styles.mobile_num}>9505504113</Text>
+              </View>
+            </View>
+
+            <View style={styles.row}>
+              <Text style={styles.table_bold_text}>Transaction ID:</Text>
+              <Text style={styles.table_text}>{props.TransId}</Text>
+            </View>
+            <View style={styles.row}>
+              <Text style={styles.table_bold_text}>Transaction Time:</Text>
+              <Text style={styles.table_text}>{props.TransTime}</Text>
+            </View>
+            <Text style={styles.HeaderText}>{props.PBodyText}</Text>
+          </View>
+        </View>
+      ) : props.PModalType === 'failed' ? (
+        <View
+          style={[
+            styles.centeredView,
+            {
+              backgroundColor: colors.opens,
+            },
+          ]}>
+          <View style={[styles.modalView]}>
+            <Text style={styles.header_text}>{props.PModalType}</Text>
+            <Text style={styles.body_text}>{props.PBodyText}</Text>
+          </View>
+        </View>
+      ) : null}
     </Animatable.View>
   );
 };
@@ -91,6 +134,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.PrimaryBoldFont,
     fontSize: fonts.FontMainHeading,
     textAlign: 'left',
+    color: colors.black,
   },
   body_text: {
     fontFamily: fonts.PrimaryFont,
@@ -106,5 +150,116 @@ const styles = StyleSheet.create({
   action_btn_text: {
     fontFamily: fonts.PrimaryBoldFont,
     color: colors.white,
+  },
+  // =========================success modal
+  HeaderSection: {
+    height: DeviceHeight * 0.2,
+    width: DeviceWidth,
+    flexDirection: 'row',
+    backgroundColor: colors.green,
+    // paddingBottom: 60,
+    paddingVertical: 30,
+    paddingHorizontal: 20,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomLeftRadius: 35,
+    borderBottomRightRadius: 35,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  success_icon_con: {
+    // backgroundColor: colors.w,
+    width: DeviceWidth * 0.2,
+    height: DeviceWidth * 0.2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  success_icon: {
+    fontSize: 70,
+    color: colors.white,
+  },
+  HedingText: {
+    fontFamily: fonts.PrimaryBoldFont,
+    fontSize: fonts.FontMainHeading,
+    color: colors.white,
+  },
+  amount_text: {
+    color: colors.white1,
+    fontSize: fonts.FontHeadding,
+    fontFamily: fonts.PrimaryBoldFont,
+  },
+  HeaderText: {
+    fontFamily: fonts.PrimaryFont,
+    fontSize: fonts.FontBody,
+    color: colors.black,
+    marginTop: 45,
+    backgroundColor: colors.bglight,
+    padding: 25,
+  },
+  BodySection: {
+    flex: 1,
+    // backgroundColor: colors.white,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+    paddingVertical: 40,
+    marginTop: 0,
+    paddingHorizontal: DeviceWidth * 0.05,
+    // marginBottom: -35,
+  },
+  sent_to_con: {
+    borderBottomWidth: 1,
+    marginBottom: 25,
+    paddingVertical: 15,
+    borderBottomColor: colors.white1,
+  },
+  sent_to_: {
+    fontFamily: fonts.PrimarySemiBoldFont,
+    fontSize: fonts.FontSubHeadding,
+    color: colors.black,
+    textTransform: 'uppercase',
+  },
+  to_user_image: {
+    width: DeviceWidth * 0.18,
+    height: DeviceWidth * 0.18,
+    borderRadius: DeviceWidth,
+    borderColor: colors.black,
+    borderWidth: 0,
+    alignSelf: 'center',
+    // marginTop: -DeviceWidth * 0.15 - 25,
+    backgroundColor: colors.white,
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  table_bold_text: {
+    fontFamily: fonts.PrimaryBoldFont,
+    fontSize: fonts.FontSubHeadding,
+    color: colors.white5,
+  },
+  table_text: {
+    fontFamily: fonts.PrimarySemiBoldFont,
+    fontSize: fonts.FontSubHeadding,
+    color: colors.white4,
+    marginLeft: 5,
+  },
+  user_con: {
+    justifyContent: 'center',
+    marginLeft: 15,
+  },
+  user_name: {
+    fontFamily: fonts.PrimarySemiBoldFont,
+    fontSize: fonts.FontSubHeadding,
+    color: colors.black,
+  },
+  mobile_num: {
+    fontFamily: fonts.PrimarySemiBoldFont,
+    fontSize: fonts.FontSubHeadding,
+    color: colors.black,
   },
 });

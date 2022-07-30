@@ -17,22 +17,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 const Generate_Pin = props => {
-  useEffect(() => {
-    RNOtpVerify.getHash().then(console.log).catch(console.log);
-    RNOtpVerify.getOtp()
-      .then(p => RNOtpVerify.addListener(otpHandler))
-      .catch(p => console.log(p));
-    return () => RNOtpVerify.removeListener();
-  }, []);
-  const otpHandler = message => {
-    console.log('message', message);
-    const otpNum = /(\d{4})/g.exec(message)[1];
-    console.log('otp,', otpNum);
-    setotp(otpNum);
-    RNOtpVerify.removeListener();
-    Keyboard.dismiss();
-    // this.setState({ otp });
-  };
+  // useEffect(() => {
+  //   RNOtpVerify.getHash().then(console.log).catch(console.log);
+  //   RNOtpVerify.getOtp()
+  //     .then(p => RNOtpVerify.addListener(otpHandler))
+  //     .catch(p => console.log(p));
+  //   return () => RNOtpVerify.removeListener();
+  // }, []);
+  // const otpHandler = message => {
+  //   console.log('message', message);
+  //   const otpNum = /(\d{4})/g.exec(message)[1];
+  //   console.log('otp,', otpNum);
+  //   setotp(otpNum);
+  //   RNOtpVerify.removeListener();
+  //   Keyboard.dismiss();
+  //   // this.setState({ otp });
+  // };
   const [Mobile, setMobile] = useState('yes')
   useEffect(() => {
     const GetUserId = async () => {

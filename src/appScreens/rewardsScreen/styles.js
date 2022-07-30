@@ -271,9 +271,9 @@ const styles = StyleSheet.create({
   // =====================count down
   countdown_row: {
     flexDirection: 'row',
-    width: '70%',
+    width: '60%',
     alignSelf: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     marginVertical: 10,
   },
   countdown: {

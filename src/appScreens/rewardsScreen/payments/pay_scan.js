@@ -22,11 +22,14 @@ import ENTER_AMOUNT from './amount_modal';
 //------------
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
-const PayScanerSheet = props => {
+const PayOutletScaner = props => {
   const navigation = useNavigation();
   // ---
   const [isFlashOn, setisFlashOn] = useState(false);
   const [isFrontCameraOn, setisFrontCameraOn] = useState(false);
+  // ---
+  const [Currect_UserId, setCurrect_UserId] = useState('');
+  const [PageLoader, setPageLoader] = useState(false);
   const CameraRotate = () => {
     setisFrontCameraOn(!isFrontCameraOn);
   };
@@ -37,8 +40,8 @@ const PayScanerSheet = props => {
   };
   // ---
   const onSuccess = e => {
-    props.setPageLoader(true);
-    if (props.Currect_UserId !== null) {
+    setPageLoader(true);
+    if (Currect_UserId !== null) {
       let text = e.data;
       console.log('scanned data', e.data);
       let result = text.slice(13);
@@ -46,12 +49,16 @@ const PayScanerSheet = props => {
       let cupResult = text.slice(0, 13);
       console.log('the cup res is:', cupResult);
       if (cupResult === 'PAYVAHHCIRCLE') {
-        props.EnterAmount(result);
-        props.setOutletId(result);
+        navigation.navigate('PaymentsSection', {
+          GetOutletId: result,
+          GetPayUserId: null,
+        });
+        // props.EnterAmount(result);
+        // props.setOutletId(result);
         // props.setPageLoader(false);
       } else {
         alert('invalid qr code', result);
-        props.setPageLoader(false);
+        // props.setPageLoader(false);
       }
     } else {
       alert('login first');
@@ -75,7 +82,8 @@ const PayScanerSheet = props => {
       <View style={{marginTop: 0}}>
         <TouchableOpacity
           onPress={
-            () => props.setCancelModal(true)
+            () => console.warn('navigate back')
+            // props.setCancelModal(true)
             // navigation.goBack();
             // props.EnterAmount(2)
 
@@ -84,9 +92,7 @@ const PayScanerSheet = props => {
           }>
           <Ionicons name="close-circle" style={styles.close_sheet_icon} />
         </TouchableOpacity>
-        <Text style={styles.topHeding}>
-          Scan a QR Code to PAY
-        </Text>
+        <Text style={styles.topHeding}>Scan a QR Code to PAY</Text>
         <Text style={styles.topText}>
           Please point your camera to the qr code that is presented in our
           outlet.
@@ -153,4 +159,4 @@ const PayScanerSheet = props => {
   );
 };
 
-export default PayScanerSheet;
+export default PayOutletScaner;

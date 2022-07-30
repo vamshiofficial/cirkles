@@ -9,6 +9,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  Image,
 } from 'react-native';
 import React, {useState} from 'react';
 import colors from '../../../../assets/custom/colors';
@@ -47,13 +48,22 @@ const ENTER_AMOUNT = props => {
             </TouchableOpacity>
           </View>
           <View style={[styles.modalView]}>
-            <Text style={styles.header_text}>
-              Paying to {props.ManagerName} at {props.Address}
-            </Text>
-            <View style={styles.main_view}>
-              <Text style={styles.body_text}>
-                You are paying
+            <Image
+              source={{uri: props.ToUserProfileUrl}}
+              style={styles.to_user_image}
+            />
+            {props.PaymentType === 'Outlet' ? (
+              <Text style={styles.header_text}>
+                Paying to {props.PayingToName} at {props.Address}
               </Text>
+            ) : props.PaymentType === 'User' ? (
+              <Text style={styles.header_text}>
+                Paying to {props.PayingToName}
+              </Text>
+            ) : null}
+
+            <View style={styles.main_view}>
+              <Text style={styles.body_text}>You are paying</Text>
               <View style={styles.input_row}>
                 <Text style={styles.rupee_text}>₹</Text>
                 <TextInput
@@ -130,6 +140,7 @@ const styles = StyleSheet.create({
     fontSize: fonts.FontHeadding,
     alignSelf: 'center',
     color: colors.black1,
+    marginTop: 15,
   },
   body_text: {
     fontFamily: fonts.PrimaryFont,
@@ -204,5 +215,14 @@ const styles = StyleSheet.create({
   close_sheet_icon: {
     fontSize: 25,
     color: colors.white3,
+  },
+  to_user_image: {
+    width: DeviceWidth * 0.3,
+    height: DeviceWidth * 0.3,
+    borderRadius: DeviceWidth,
+    borderColor: colors.black,
+    borderWidth: 4,
+    marginTop: -DeviceWidth * 0.15 - 25,
+    backgroundColor: colors.white,
   },
 });
