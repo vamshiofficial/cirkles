@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
     maxHeight: (DeviceHeight * 85) / 100,
     paddingBottom: 30,
+
   },
   // reward_card: {
   //   backgroundColor: colors.bglight,
@@ -172,6 +173,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
 
     elevation: 5,
+    backgroundColor:colors.white
   },
   pages_text: {
     textAlign: 'center',

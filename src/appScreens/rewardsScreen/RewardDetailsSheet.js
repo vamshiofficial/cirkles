@@ -5,16 +5,6 @@ import {BottomSheet} from 'react-native-btr';
 
 const RewardDetailsSheet = props => {
   // console.log('sheet', props);
-  const RewardData = {
-    image:
-      'https://i.pinimg.com/236x/08/c0/90/08c09014b4405020915298a6cf874b6a--female-faces-girl-photography.jpg',
-    card: '85',
-    payment_status: 'Paid',
-    paid_by: 'PhonePe',
-    posted_at: '08-Dec-2020 01:01 am',
-    paid_at: '26-Feb-2021 01:07 am',
-    id: '456523',
-  };
   return (
     <BottomSheet
       visible={props.Detailsvisible}
@@ -23,29 +13,52 @@ const RewardDetailsSheet = props => {
       <View style={styles.bottomNavigationView}>
         <View style={styles.reward_image_bg}>
           <View style={styles.reward_image}>
-            <Image source={{uri: props.RewardData.image}} style={{flex: 1}} />
+            <Image
+              source={{uri: props.ShowRewardDetails.image_source}}
+              style={{flex: 1}}
+            />
           </View>
         </View>
-        <Text style={styles.pages_text}>
-          Esigm Pages: {props.RewardData.card}
-        </Text>
-        <View style={styles.reward_details}>
-          <Text style={styles.reward_text}>
-            Payment: {props.RewardData.payment_status}
-          </Text>
-          <Text style={styles.reward_text}>
-            PaidUsing: {props.RewardData.paid_by}
-          </Text>
-          <Text style={styles.reward_text}>
-            RequestedTime: {props.RewardData.posted_at}
-          </Text>
-          <Text style={styles.reward_text}>
-            PaidTime: {props.RewardData.paid_at}
-          </Text>
-          <Text style={styles.reward_text}>
-            PaymentID: {props.RewardData.pay_id}
-          </Text>
-        </View>
+        {/* <Text style={styles.pages_text}>
+          Esigm Pages: {props.ShowRewardDetails.app}
+        </Text> */}
+        {props.ShowRewardDetails.app === 'THECIRCLE' ? (
+          <View style={styles.reward_details}>
+            <Text style={styles.reward_text}>
+              Amount: {props.ShowRewardDetails.amount}
+            </Text>
+            <Text style={styles.reward_text}>
+              On: {props.ShowRewardDetails.posted_time}
+            </Text>
+            <Text style={styles.reward_text}>
+              App: {props.ShowRewardDetails.app}
+            </Text>
+            <Text style={styles.reward_text}>
+              RewardFor: {props.ShowRewardDetails.reward_for}
+            </Text>
+            <Text style={styles.reward_text}>
+              PaymentID: {props.ShowRewardDetails.payment_id}
+            </Text>
+          </View>
+        ) : (
+          <View style={styles.reward_details}>
+            <Text style={styles.reward_text}>
+              Payment: {props.ShowRewardDetails.payment_status}
+            </Text>
+            <Text style={styles.reward_text}>
+              PaidUsing: {props.ShowRewardDetails.paid_by}
+            </Text>
+            <Text style={styles.reward_text}>
+              RequestedTime: {props.ShowRewardDetails.posted_at}
+            </Text>
+            <Text style={styles.reward_text}>
+              PaidTime: {props.ShowRewardDetails.fname}
+            </Text>
+            <Text style={styles.reward_text}>
+              PaymentID: {props.ShowRewardDetails.payment_id}
+            </Text>
+          </View>
+        )}
       </View>
     </BottomSheet>
   );

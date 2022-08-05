@@ -23,7 +23,8 @@ import colors from '../../../assets/custom/colors';
 import LoginBtn from '../components/loginBtn';
 import {useNavigation} from '@react-navigation/native';
 import MenuSheet from './menu_sheet';
-
+import RewardDetailsSheet from './RewardDetailsSheet';
+// import {BottomSheet} from 'react-native-btr';
 function HeaderSection() {
   const navigation = useNavigation();
   const endTime = new Date('Aug 31, 2022 00:00:00').getTime();
@@ -55,8 +56,8 @@ function HeaderSection() {
       <View style={styles.top_btn_grp}>
         <TouchableOpacity
           style={styles.top_btn}
-          onPress={() =>
-            navigation.navigate('PayOutletScaner')
+          onPress={
+            () => navigation.navigate('PayOutletScaner')
             // navigation.navigate('PaymentsSection')
             // navigation.navigate('PaymentsSection', {
             //   GetOutletId: 2,
@@ -114,7 +115,8 @@ const RewardsScreen = ({navigation}) => {
   const [Currect_UserId, setCurrect_UserId] = useState('');
   const [visible, setvisible] = useState(false);
   const [rewardsList, setRewardsList] = useState(null);
-  const [RewardMenuModal, setRewardMenuModal] = useState(false)
+  const [RewardMenuModal, setRewardMenuModal] = useState(false);
+  const [ShowRewardDetails, setShowRewardDetails] = useState([]);
   //------
   const [loading, SetLoading] = useState(true);
   const [data, SetData] = useState([]);
@@ -176,7 +178,7 @@ const RewardsScreen = ({navigation}) => {
       fetch(apiURL)
         .then(res => res.json())
         .then(resJson => {
-          // console.log(resJson);
+          console.log(resJson);
           SetDataLoading(false);
           if (resJson === 'NO_DATA_FOUND') {
             SetDataLoading(false);
@@ -227,29 +229,6 @@ const RewardsScreen = ({navigation}) => {
     setPageCurrent(pageCurrent + 1);
     // console.warn(pageCurrent);
   };
-  // ===========================
-  const ShowRewardDetails = (
-    id,
-    image,
-    payment_status,
-    paid_by,
-    posted_at,
-    paid_at,
-    card,
-  ) => {
-    SetRewardData({
-      id: id,
-      image,
-      image,
-      payment_status: payment_status,
-      paid_by: paid_by,
-      posted_at: posted_at,
-      paid_at: paid_at,
-      card: card,
-    });
-    setvisible(true);
-  };
-  // -----
   const OnShare = async () => {
     const ShareContent = {
       message: 'this is a test message to share.',
@@ -277,11 +256,12 @@ const RewardsScreen = ({navigation}) => {
                       post={item}
                       Detailsvisible={Detailsvisible}
                       setDetailsVisible={setDetailsVisible}
-                      RewardData={RewardData}
-                      SetRewardData={SetRewardData}
+                      setShowRewardDetails={setShowRewardDetails}
+                      // RewardData={RewardData}
+                      // SetRewardData={SetRewardData}
                     />
                   )}
-                  keyExtractor={item => item.pay_id}
+                  keyExtractor={item => item.payment_id}
                   ListFooterComponent={RenderFooter}
                   ListHeaderComponent={HeaderSection}
                   onEndReached={HandleLoadMore}
@@ -306,7 +286,9 @@ const RewardsScreen = ({navigation}) => {
               </>
             )}
             <View style={styles.bottomRightBtnsCon}>
-              <TouchableOpacity style={styles.qrScanBtn} onPress={()=>setRewardMenuModal(!RewardMenuModal)}>
+              <TouchableOpacity
+                style={styles.qrScanBtn}
+                onPress={() => setRewardMenuModal(!RewardMenuModal)}>
                 <FeatherIcon name="menu" style={styles.qrIcon} />
               </TouchableOpacity>
               {/* <TouchableOpacity style={styles.shareScanBtn} onPress={OnShare}>
@@ -330,9 +312,11 @@ const RewardsScreen = ({navigation}) => {
           </View>
         </>
       )}
-      <MenuSheet 
-      visible={RewardMenuModal}
-      setVisible={setRewardMenuModal}
+      <MenuSheet visible={RewardMenuModal} setVisible={setRewardMenuModal} />
+      <RewardDetailsSheet
+        Detailsvisible={Detailsvisible}
+        setDetailsVisible={setDetailsVisible}
+        ShowRewardDetails={ShowRewardDetails}
       />
     </>
   );
