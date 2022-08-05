@@ -22,10 +22,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../../../assets/custom/colors';
 import LoginBtn from '../components/loginBtn';
 import {useNavigation} from '@react-navigation/native';
+import MenuSheet from './menu_sheet';
 
 function HeaderSection() {
   const navigation = useNavigation();
-  const endTime = new Date('July 31, 2022 00:00:00').getTime();
+  const endTime = new Date('Aug 31, 2022 00:00:00').getTime();
   const [currentTime, setcurrentTime] = useState(new Date().getTime());
   const gap = endTime - currentTime; //177670892
 
@@ -113,6 +114,7 @@ const RewardsScreen = ({navigation}) => {
   const [Currect_UserId, setCurrect_UserId] = useState('');
   const [visible, setvisible] = useState(false);
   const [rewardsList, setRewardsList] = useState(null);
+  const [RewardMenuModal, setRewardMenuModal] = useState(false)
   //------
   const [loading, SetLoading] = useState(true);
   const [data, SetData] = useState([]);
@@ -304,7 +306,7 @@ const RewardsScreen = ({navigation}) => {
               </>
             )}
             <View style={styles.bottomRightBtnsCon}>
-              <TouchableOpacity style={styles.qrScanBtn}>
+              <TouchableOpacity style={styles.qrScanBtn} onPress={()=>setRewardMenuModal(!RewardMenuModal)}>
                 <FeatherIcon name="menu" style={styles.qrIcon} />
               </TouchableOpacity>
               {/* <TouchableOpacity style={styles.shareScanBtn} onPress={OnShare}>
@@ -328,6 +330,10 @@ const RewardsScreen = ({navigation}) => {
           </View>
         </>
       )}
+      <MenuSheet 
+      visible={RewardMenuModal}
+      setVisible={setRewardMenuModal}
+      />
     </>
   );
 };

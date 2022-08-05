@@ -33,10 +33,10 @@ const OnBoarding = () => {
       },
     ]}
   />
-  <LoginScreen
+  {/* <LoginScreen
   visible={true}
   setVisible={false}
-  />
+  /> */}
   </View>
   )
 }

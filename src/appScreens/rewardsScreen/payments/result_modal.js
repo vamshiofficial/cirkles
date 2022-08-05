@@ -40,21 +40,32 @@ const PayingModal = props => {
         </View>
       ) : props.PModalType === 'success' ? (
         <View style={{flex: 1, backgroundColor: colors.white}}>
-          <View style={styles.HeaderSection}>
-            <View style={styles.success_icon_con}>
+          <Animatable.View
+            style={styles.HeaderSection}
+            animation={'bounce'}
+            duration={1000}
+            delay={500}>
+            <Animatable.View
+              style={styles.success_icon_con}
+              animation={'bounceIn'}
+              iterationCount={5}>
               <Ionicons
                 name="md-checkmark-done-circle-sharp"
                 style={styles.success_icon}
               />
-            </View>
+            </Animatable.View>
             <View>
               <Text style={styles.HedingText}>Transaction Successful </Text>
               <Text style={styles.amount_text}>
                 ₹ {props.TransAmount} rupees only.
               </Text>
             </View>
-          </View>
-          <View style={styles.BodySection}>
+          </Animatable.View>
+          <Animatable.View
+            style={styles.BodySection}
+            animation={'fadeInUp'}
+            duration={1000}
+            delay={800}>
             <View style={styles.sent_to_con}>
               <Text style={styles.sent_to_}>Sent to</Text>
             </View>
@@ -65,7 +76,7 @@ const PayingModal = props => {
               />
               <View style={styles.user_con}>
                 <Text style={styles.user_name}>{props.TransToUserName}</Text>
-                <Text style={styles.mobile_num}>9505504113</Text>
+                <Text style={styles.mobile_num}>{props.TransDisplayName}</Text>
               </View>
             </View>
 
@@ -78,7 +89,7 @@ const PayingModal = props => {
               <Text style={styles.table_text}>{props.TransTime}</Text>
             </View>
             <Text style={styles.HeaderText}>{props.PBodyText}</Text>
-          </View>
+          </Animatable.View>
         </View>
       ) : props.PModalType === 'failed' ? (
         <View
@@ -186,12 +197,12 @@ const styles = StyleSheet.create({
   },
   HedingText: {
     fontFamily: fonts.PrimaryBoldFont,
-    fontSize: fonts.FontMainHeading,
+    fontSize: fonts.FontHeadding,
     color: colors.white,
   },
   amount_text: {
     color: colors.white1,
-    fontSize: fonts.FontHeadding,
+    fontSize: fonts.FontMainHeading,
     fontFamily: fonts.PrimaryBoldFont,
   },
   HeaderText: {
@@ -254,12 +265,12 @@ const styles = StyleSheet.create({
   },
   user_name: {
     fontFamily: fonts.PrimarySemiBoldFont,
-    fontSize: fonts.FontSubHeadding,
+    fontSize: fonts.FontHeadding,
     color: colors.black,
   },
   mobile_num: {
     fontFamily: fonts.PrimarySemiBoldFont,
     fontSize: fonts.FontSubHeadding,
-    color: colors.black,
+    color: colors.white3,
   },
 });

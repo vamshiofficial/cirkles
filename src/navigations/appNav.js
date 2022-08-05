@@ -18,7 +18,7 @@ function AppNav() {
   return (
     <>
       <Tab.Navigator
-        initialRouteName="Rewards"
+        initialRouteName="ScannerScreen"
         screenOptions={{
           tabBarActiveTintColor: colors.black,
           tabBarInactiveTintColor: colors.white3,

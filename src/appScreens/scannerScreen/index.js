@@ -7,6 +7,7 @@ import {
   Linking,
   View,
   Dimensions,
+  Image,
 } from 'react-native';
 import {BottomSheet} from 'react-native-btr';
 import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -27,12 +28,17 @@ const ScannerSheet = ({navigation}) => {
   const [isFrontCameraOn, setisFrontCameraOn] = useState(false);
   const [Currect_UserId, setCurrect_UserId] = useState('');
   // ---reward modal
-  const [isRewardGetting, setisRewardGetting] = useState(true);
-  const [RewardModal, setRewardModal] = useState(false);
-  const [RewardModalType, setRewardModalType] = useState('');
-  const [RewardModalMsg, setRewardModalMsg] = useState('');
-  const [RewardModalAmount, setRewardModalAmount] = useState(0);
-  // reward statuses (CUP_INVALID | REWARD_SUCCESS | REWARD_FAILED)
+  const [isRewardGetting, setisRewardGetting] = useState(true); //default true
+  const [RewardModal, setRewardModal] = useState(false); //default false
+  const [RewardModalType, setRewardModalType] = useState(''); //default ''
+  const [RewardModalMsg, setRewardModalMsg] = useState(''); //default ''
+  const [RewardModalAmount, setRewardModalAmount] = useState(0); //default 0
+  const [RewardUserName, setRewardUserName] = useState(''); //default ''
+  const [PayOutletId, setPayOutletId] = useState(null); //default null
+  const [RewardImage, setRewardImage] = useState(
+    'https://esigm.com/images/payments/esigm_reward_pages.png',
+  );
+  // reward statuses (null | QR_INVALID | REWARD_SUCCESS | REWARD_FAILED)
   const [rewardStatus, setrewardStatus] = useState(null);
   //============
   useEffect(() => {
@@ -57,12 +63,12 @@ const ScannerSheet = ({navigation}) => {
     setRewardModalAmount(0);
     if (Currect_UserId !== null) {
       let text = e.data;
-      console.log('scanned data', e.data);
-      let result = text.slice(9);
-      console.log('the cup id is:', result);
-      let cupResult = text.slice(0, 9);
-      console.log('the cup res is:', cupResult);
-      if (cupResult === 'CIRCLECUP') {
+      // console.log('scanned data', e.data);
+      let result = text.slice(14);
+      // console.log('the cup id is:', result);
+      let cupResult = text.slice(0, 14);
+      // console.log('the cup res is:', cupResult);
+      if (cupResult === 'VAHH_CIRCLE_QR') {
         GetTheReward(result, Currect_UserId);
         // alert('cup scanned please redirect!');
       } else {
@@ -86,10 +92,10 @@ const ScannerSheet = ({navigation}) => {
       .then(res => res.json())
       .then(ResultJson => {
         console.log('the returned data', ResultJson);
-        if (ResultJson === 'CUP_INVALID') {
+        if (ResultJson === 'QR_INVALID') {
           setTimeout(() => {
             setisRewardGetting(false);
-            setrewardStatus('CUP_INVALID');
+            setrewardStatus('QR_INVALID');
           }, 5000);
           // show invalid cup message
           // alert('invalid qr code');
@@ -97,10 +103,13 @@ const ScannerSheet = ({navigation}) => {
           setTimeout(() => {
             // show success and reward message
             setisRewardGetting(false);
+            setPayOutletId(ResultJson[0].outlet_id);
             setrewardStatus(ResultJson[0].type);
             setRewardModalType(ResultJson[0].type);
-            setRewardModalMsg(ResultJson[0].msg);
+            setRewardModalMsg(ResultJson[0].message);
             setRewardModalAmount(ResultJson[0].amount);
+            setRewardUserName(ResultJson[0].fname);
+            setRewardImage(ResultJson[0].reward_image);
           }, 6000);
         } else {
           setTimeout(() => {
@@ -108,17 +117,30 @@ const ScannerSheet = ({navigation}) => {
             setisRewardGetting(false);
             setrewardStatus(ResultJson[0].type);
             setRewardModalType(ResultJson[0].type);
-            setRewardModalMsg(ResultJson[0].msg);
+            setRewardModalMsg(ResultJson[0].message);
             setRewardModalAmount(ResultJson[0].amount);
           }, 5000);
         }
       });
   };
   const RewardSaveItForLater = () => {
-    console.warn('save for later');
+    setRewardModalMsg(
+      'Your reward saved to your profile successfully.You can use it whenever you want.',
+    );
+    setrewardStatus('REWARD_SAVED');
+    setRewardModalType('REWARD_SAVED');
+    // show message about reward saved to your profile
   };
   const RewardUseNow = () => {
-    console.warn('use now');
+    if (PayOutletId !== null) {
+      setRewardModalMsg('');
+      setrewardStatus(null);
+      setRewardModalType('');
+      navigation.navigate('PaymentsSection', {
+        GetOutletId: PayOutletId,
+        GetPayUserId: null,
+      });
+    }
   };
   const CameraRotate = () => {
     setisFrontCameraOn(!isFrontCameraOn);
@@ -128,14 +150,35 @@ const ScannerSheet = ({navigation}) => {
       setisFlashOn(!isFlashOn);
     }
   };
+  const ScanAgain = () => {
+    setRewardModal(false);
+    setisRewardGetting(true);
+    setRewardModalType('');
+    setRewardModalMsg('');
+    setRewardModalAmount(0);
+    setRewardUserName('');
+  };
+  const NavigateHome = () => {
+    setRewardModal(false);
+    setisRewardGetting(true);
+    setRewardModalType('');
+    setRewardModalMsg('');
+    setRewardModalAmount(0);
+    setRewardUserName('');
+    navigation.navigate('Home');
+  };
   const TopConatiner = () => {
     return (
-      <View style={{marginTop: 0,}}>
+      <View style={{marginTop: 0}}>
         <Text style={styles.topHeding}>Scan a QR Code</Text>
         <Text style={styles.topText}>
           Please point your camera to the qr code that is presented on a cup.If
           it’s broken or not scanning Enter the below to get your reward.
         </Text>
+        {/* <Image
+                source={require('../../../assets/images/reward_loading.gif')}
+                style={{width:150,height:150}}
+              /> */}
         {/* <TouchableOpacity
           onPress={() => {
             GetTheReward('5', 54);
@@ -205,10 +248,14 @@ const ScannerSheet = ({navigation}) => {
             RewardModalType={RewardModalType}
             RewardModalMsg={RewardModalMsg}
             RewardModalAmount={RewardModalAmount}
+            RewardImage={RewardImage}
             Currect_UserId={Currect_UserId}
+            fname={RewardUserName}
             navigation={navigation}
             useNow={RewardUseNow}
             useLater={RewardSaveItForLater}
+            ScanAgain={ScanAgain}
+            NavigateHome={NavigateHome}
           />
         ) : (
           <QRCodeScanner

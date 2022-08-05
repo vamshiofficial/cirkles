@@ -63,6 +63,7 @@ const PaymentsSection = ({route}) => {
   const [Address, setAddress] = useState('');
   const [PayingToName, setPayingToName] = useState('');
   const [PayingAmount, setPayingAmount] = useState(0);
+  const [PayingAmountError, setPayingAmountError] = useState(false);
   // -----related to esy pin
   const [userPaymentsPin, setuserPaymentsPin] = useState('');
   const [PinInput, setPinInput] = useState('');
@@ -88,6 +89,7 @@ const PaymentsSection = ({route}) => {
     'https://esigm.com/thecircle/v1/used_images/no_user.png',
   );
   const [TransAmount, setTransAmount] = useState('');
+  const [TransDisplayName, setTransDisplayName] = useState('');
   useEffect(() => {
     const GetUserId = async () => {
       let id = '';
@@ -100,6 +102,14 @@ const PaymentsSection = ({route}) => {
     };
     GetUserId();
   }, []);
+  const EnteringAmount = e => {
+    if (e > 0 && e < 21) {
+      setPayingAmountError(false);
+      setPayingAmount(e);
+    } else {
+      setPayingAmountError(true);
+    }
+  };
   // ------------------------------------------enter amount
   const EnterAmount = async (__outlet_id, __user_id, __pay_type) => {
     setPaymentType(__pay_type);
@@ -286,14 +296,15 @@ const PaymentsSection = ({route}) => {
       .then(RES => {
         setTimeout(() => {
           // if (RES[0].type == 'success') {
-            setPModalType(RES[0].type);
-            setPBodyText(RES[0].message);
-            // setTransId(RES[0].trans_id);
-            // setTransTime(RES[0].trans_time);
-            // setTransToUserName(RES[0].to_username);
-            // setTransToUserPic(RES[0].to_profile_pic);
-            // setTransAmount(RES[0].amount);
-            // console.log(JSON.stringify(RES));
+          setPModalType(RES[0].type);
+          setPBodyText(RES[0].message);
+          setTransId(RES[0].trans_id);
+          setTransTime(RES[0].trans_time);
+          setTransToUserName(RES[0].to_username);
+          setTransToUserPic(RES[0].to_profile_pic);
+          setTransAmount(RES[0].amount);
+          setTransDisplayName(RES[0].trans_display_name);
+          // console.log(JSON.stringify(RES));
           // } else {
           //   setPModalType(RES[0].type), setPBodyText(RES[0].message);
           // }
@@ -330,7 +341,9 @@ const PaymentsSection = ({route}) => {
             PayingToName={PayingToName}
             ToUserProfileUrl={ToUserProfileUrl}
             PayingAmount={PayingAmount}
-            setPayingAmount={setPayingAmount}
+            // setPayingAmount={setPayingAmount}
+            EnteringAmount={EnteringAmount}
+            PayingAmountError={PayingAmountError}
             EnterPayPin={EnterPayPin}
             setCancelModal={setCancelModal}
           />
@@ -355,6 +368,7 @@ const PaymentsSection = ({route}) => {
             TransToUserName={TransToUserName}
             TransToUserPic={TransToUserPic}
             TransAmount={TransAmount}
+            TransDisplayName={TransDisplayName}
           />
         ) : (
           <View

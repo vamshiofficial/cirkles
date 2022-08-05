@@ -74,11 +74,15 @@ const ENTER_AMOUNT = props => {
                   ]}
                   keyboardType="number-pad"
                   maxLength={2}
-                  onChangeText={e => props.setPayingAmount(e)}
+                  onChangeText={e => props.EnteringAmount(e)}
                   // defaultValue={props.PayingAmount}
                 />
-                <Item></Item>
               </View>
+              {props.PayingAmountError ? (
+                <Text style={styles.amount_error}>
+                  Enter amount between 1 to 20 Only.
+                </Text>
+              ) : null}
             </View>
             <View style={styles.note_view}>
               <Text style={styles.note_text}>
@@ -224,5 +228,10 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     marginTop: -DeviceWidth * 0.15 - 25,
     backgroundColor: colors.white,
+  },
+  amount_error: {
+    color: colors.red,
+    fontFamily: fonts.PrimarySemiBoldFont,
+    marginTop: 10,
   },
 });

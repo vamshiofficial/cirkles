@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   without_login_con: {
     // height: '50%',
-    paddingVertical:50,
+    paddingVertical: 50,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -63,10 +63,10 @@ const styles = StyleSheet.create({
     fontFamily: fonts.PrimaryFont,
     color: colors.black3,
     alignSelf: 'center',
-    marginTop:25,
+    marginTop: 25,
   },
   login_image: {
-    width:500,
+    width: 500,
     height: 500,
     marginVertical: 25,
   },
@@ -94,31 +94,30 @@ const styles = StyleSheet.create({
   },
   CamReverseIcon: {
     fontSize: 20,
-    color:colors.black
+    color: colors.black,
   },
   FlashIcon: {
     fontSize: 20,
-    color:colors.black
+    color: colors.black,
   },
   SubmitIcon: {
     fontSize: 20,
-    color:colors.black
+    color: colors.black,
   },
   // =========================Reward getting sheet styles
   centeredView: {
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    backgroundColor: colors.Primary,
   },
   modalView: {
-    width: DeviceWidth*0.90,
+    width: DeviceWidth,
     // height: DeviceHeight*0.7,
     backgroundColor: colors.white,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    borderRadius:30,
-    marginBottom:25,
+    // borderTopLeftRadius: 30,
+    // borderTopRightRadius: 30,
+    // borderRadius: 30,
+    marginBottom: 25,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -128,8 +127,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     justifyContent: 'flex-start',
-    paddingTop:30,
-
+    paddingTop: 30,
   },
   HeaderSection: {
     // flex: 1,
@@ -166,67 +164,30 @@ const styles = StyleSheet.create({
     // shadowOpacity: 0.25,
     // shadowRadius: 3.84,
     // elevation: 5,
-    borderRadius:30,
+    borderRadius: 0,
     justifyContent: 'center',
   },
   // ===================== celebrations styling
   cleb_con: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.red,
     alignItems: 'center',
     height: '100%',
-    width: '90%',
+    width: '100%',
     alignSelf: 'center',
   },
   cleb_image: {
-    width: '50%',
-    height: 200,
+    width: DeviceWidth * 0.3,
+    height: DeviceWidth * 0.3,
   },
   cleb_heding: {
     fontFamily: fonts.PrimaryBoldFont,
-    fontSize: fonts.FontHeadding,
+    fontSize: fonts.FontMainHeading,
     color: colors.black,
   },
   cleb_not_text: {
     fontFamily: fonts.PrimaryFont,
     fontSize: fonts.FontBody,
     color: colors.white5,
-  },
-  cleb_btns: {
-    flexDirection: 'row',
-    // backgroundColor:'red',
-    width: '100%',
-    alignSelf: 'center',
-    justifyContent: 'space-between',
-    position: 'absolute',
-    bottom: 20,
-  },
-  usenowBtn: {
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    borderRadius: 5,
-    backgroundColor: colors.Primary,
-    width: '45%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  usenowBtnText: {
-    fontFamily: fonts.PrimaryBoldFont,
-    fontSize: fonts.FontBody,
-    color: colors.white,
-  },
-  useLaterBtn: {
-    paddingHorizontal: 15,
-    paddingVertical: 8,
-    borderRadius: 5,
-    backgroundColor: colors.bglight,
-    width: '45%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  useLaterBtnText: {
-    fontFamily: fonts.PrimaryBoldFont,
-    fontSize: fonts.FontSubHeadding,
-    color: colors.black,
   },
 });
 export default styles;

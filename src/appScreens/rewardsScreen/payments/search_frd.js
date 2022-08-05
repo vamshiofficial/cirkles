@@ -55,7 +55,14 @@ function UserCard(props) {
         {props.CurrentUserMobile === props.userMobile ? (
           <Text style={styles.send_text}>You</Text>
         ) : (
-          <TouchableOpacity style={styles.send_btn}>
+          <TouchableOpacity
+            style={styles.send_btn}
+            onPress={() =>
+              props.navigation.navigate('PaymentsSection', {
+                GetOutletId: null,
+                GetPayUserId: props.userId,
+              })
+            }>
             <Text style={styles.send_text}>Send</Text>
           </TouchableOpacity>
         )}
@@ -143,7 +150,7 @@ const SearchFriend = () => {
   };
   return (
     <Container>
-      <Header style={{margin: 0,backgroundColor:colors.white}}>
+      <Header style={{margin: 0, backgroundColor: colors.white}}>
         <View style={styles.header}>
           <View style={styles.left}>
             <TouchableOpacity
@@ -160,6 +167,7 @@ const SearchFriend = () => {
               placeholder="Friend mobile number"
               styles={styles.text_input}
               onChangeText={e => ValidatePhone(e)}
+              keyboardType="numeric"
             />
           </View>
           <TouchableOpacity style={styles.right}>
@@ -177,6 +185,7 @@ const SearchFriend = () => {
           userId={UserId}
           userMobile={TheUserMobile}
           CurrentUserMobile={CurrentUserMobile}
+          navigation={navigation}
         />
       ) : (
         <UserNotFound userMobile={TheUserMobile} />
@@ -225,6 +234,7 @@ const styles = StyleSheet.create({
   },
   text_input: {
     fontFamily: fonts.PrimaryFont,
+    fontSize: fonts.FontHeadding,
   },
   //   =============user card related
   user_con: {
@@ -249,10 +259,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 5,
     borderRadius: 20,
+    backgroundColor: colors.black,
   },
   send_text: {
     fontFamily: fonts.PrimaryBoldFont,
     textTransform: 'uppercase',
+    color: colors.white,
   },
   //   =============user not found
   usernot__con: {

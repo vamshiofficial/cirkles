@@ -27,6 +27,9 @@ const HomeScreen = ({navigation}) => {
             near you.
           </Text>
         </Animatable.View>
+        <TouchableOpacity onPress={()=>navigation.navigate('OnBoardingScreen')}>
+          <Text>OnBoardingScreen</Text>
+        </TouchableOpacity>
         <Animatable.View animation={'zoomIn'} duration={1000} delay={500}>
           <TouchableOpacity style={styles.item__con}>
             <View style={styles.item__left}>
