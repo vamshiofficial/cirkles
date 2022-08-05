@@ -28,7 +28,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import OutletUiCard from './outletUiCard';
 const AllOutletsScreen = ({route, navigation}) => {
-  const {OutletId} = route.params;
+  // const {OutletId} = route.params;
 
   const [Currect_UserId, setCurrect_UserId] = useState('');
   const [dataFound, setdataFound] = useState(false);

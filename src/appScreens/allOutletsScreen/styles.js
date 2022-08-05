@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerSection: {
-    backgroundColor: colors.white,
-    paddingTop: 20,
+    backgroundColor: colors.Primary,
+    // paddingTop: 20,
     paddingBottom: 30,
     paddingHorizontal: 15,
     borderBottomLeftRadius: 35,
@@ -31,9 +31,11 @@ const styles = StyleSheet.create({
   },
   Title_text: {
     fontFamily: fonts.PrimaryBoldFont,
+    color: colors.black,
   },
   backIcon: {
     fontSize: 25,
+    color: colors.black,
   },
   //   -------card styles
   card: {

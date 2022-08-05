@@ -29,13 +29,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import FranchiseRequestModal from './successModal';
 import FullPageLoader from '../components/FullPageLoader';
 import OtpVerifyModal from '../../authScreens/otpScreen';
-import { useNavigation } from '@react-navigation/native';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import {useNavigation} from '@react-navigation/native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const FranchiseRequestScreen = () => {
   const navigation = useNavigation();
   const [SuccessModalVisible, setSuccessModalVisible] = useState(false);
   // input related
-  const [UserMobile, setUserMobile] = useState();
+  const [UserMobile, setUserMobile] = useState('');
+  const [UserName, setUserName] = useState('');
   const [ChangeMobile, setChangeMobile] = useState(false);
   const [MobileValidation, setMobileValidation] = useState('');
   const [PhoneErrorText, setPhoneErrorText] = useState('');
@@ -64,7 +65,29 @@ const FranchiseRequestScreen = () => {
       }
     };
     GetUserId();
+    GetUserInfo();
   }, []);
+  const GetUserInfo = async () => {
+    try {
+      id = await AsyncStorage.getItem('userToken');
+    } catch (e) {
+      console.log(e);
+    }
+    if (id !== '' || id !== null) {
+      const apiURL = `https://esigm.com/thecircle/v1/action.php?action=get_user_information&the_user_id=${id}`;
+      fetch(apiURL)
+        .then(res => res.json())
+        .then(resJson => {
+          setUserName(resJson.fname);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    } else {
+      // login 1st
+    }
+  };
+
   //----------------------
   const ValidatePhone = () => {
     const re = /^[6-9]{1}[0-9]{9}$/;
@@ -183,18 +206,23 @@ const FranchiseRequestScreen = () => {
           text={'Please wait a sec'}
         />
         <ImageBackground
-        borderBottomLeftRadius={35}
-        borderBottomRightRadius={35}
+          borderBottomLeftRadius={35}
+          borderBottomRightRadius={35}
           source={{
             uri: 'https://esigm.com/thecircle/v1/used_images/franchise_bg.png',
           }}
           style={styles.header_bg_img}>
-            <View style={styles.sub_header}>
-              <TouchableOpacity style={styles.back_btn} onPress={()=>navigation.goBack()}>
-              <MaterialIcons name='keyboard-arrow-left' style={styles.back_icon} />
-              </TouchableOpacity>
-            </View>
-          <Text style={styles.header_heading_text}>Ohoo Vamshi</Text>
+          <View style={styles.sub_header}>
+            <TouchableOpacity
+              style={styles.back_btn}
+              onPress={() => navigation.goBack()}>
+              <MaterialIcons
+                name="keyboard-arrow-left"
+                style={styles.back_icon}
+              />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.header_heading_text}>Ohoo{", "+UserName}</Text>
           <Text style={styles.header_text}>
             We are happy that you want to join our misssion to serve people with
             our Tea & snacks.

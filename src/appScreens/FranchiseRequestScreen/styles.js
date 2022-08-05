@@ -45,9 +45,10 @@ const styles = StyleSheet.create({
   },
   sub_header: {
     width: '100%',
+    marginBottom:10,
   },
   back_btn: {
-    backgroundColor: 'rgba(255,255,255,0.2)',
+    backgroundColor: 'rgba(255,255,255,0.1)',
     width: 35,
     height: 35,
     borderRadius: 30,
@@ -56,6 +57,7 @@ const styles = StyleSheet.create({
   },
   back_icon: {
     fontSize: 25,
+    color:colors.white
   },
   // ======
   body_con: {

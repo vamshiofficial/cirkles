@@ -16,7 +16,7 @@ const HomeScreen = ({navigation}) => {
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView contentContainerStyle={styles.con}>
-      {/* <OurAlert /> */}
+        {/* <OurAlert /> */}
         <Animatable.View
           animation={'bounce'}
           duration={1000}
@@ -27,11 +27,14 @@ const HomeScreen = ({navigation}) => {
             near you.
           </Text>
         </Animatable.View>
-        <TouchableOpacity onPress={()=>navigation.navigate('OnBoardingScreen')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('OnBoardingScreen')}>
           <Text>OnBoardingScreen</Text>
         </TouchableOpacity>
         <Animatable.View animation={'zoomIn'} duration={1000} delay={500}>
-          <TouchableOpacity style={styles.item__con}>
+          <TouchableOpacity
+            style={styles.item__con}
+            onPress={() => navigation.navigate('AllOutletsScreen')}>
             <View style={styles.item__left}>
               <MaterialCommunityIcons
                 name="storefront-outline"
@@ -48,11 +51,13 @@ const HomeScreen = ({navigation}) => {
           </TouchableOpacity>
         </Animatable.View>
         <Animatable.View animation={'zoomIn'} duration={1000} delay={800}>
-          <TouchableOpacity style={styles.item__con}>
+          <TouchableOpacity
+            style={styles.item__con}
+            onPress={() => navigation.navigate('ScannerScreen')}>
             <View style={styles.item__left}>
               <MaterialCommunityIcons
                 name="qrcode-scan"
-                style={[styles.item__icon,{fontSize:25}]}
+                style={[styles.item__icon, {fontSize: 25}]}
               />
             </View>
             <View style={styles.item__right}>
@@ -65,11 +70,13 @@ const HomeScreen = ({navigation}) => {
           </TouchableOpacity>
         </Animatable.View>
         <Animatable.View animation={'zoomIn'} duration={1000} delay={1100}>
-          <TouchableOpacity style={styles.item__con}>
+          <TouchableOpacity
+            style={styles.item__con}
+            onPress={() => navigation.navigate('PayOutletScaner')}>
             <View style={styles.item__left}>
               <MaterialCommunityIcons
                 name="scan-helper"
-                style={[styles.item__icon,{fontSize:20}]}
+                style={[styles.item__icon, {fontSize: 20}]}
               />
             </View>
             <View style={styles.item__right}>
@@ -82,11 +89,13 @@ const HomeScreen = ({navigation}) => {
           </TouchableOpacity>
         </Animatable.View>
         <Animatable.View animation={'zoomIn'} duration={1000} delay={1500}>
-          <TouchableOpacity style={styles.item__con}>
-            <View style={[styles.item__left,{backgroundColor:colors.black}]}>
+          <TouchableOpacity
+            style={styles.item__con}
+            onPress={() => navigation.navigate('FranchiseRequestScreen')}>
+            <View style={[styles.item__left, {backgroundColor: colors.black}]}>
               <MaterialCommunityIcons
                 name="store-plus-outline"
-                style={[styles.item__icon,{color:colors.white}]}
+                style={[styles.item__icon, {color: colors.white}]}
               />
             </View>
             <View style={styles.item__right}>
@@ -100,70 +109,6 @@ const HomeScreen = ({navigation}) => {
           </TouchableOpacity>
         </Animatable.View>
         {/* --------------------------------- */}
-        {/* <TouchableOpacity
-        onPress={() => navigation.navigate('FranchiseRequestScreen')}
-        style={{alignSelf: 'center', backgroundColor: '#ddd', padding: 15}}
-        // onPress={LogOutNow()}
-      >
-        <Text>FranchiseRequestScreen Ui</Text>
-      </TouchableOpacity> */}
-        {/* <ListCardUi
-        ImageUrl="https://cdn.icon-icons.com/icons2/1875/PNG/512/qrcodescan_120401.png"
-        HeaddingText="Visit all our outlets"
-        BodyText="Know how our circle getting bigger. If you can't find by near you.You can be the part of Vahh family."
-        LearnmoreBtn={true}
-        onClickLearnmore={() =>
-          navigation.navigate('AllOutletsScreen', {OutletId: 1})
-        }
-      /> */}
-        {/* <ListCardUi
-        ImageUrl="https://cdn.icon-icons.com/icons2/1875/PNG/512/qrcodescan_120401.png"
-        HeaddingText="Scan a cup to get FREE tea"
-        BodyText="You can get a absolutly free tea or coffee when you got FREE message when youscaned a QR Code with our app."
-        LearnmoreBtn={false}
-        onClickLearnmore={() => alert('done')}
-      />
-      <ListCardUi
-        ImageUrl="https://cdn.icon-icons.com/icons2/1875/PNG/512/qrcodescan_120401.png"
-        HeaddingText="Pay at outlet"
-        BodyText="You can get a absolutly free tea or coffee when you got FREE message when youscaned a QR Code with our app."
-        LearnmoreBtn={false}
-        onClickLearnmore={() => alert('done')}
-      /> */}
-        {/* <ListCardUi
-        ImageUrl="https://esigm.com/opens/used_imgs/opens-logo.png"
-        HeaddingText="Share a moment on Opens"
-        BodyText="You will get a reward when you create a post on opens app which is
-        ailso one of the main platform of ESY"
-        LearnmoreBtn={true}
-        onClickLearnmore={() => alert('done')}
-      /> */}
-        {/* <ListCardUi
-        ImageUrl="https://cdn.icon-icons.com/icons2/1875/PNG/512/qrcodescan_120401.png"
-        HeaddingText="Scan a cup to get FREE tea"
-        BodyText="You can get a absolutly free tea or coffee when you got FREE message when youscaned a QR Code with our app."
-        LearnmoreBtn={false}
-        onClickLearnmore={() => alert('done')}
-      />
-      <ListCardUi
-        ImageUrl="https://cdn.icon-icons.com/icons2/1875/PNG/512/qrcodescan_120401.png"
-        HeaddingText="Scan a cup to get FREE tea"
-        BodyText="You can get a absolutly free tea or coffee when you got FREE message when youscaned a QR Code with our app."
-        LearnmoreBtn={false}
-        onClickLearnmore={() => alert('done')}
-      />
-      <ListCardUi
-        ImageUrl="https://cdn.icon-icons.com/icons2/1875/PNG/512/qrcodescan_120401.png"
-        HeaddingText="Scan a cup to get FREE tea"
-        BodyText="You can get a absolutly free tea or coffee when you got FREE message when youscaned a QR Code with our app."
-        LearnmoreBtn={false}
-        onClickLearnmore={() => alert('done')}
-      /> */}
-        {/* <SubmitBtn
-        onPress={() => {
-          LogOutNow();
-        }}
-      /> */}
       </ScrollView>
     </View>
   );

@@ -105,7 +105,7 @@ const AuthNav = () => {
       />
       <Stack.Screen
         options={{
-          animationEnabled: true,
+          animationEnabled: false,
           headerShown: false,
           headerTitle: '',
         }}
@@ -123,7 +123,7 @@ const AuthNav = () => {
       />
       <Stack.Screen
         options={{
-          animationEnabled: true,
+          animationEnabled: false,
           headerShown: false,
           headerTitle: '',
           headerStyle: {
