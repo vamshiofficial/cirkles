@@ -80,16 +80,7 @@ const PayOutletScaner = props => {
   const TopConatiner = () => {
     return (
       <View style={{marginTop: 0}}>
-        <TouchableOpacity
-          onPress={
-            () => console.warn('navigate back')
-            // props.setCancelModal(true)
-            // navigation.goBack();
-            // props.EnterAmount(2)
-
-            // setRewardModal(true);
-            // setisRewardGetting(true);
-          }>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="close-circle" style={styles.close_sheet_icon} />
         </TouchableOpacity>
         <Text style={styles.topHeding}>Scan a QR Code to PAY</Text>

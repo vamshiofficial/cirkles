@@ -119,7 +119,7 @@ function AppNav() {
           options={{
             tabBarLabel: '',
             headerTitleAlign: 'left',
-            headerShown: true,
+            headerShown: false,
             headerStyle: {
               backgroundColor: colors.white,
               borderBottomWidth: 0,

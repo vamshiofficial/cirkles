@@ -15,9 +15,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderBottomLeftRadius: 35,
     borderBottomRightRadius: 35,
-    paddingBottom: 10,
+    paddingBottom: 25,
     paddingHorizontal: 15,
-    marginBottom: 15,
+    marginBottom: 25,
+    paddingTop: 50,
+    shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+
+elevation: 5,
   },
   rewardCount: {
     flexDirection: 'row',
@@ -25,12 +35,12 @@ const styles = StyleSheet.create({
   },
   rewardCountIcon: {
     fontSize: 27,
-    color: colors.black,
+    color: colors.green,
   },
   rewardCountText: {
     fontFamily: fonts.PrimaryBoldFont,
     fontSize: 30,
-    color: colors.black,
+    color: colors.green,
     marginLeft: 10,
   },
   rewardfooter: {
@@ -142,7 +152,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 15,
     maxHeight: (DeviceHeight * 85) / 100,
     paddingBottom: 30,
-
   },
   // reward_card: {
   //   backgroundColor: colors.bglight,
@@ -173,7 +182,7 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
 
     elevation: 5,
-    backgroundColor:colors.white
+    backgroundColor: colors.white,
   },
   pages_text: {
     textAlign: 'center',
@@ -269,29 +278,6 @@ const styles = StyleSheet.create({
   },
   top_btn_text: {
     fontFamily: fonts.PrimaryBoldFont,
-  },
-  // =====================count down
-  countdown_row: {
-    flexDirection: 'row',
-    width: '60%',
-    alignSelf: 'center',
-    justifyContent: 'space-between',
-    marginVertical: 10,
-  },
-  countdown: {
-    width: 50,
-    height: 50,
-    backgroundColor: colors.bglight,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  countdown_text: {
-    fontFamily: fonts.PrimaryBoldFont,
-    fontSize: fonts.FontHeadding,
-  },
-  countdown_name: {
-    fontFamily: fonts.PrimaryFont,
-    fontSize: fonts.FontSmall,
   },
 });
 export default styles;

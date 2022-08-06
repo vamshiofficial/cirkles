@@ -24,46 +24,23 @@ import LoginBtn from '../components/loginBtn';
 import {useNavigation} from '@react-navigation/native';
 import MenuSheet from './menu_sheet';
 import RewardDetailsSheet from './RewardDetailsSheet';
+import NextPaymentSheet from './expireSheet';
 // import {BottomSheet} from 'react-native-btr';
-function HeaderSection() {
+function HeaderSection(props) {
   const navigation = useNavigation();
-  const endTime = new Date('Aug 31, 2022 00:00:00').getTime();
-  const [currentTime, setcurrentTime] = useState(new Date().getTime());
-  const gap = endTime - currentTime; //177670892
-
-  const seconds = 1000; // in milliseconds
-  const minutes = seconds * 60;
-  const hours = minutes * 60;
-  const days = hours * 24;
-
-  const remainingDays = Math.floor(gap / days);
-  const remainingHours = Math.floor((gap % days) / hours);
-  const remainingMinutes = Math.floor((gap % hours) / minutes);
-  const remainingSeconds = Math.floor((gap % minutes) / seconds);
-
-  useEffect(() => {
-    setTimeout(() => setcurrentTime(new Date().getTime()), 1000);
-  }, [currentTime]); // 11:30:55
   return (
     <View style={styles.HeaderSection}>
       <View style={styles.rewardCount}>
         <FontAwesome name="rupee" style={styles.rewardCountIcon} />
-        <Text style={styles.rewardCountText}>873</Text>
+        <Text style={styles.rewardCountText}>{props.UserRewards}</Text>
       </View>
       <Text style={styles.rewardfooter}>
-        Vamshi, Your total un used rewards
+        {props.UserName}, Your total un used rewards
       </Text>
       <View style={styles.top_btn_grp}>
         <TouchableOpacity
           style={styles.top_btn}
-          onPress={
-            () => navigation.navigate('PayOutletScaner')
-            // navigation.navigate('PaymentsSection')
-            // navigation.navigate('PaymentsSection', {
-            //   GetOutletId: 2,
-            //   GetPayUserId:null,
-            // })
-          }>
+          onPress={() => props.ScanEsyPayBtn()}>
           <MaterialCommunityIcons name="qrcode-scan" style={styles.top_icon} />
           <Text style={styles.top_btn_text}>Scan esy pay</Text>
         </TouchableOpacity>
@@ -74,38 +51,6 @@ function HeaderSection() {
           <Text style={styles.top_btn_text}>Gift to friend.</Text>
         </TouchableOpacity>
       </View>
-      {/* <Image 
-      source={require('../../../assets/images/test.gif')}
-      style={{width:250,height:250}}
-      /> */}
-      <View style={styles.countdown_row}>
-        <View style={styles.countdown}>
-          <Text style={styles.countdown_text}>{remainingDays}</Text>
-          <Text style={styles.countdown_name}>Days</Text>
-        </View>
-        <View style={styles.countdown}>
-          <Text style={styles.countdown_text}>{remainingHours}</Text>
-          <Text style={styles.countdown_name}>Hours</Text>
-        </View>
-        <View style={styles.countdown}>
-          <Text style={styles.countdown_text}>{remainingMinutes}</Text>
-          <Text style={styles.countdown_name}>Minutes</Text>
-        </View>
-        <View style={styles.countdown}>
-          <Text style={styles.countdown_text}>{remainingSeconds}</Text>
-          <Text style={styles.countdown_name}>Seconds</Text>
-        </View>
-      </View>
-      {/* <View style={styles.top_btn_grp}>
-        <TouchableOpacity style={styles.top_btn}>
-          <Octicons name="history" style={styles.top_icon} />
-          <Text style={styles.top_btn_text}>Transactions history</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.top_btn}>
-          <Ionicons name="md-arrow-redo-outline" style={styles.top_icon} />
-          <Text style={styles.top_btn_text}>Invite friend</Text>
-        </TouchableOpacity>
-      </View> */}
     </View>
   );
 }
@@ -113,8 +58,6 @@ function HeaderSection() {
 const RewardsScreen = ({navigation}) => {
   const [Detailsvisible, setDetailsVisible] = useState(false);
   const [Currect_UserId, setCurrect_UserId] = useState('');
-  const [visible, setvisible] = useState(false);
-  const [rewardsList, setRewardsList] = useState(null);
   const [RewardMenuModal, setRewardMenuModal] = useState(false);
   const [ShowRewardDetails, setShowRewardDetails] = useState([]);
   //------
@@ -125,19 +68,14 @@ const RewardsScreen = ({navigation}) => {
   const [total_rows_count, Set_total_rows_count] = useState('');
   const [lastpage_reached, Setlastpage_reached] = useState(false);
   const [pageCurrent, setPageCurrent] = useState(1);
-  const [reload, setReload] = useState(true);
+  // -----header items
+  const [NextPaymentvisible, setNextPaymentVisible] = useState(false);
+  const [NextPayment, setNextPayment] = useState('');
+  const [NextPaymentDate, setNextPaymentDate] = useState('');
+  const [PrevPaymentDate, setPrevPaymentDate] = useState('');
+  const [UserName, setUserName] = useState('');
+  const [UserRewards, setUserRewards] = useState('');
   // ------payments related
-  const [PayScanVisible, setPayScanVisible] = useState(false);
-  //-------
-  const [RewardData, SetRewardData] = useState({
-    id: '',
-    image: '',
-    payment_status: '',
-    paid_by: '',
-    posted_at: '',
-    paid_at: '',
-    card: '',
-  });
   //===load for page shimmer
   setTimeout(() => {
     SetLoading(false);
@@ -154,8 +92,33 @@ const RewardsScreen = ({navigation}) => {
       }
     };
     GetUserId();
+    GetExpireDate();
   }, []);
   // ====
+  const GetExpireDate = async () => {
+    let id = '';
+    try {
+      id = await AsyncStorage.getItem('userToken');
+    } catch (e) {
+      console.log(e);
+    }
+    if (id !== null) {
+      const apiURL = `https://esigm.com/thecircle/v1/action.php?action=next____outlet_payment_time&user_id=${id}`;
+      fetch(apiURL)
+        .then(res => res.json())
+        .then(resJson => {
+          console.log('expire', resJson);
+          setNextPayment(resJson[0].next_payment);
+          setUserName(resJson[0].user_name);
+          setUserRewards(resJson[0].total_rewards);
+          setPrevPaymentDate(resJson[0].prev_pay_date);
+          setNextPaymentDate(resJson[0].next_pay_date);
+        })
+        .catch(function (e) {
+          console.warn(e);
+        });
+    }
+  };
   useEffect(() => {
     if (!lastpage_reached) {
       fetchdata();
@@ -178,7 +141,7 @@ const RewardsScreen = ({navigation}) => {
       fetch(apiURL)
         .then(res => res.json())
         .then(resJson => {
-          console.log(resJson);
+          // console.log(resJson);
           SetDataLoading(false);
           if (resJson === 'NO_DATA_FOUND') {
             SetDataLoading(false);
@@ -229,6 +192,15 @@ const RewardsScreen = ({navigation}) => {
     setPageCurrent(pageCurrent + 1);
     // console.warn(pageCurrent);
   };
+  // =================SCAN ESY PAY
+  const ScanEsyPayBtn = () => {
+    if (NextPayment === 'PAY_NOW') {
+      navigation.navigate('PayOutletScaner');
+    } else {
+      setNextPaymentVisible(!NextPaymentvisible);
+    }
+  };
+
   const OnShare = async () => {
     const ShareContent = {
       message: 'this is a test message to share.',
@@ -243,11 +215,14 @@ const RewardsScreen = ({navigation}) => {
     <>
       {Currect_UserId !== null ? (
         loading ? (
-          <ActivityIndicator />
+          <View
+            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <ActivityIndicator />
+          </View>
         ) : (
           <>
             {total_rows ? (
-              <List>
+              <View style={{backgroundColor: colors.white}}>
                 <FlatList
                   key={'#'}
                   data={data}
@@ -263,17 +238,29 @@ const RewardsScreen = ({navigation}) => {
                   )}
                   keyExtractor={item => item.payment_id}
                   ListFooterComponent={RenderFooter}
-                  ListHeaderComponent={HeaderSection}
+                  ListHeaderComponent={
+                    <HeaderSection
+                      NextPayment={NextPayment}
+                      UserName={UserName}
+                      UserRewards={UserRewards}
+                      ScanEsyPayBtn={ScanEsyPayBtn}
+                    />
+                  }
                   onEndReached={HandleLoadMore}
                   onEndReachedThreshold={1}
                   // showsVerticalScrollIndicator={true}
                   // scrollEventThrottle={0}
                   numColumns={2}
                 />
-              </List>
+              </View>
             ) : (
               <>
-                <HeaderSection />
+                <HeaderSection
+                  NextPayment={NextPayment}
+                  UserName={UserName}
+                  UserRewards={UserRewards}
+                  ScanEsyPayBtn={ScanEsyPayBtn}
+                />
                 <View style={styles.empty_con}>
                   <FeatherIcon
                     active
@@ -317,6 +304,13 @@ const RewardsScreen = ({navigation}) => {
         Detailsvisible={Detailsvisible}
         setDetailsVisible={setDetailsVisible}
         ShowRewardDetails={ShowRewardDetails}
+      />
+      <NextPaymentSheet
+        NextPaymentvisible={NextPaymentvisible}
+        setNextPaymentVisible={setNextPaymentVisible}
+        NextPayment={NextPayment}
+        NextPaymentDate={NextPaymentDate}
+        PrevPaymentDate={PrevPaymentDate}
       />
     </>
   );
