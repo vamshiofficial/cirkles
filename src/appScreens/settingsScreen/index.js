@@ -24,6 +24,20 @@ import {AuthContext} from '../../navigations/context/authContest';
 import HeaderView from './header';
 const SettingsScreen = ({navigation}) => {
   const {LogOutNow, LoginNow} = useContext(AuthContext);
+  const [Currect_UserId, setCurrect_UserId] = useState('');
+  useEffect(() => {
+    const GetUserId = async () => {
+      let id = '';
+      try {
+        id = await AsyncStorage.getItem('userToken');
+        setCurrect_UserId(id);
+        console.log('id', id);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    GetUserId();
+  }, []);
   // const {signOut} = React.useContext(AuthContext);
   const [InviteModalActive, SetInviteModalActive] = useState(false);
   //-------------------------------
@@ -298,6 +312,8 @@ const SettingsScreen = ({navigation}) => {
         </View>
         {/* ===============log out=========== */}
         <View style={styles.logout_btn_con}>
+          {
+          Currect_UserId !== null?
           <ListItem
             icon
             style={styles.list_con}
@@ -312,6 +328,20 @@ const SettingsScreen = ({navigation}) => {
             </Body>
             <Right />
           </ListItem>
+          :
+          <ListItem
+          icon
+          style={styles.list_con}
+          onPress={() => navigation.navigate('LoginScreen')}>
+          <Left style={styles.list_left}>
+            <Icon active name="exit-to-app" style={styles.list_icon} />
+          </Left>
+          <Body style={styles.list_body}>
+            <Text style={styles.list_body_text}>LogIn</Text>
+          </Body>
+          <Right />
+        </ListItem>
+          }
         </View>
       </Content>
     </Container>

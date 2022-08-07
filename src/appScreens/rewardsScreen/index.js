@@ -164,7 +164,7 @@ const RewardsScreen = ({navigation}) => {
           console.warn(e);
         });
     } else {
-      alert('login required');
+      console.warn('login required');
     }
   };
   // ==========render footer data
@@ -201,7 +201,10 @@ const RewardsScreen = ({navigation}) => {
     }
   };
   return (
-    <>
+    <View style={{backgroundColor: 'white'}}>
+      <View style={Currect_UserId!==null?styles.MainHeaderSection:styles.MainHeaderSectionShadow}>
+        <Text style={styles.Mainhead_text}>Rewards</Text>
+      </View>
       {Currect_UserId !== null ? (
         loading ? (
           <View
@@ -274,6 +277,7 @@ const RewardsScreen = ({navigation}) => {
                 />
               </TouchableOpacity> */}
             </View>
+      <MenuSheet visible={RewardMenuModal} setVisible={setRewardMenuModal} />
           </>
         )
       ) : (
@@ -288,7 +292,6 @@ const RewardsScreen = ({navigation}) => {
           </View>
         </>
       )}
-      <MenuSheet visible={RewardMenuModal} setVisible={setRewardMenuModal} />
       <RewardDetailsSheet
         Detailsvisible={Detailsvisible}
         setDetailsVisible={setDetailsVisible}
@@ -301,7 +304,7 @@ const RewardsScreen = ({navigation}) => {
         NextPaymentDate={NextPaymentDate}
         PrevPaymentDate={PrevPaymentDate}
       />
-    </>
+    </View>
   );
 };
 export default RewardsScreen;

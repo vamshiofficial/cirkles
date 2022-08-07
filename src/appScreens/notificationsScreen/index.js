@@ -53,7 +53,7 @@ const NotificationsScreen = ({navigation}) => {
     const apiURL =
       `https://esigm.com/thecircle/v1/action.php?action=get_notifications_list&the_user_id=${5017}&page=` +
       pageCurrent;
-      fetch(apiURL)
+    fetch(apiURL)
       .then(res => res.json())
       .then(resJson => {
         console.log(resJson);
@@ -103,7 +103,9 @@ const NotificationsScreen = ({navigation}) => {
   };
   return (
     <View style={styles.con}>
-      <View style={styles.HeaderSection} />
+      <View style={styles.HeaderSection}>
+        <Text style={styles.head_text}>Notifications</Text>
+      </View>
       {Currect_UserId !== null ? (
         <>
           <View style={styles.body}>

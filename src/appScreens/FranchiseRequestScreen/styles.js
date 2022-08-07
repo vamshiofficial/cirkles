@@ -130,5 +130,28 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: fonts.FontSubHeadding,
   },
+  // ==========================
+  without_login_con: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 0,
+    backgroundColor: colors.white,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
+    // marginTop: -35,
+  },
+  without_login_text: {
+    fontSize: fonts.FontBody,
+    fontFamily: fonts.PrimaryFont,
+    color: colors.black3,
+    alignSelf: 'center',
+  },
+  only_text: {
+    fontSize: fonts.FontBody,
+    fontFamily: fonts.PrimaryFont,
+    color: colors.black,
+    alignSelf: 'center',
+  },
 });
 export default styles;

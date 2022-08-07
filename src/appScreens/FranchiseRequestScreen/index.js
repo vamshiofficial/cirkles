@@ -31,6 +31,8 @@ import FullPageLoader from '../components/FullPageLoader';
 import OtpVerifyModal from '../../authScreens/otpScreen';
 import {useNavigation} from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import LoginBtn from '../components/loginBtn';
 const FranchiseRequestScreen = () => {
   const navigation = useNavigation();
   const [SuccessModalVisible, setSuccessModalVisible] = useState(false);
@@ -185,127 +187,141 @@ const FranchiseRequestScreen = () => {
       });
   };
   return (
-    <Container>
-      {OtpModalVisible ? (
-        <OtpVerifyModal
-          OtpModalVisible={OtpModalVisible}
-          setOtpModalVisible={setOtpModalVisible}
-          setLoginModalVisible={setLoginModalVisible}
-          OtpNumber={OtpNumber}
-          setOtpNumber={setOtpNumber}
-          Mobile={UserMobile}
-          ResendOtp={SendOtpToThisMobile}
-          onSuccessFunction={SubmitForm}
-          LoadingText={'Posting your request'}
-        />
-      ) : null}
-      <ScrollView>
-        <FullPageLoader
-          visible={PageLoader}
-          bigtext={'Getting OTP'}
-          text={'Please wait a sec'}
-        />
-        <ImageBackground
-          borderBottomLeftRadius={35}
-          borderBottomRightRadius={35}
-          source={{
-            uri: 'https://esigm.com/thecircle/v1/used_images/franchise_bg.png',
-          }}
-          style={styles.header_bg_img}>
-          <View style={styles.sub_header}>
-            <TouchableOpacity
-              style={styles.back_btn}
-              onPress={() => navigation.goBack()}>
-              <MaterialIcons
-                name="keyboard-arrow-left"
-                style={styles.back_icon}
-              />
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.header_heading_text}>Ohoo{", "+UserName}</Text>
-          <Text style={styles.header_text}>
-            We are happy that you want to join our misssion to serve people with
-            our Tea & snacks.
-          </Text>
-        </ImageBackground>
-        <View style={styles.body_con}>
-          <Text style={styles.NoteText}>
-            Let us know some details about your location and reasons to approve
-            the outlet.So please verify and answer the followings.
-          </Text>
-          <View style={styles.formCon}>
-            <Form>
-              <Text style={styles.LableText}>Mobile number:</Text>
-              {ChangeMobile ? (
-                <Input
-                  style={styles.mobileInput}
-                  defaultValue={UserMobile}
-                  onChangeText={e => setUserMobile(e)}
-                  onBlur={() => ValidatePhone()}
-                />
-              ) : (
-                <Input
-                  placeholder="Mobile number"
-                  style={[
-                    styles.mobileInput,
-                    {backgroundColor: colors.bglight},
-                  ]}
-                  disabled
-                  defaultValue={UserMobile}
-                />
-              )}
-              <ListItem
-                noBorder
-                style={{marginLeft: 0}}
-                onPress={() => setChangeMobile(!ChangeMobile)}>
-                <CheckBox checked={ChangeMobile} color={colors.black} />
-                <Body>
-                  <Text
-                    style={[
-                      styles.changeMobileText,
-                      {color: ChangeMobile ? colors.black : colors.black3},
-                    ]}>
-                    Change number
-                  </Text>
-                </Body>
-              </ListItem>
-              <Text style={styles.error_text}>{PhoneErrorText}</Text>
-              <Text style={styles.LableText}>Location:</Text>
-              <Textarea
-                style={styles.locationInput}
-                rowSpan={5}
-                placeholder="Please add address
+    <>
+      {Currect_UserId !== null ? (
+        <Container>
+          {OtpModalVisible ? (
+            <OtpVerifyModal
+              OtpModalVisible={OtpModalVisible}
+              setOtpModalVisible={setOtpModalVisible}
+              setLoginModalVisible={setLoginModalVisible}
+              OtpNumber={OtpNumber}
+              setOtpNumber={setOtpNumber}
+              Mobile={UserMobile}
+              ResendOtp={SendOtpToThisMobile}
+              onSuccessFunction={SubmitForm}
+              LoadingText={'Posting your request'}
+            />
+          ) : null}
+          <ScrollView>
+            <FullPageLoader
+              visible={PageLoader}
+              bigtext={'Getting OTP'}
+              text={'Please wait a sec'}
+            />
+            <ImageBackground
+              borderBottomLeftRadius={35}
+              borderBottomRightRadius={35}
+              source={{
+                uri: 'https://esigm.com/thecircle/v1/used_images/franchise_bg.png',
+              }}
+              style={styles.header_bg_img}>
+              <View style={styles.sub_header}>
+                <TouchableOpacity
+                  style={styles.back_btn}
+                  onPress={() => navigation.goBack()}>
+                  <MaterialIcons
+                    name="keyboard-arrow-left"
+                    style={styles.back_icon}
+                  />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.header_heading_text}>
+                Ohoo{', ' + UserName}
+              </Text>
+              <Text style={styles.header_text}>
+                We are happy that you want to join our misssion to serve people
+                with our Tea & snacks.
+              </Text>
+            </ImageBackground>
+            <View style={styles.body_con}>
+              <Text style={styles.NoteText}>
+                Let us know some details about your location and reasons to
+                approve the outlet.So please verify and answer the followings.
+              </Text>
+              <View style={styles.formCon}>
+                <Form>
+                  <Text style={styles.LableText}>Mobile number:</Text>
+                  {ChangeMobile ? (
+                    <Input
+                      style={styles.mobileInput}
+                      defaultValue={UserMobile}
+                      onChangeText={e => setUserMobile(e)}
+                      onBlur={() => ValidatePhone()}
+                    />
+                  ) : (
+                    <Input
+                      placeholder="Mobile number"
+                      style={[
+                        styles.mobileInput,
+                        {backgroundColor: colors.bglight},
+                      ]}
+                      disabled
+                      defaultValue={UserMobile}
+                    />
+                  )}
+                  <ListItem
+                    noBorder
+                    style={{marginLeft: 0}}
+                    onPress={() => setChangeMobile(!ChangeMobile)}>
+                    <CheckBox checked={ChangeMobile} color={colors.black} />
+                    <Body>
+                      <Text
+                        style={[
+                          styles.changeMobileText,
+                          {color: ChangeMobile ? colors.black : colors.black3},
+                        ]}>
+                        Change number
+                      </Text>
+                    </Body>
+                  </ListItem>
+                  <Text style={styles.error_text}>{PhoneErrorText}</Text>
+                  <Text style={styles.LableText}>Location:</Text>
+                  <Textarea
+                    style={styles.locationInput}
+                    rowSpan={5}
+                    placeholder="Please add address
 Village/City
 Pincode
 District,State"
-                onChangeText={e => setLocationDetails(e)}
-                defaultValue={LocationDetails}
+                    onChangeText={e => setLocationDetails(e)}
+                    defaultValue={LocationDetails}
+                  />
+                  <Text style={styles.LableText}>Reasons:</Text>
+                  <Textarea
+                    style={styles.ResonsInput}
+                    rowSpan={5}
+                    placeholder="What motivates you to get this interest?"
+                    onChangeText={e => setReasons(e)}
+                    defaultValue={Reasons}
+                  />
+                </Form>
+              </View>
+              <TouchableOpacity
+                style={styles.submit_btn}
+                onPress={() => {
+                  SendOtpToThisMobile();
+                }}>
+                <Text style={styles.submit_btn_text}>SUBMIT</Text>
+              </TouchableOpacity>
+              <FranchiseRequestModal
+                visible={SuccessModalVisible}
+                setVisible={setSuccessModalVisible}
+                UserMobile={UserMobile}
               />
-              <Text style={styles.LableText}>Reasons:</Text>
-              <Textarea
-                style={styles.ResonsInput}
-                rowSpan={5}
-                placeholder="What motivates you to get this interest?"
-                onChangeText={e => setReasons(e)}
-                defaultValue={Reasons}
-              />
-            </Form>
-          </View>
-          <TouchableOpacity
-            style={styles.submit_btn}
-            onPress={() => {
-              SendOtpToThisMobile();
-            }}>
-            <Text style={styles.submit_btn_text}>SUBMIT</Text>
-          </TouchableOpacity>
-          <FranchiseRequestModal
-            visible={SuccessModalVisible}
-            setVisible={setSuccessModalVisible}
-            UserMobile={UserMobile}
-          />
+            </View>
+          </ScrollView>
+        </Container>
+      ) : (
+        <View style={styles.without_login_con}>
+          <Icon name="bell-outline" size={150} color={colors.bglight} />
+          <Text style={styles.without_login_text}>
+            Please login to add your franchise request.
+          </Text>
+          <LoginBtn onPress={() => navigation.navigate('LoginScreen')} />
         </View>
-      </ScrollView>
-    </Container>
+      )}
+    </>
   );
 };
 

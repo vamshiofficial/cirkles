@@ -7,6 +7,36 @@ const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 // ===========
 const styles = StyleSheet.create({
+  MainHeaderSectionShadow: {
+    backgroundColor: colors.white,
+    paddingVertical: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginBottom: 10,
+  },
+  MainHeaderSection: {
+    backgroundColor: colors.white,
+    paddingVertical: 15,
+    // borderBottomLeftRadius: 15,
+    // borderBottomRightRadius: 15,
+    borderBottomWidth:0.5,
+    borderBottomColor:colors.bglight
+  },
+  Mainhead_text: {
+    fontFamily: fonts.PrimaryBoldFont,
+    color: colors.black,
+    fontSize: fonts.FontHeadding,
+    marginLeft: 25,
+    textTransform: 'uppercase',
+  },
   con: {
     height: '100%',
     backgroundColor: colors.white,
@@ -18,16 +48,16 @@ const styles = StyleSheet.create({
     paddingBottom: 25,
     paddingHorizontal: 15,
     marginBottom: 25,
-    paddingTop: 50,
-    shadowColor: "#000",
-shadowOffset: {
-	width: 0,
-	height: 2,
-},
-shadowOpacity: 0.25,
-shadowRadius: 3.84,
+    // paddingTop: 50,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
 
-elevation: 5,
+    elevation: 5,
   },
   rewardCount: {
     flexDirection: 'row',
@@ -75,20 +105,28 @@ elevation: 5,
   //   ----
   bottomRightBtnsCon: {
     position: 'absolute',
-    bottom: 15,
+    bottom: 80,
     right: 15,
   },
   qrScanBtn: {
-    width: 50,
-    height: 50,
-    borderRadius: 15,
-    backgroundColor: colors.PrimaryBlack,
+    width: 45,
+    height: 45,
+    borderRadius: 5,
+    backgroundColor: colors.white,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center', 
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   qrIcon: {
-    color: colors.white,
-    fontSize: 25,
+    color: colors.black,
+    fontSize: 20,
   },
   shareScanBtn: {
     width: 50,
@@ -123,10 +161,10 @@ elevation: 5,
   },
   // ======without login
   OnlyHeaderSection: {
-    backgroundColor: colors.PrimaryBlack,
+    // backgroundColor: colors.white,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    paddingBottom: 50,
+    // paddingBottom: 50,
     paddingHorizontal: 15,
   },
   without_login_con: {
@@ -135,9 +173,9 @@ elevation: 5,
     alignItems: 'center',
     padding: 0,
     backgroundColor: colors.white,
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35,
-    marginTop: -35,
+    // borderTopLeftRadius: 35,
+    // borderTopRightRadius: 35,
+    marginTop: -6,
   },
   without_login_text: {
     fontSize: fonts.FontBody,

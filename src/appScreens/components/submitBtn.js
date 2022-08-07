@@ -17,8 +17,8 @@ export default SubmitBtn;
 
 const styles = StyleSheet.create({
   submitBtn: {
-    // position: 'absolute',
-    position:'relative',
+    position: 'absolute',
+    // position:'relative',
     right: DeviceWidth * 0.075,
     bottom: DeviceWidth * 0.075,
     width: 60,

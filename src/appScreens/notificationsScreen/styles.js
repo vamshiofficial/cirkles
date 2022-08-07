@@ -5,31 +5,39 @@ import fonts from '../../../assets/custom/fonts';
 const styles = StyleSheet.create({
   con: {
     // height:'100%',
-    flex:1,
+    flex: 1,
     backgroundColor: colors.white,
   },
   HeaderSection: {
-    backgroundColor: colors.Primary,
-    paddingTop: 50,
-    
+    backgroundColor: colors.white,
+    paddingVertical: 15,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.84,
+    elevation: 5,
+    marginBottom: 10,
   },
-  body:{
-    flex:1,
-    backgroundColor:colors.white,
-    borderTopLeftRadius:35,
-    borderTopRightRadius:35,
-    marginTop:-35,
-    paddingTop:35,
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 2,
-    // },
-    // shadowOpacity: 0.15,
-    // shadowRadius: 3.84,
-    // elevation: 5,
+  head_text: {
+    fontFamily: fonts.PrimaryBoldFont,
+    color: colors.black,
+    fontSize: fonts.FontHeadding,
+    marginLeft: 25,
+    textTransform: 'uppercase',
   },
-  without_login_con:{
+  body: {
+    flex: 1,
+    backgroundColor: colors.white,
+
+    marginTop: 0,
+    paddingTop: 0,
+  },
+  without_login_con: {
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -37,19 +45,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
-    marginTop: -35,
+    // marginTop: -35,
   },
-  without_login_text:{
-    fontSize:fonts.FontBody,
-    fontFamily:fonts.PrimaryFont,
-    color:colors.black3,
-    alignSelf:'center'
+  without_login_text: {
+    fontSize: fonts.FontBody,
+    fontFamily: fonts.PrimaryFont,
+    color: colors.black3,
+    alignSelf: 'center',
   },
-  only_text:{
-    fontSize:fonts.FontBody,
-    fontFamily:fonts.PrimaryFont,
-    color:colors.black,
-    alignSelf:'center',
+  only_text: {
+    fontSize: fonts.FontBody,
+    fontFamily: fonts.PrimaryFont,
+    color: colors.black,
+    alignSelf: 'center',
   },
   // =================notification ui
   NTFcon: {

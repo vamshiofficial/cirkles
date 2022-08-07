@@ -163,12 +163,12 @@ function AppNav() {
           name="Notifications"
           component={NotificationsScreen}
           options={{
-            headerShown: true,
+            headerShown: false,
             headerTitleAlign: 'left',
             headerTitleStyle: {fontFamily: fonts.PrimaryBoldFont},
             tabBarLabel: 'Notifications',
             headerStyle: {
-              backgroundColor: colors.Primary,
+              backgroundColor: colors.white,
               shadowOpacity: 0,
               elevation: 0,
             },
