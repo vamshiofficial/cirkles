@@ -33,7 +33,7 @@ const Generate_Pin = props => {
   //   Keyboard.dismiss();
   //   // this.setState({ otp });
   // };
-  const [Mobile, setMobile] = useState('yes')
+  const [Mobile, setMobile] = useState('yes');
   useEffect(() => {
     const GetUserId = async () => {
       let id = '';
@@ -45,8 +45,8 @@ const Generate_Pin = props => {
       }
     };
     GetUserId();
-  }, [])
-  
+  }, []);
+
   return (
     <View>
       <Modal
@@ -82,8 +82,7 @@ const Generate_Pin = props => {
                 <Text style={styles.headingText}>Create/Update ESY PIN</Text>
                 <Text style={styles.enter_otp}>Enter Otp</Text>
                 <Text style={styles.enter_otp_text}>
-                  Enter Otp that we just sent to your mobile number
-                  ({Mobile}).
+                  Enter Otp that we just sent to your mobile number ({Mobile}).
                 </Text>
                 <View style={styles.otp_input_con}>
                   <OTPInputView
@@ -168,11 +167,11 @@ const styles = StyleSheet.create({
     fontFamily: fonts.PrimaryBoldFont,
     fontSize: fonts.FontMainHeading,
     color: colors.black,
-    marginBottom:15,
-    borderBottomWidth:1,
-    width:'100%',
-    paddingBottom:15,
-    borderColor:colors.white1
+    marginBottom: 15,
+    borderBottomWidth: 1,
+    width: '100%',
+    paddingBottom: 15,
+    borderColor: colors.white1,
   },
   enter_otp: {
     fontFamily: fonts.PrimaryBoldFont,

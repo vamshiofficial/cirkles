@@ -43,14 +43,6 @@ function AppNav() {
               shadowOpacity: 0,
             },
             headerRight: () => (
-              <Image
-                style={styles.HomeTopMenuImg}
-                source={{
-                  uri: 'https://cdn1.vectorstock.com/i/1000x1000/31/95/user-sign-icon-person-symbol-human-avatar-vector-12693195.jpg',
-                }}
-              />
-            ),
-            headerLeft: () => (
               <TouchableOpacity
                 style={styles.HomeTopMenuCon}
                 onPress={() => navigation.navigate('SettingsScreen')}>
@@ -59,11 +51,31 @@ function AppNav() {
                   style={styles.HomeTopMenuIcon}
                 />
                 {/* <IonIcon
-                  name="ios-search-outline"
-                  style={styles.HomeTopMenuIcon}
-                /> */}
+                name="ios-search-outline"
+                style={styles.HomeTopMenuIcon}
+              /> */}
               </TouchableOpacity>
+              // <Image
+              //   style={styles.HomeTopMenuImg}
+              //   source={{
+              //     uri: 'https://cdn1.vectorstock.com/i/1000x1000/31/95/user-sign-icon-person-symbol-human-avatar-vector-12693195.jpg',
+              //   }}
+              // />
             ),
+            // headerLeft: () => (
+            //   <TouchableOpacity
+            //     style={styles.HomeTopMenuCon}
+            //     onPress={() => navigation.navigate('SettingsScreen')}>
+            //     <IonIcon
+            //       name="settings-outline"
+            //       style={styles.HomeTopMenuIcon}
+            //     />
+            //     {/* <IonIcon
+            //       name="ios-search-outline"
+            //       style={styles.HomeTopMenuIcon}
+            //     /> */}
+            //   </TouchableOpacity>
+            // ),
             tabBarLabel: 'Home',
             headerTitle: '',
             tabBarShowLabel: false,

@@ -40,7 +40,7 @@ export default function AboutPage({ navigation }) {
                     null
             }
             <Header
-                transparent
+                // transparent
                 androidStatusBarColor={colors.black}
                 style={{ backgroundColor: colors.white, marginBottom: 0.5, elevation: 1 }}
             >

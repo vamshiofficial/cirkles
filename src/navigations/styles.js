@@ -4,7 +4,7 @@ import fonts from '../../assets/custom/fonts';
 
 const styles = StyleSheet.create({
   HomeTopMenuCon: {
-    flexDirection: 'row',
+    flexDirection: 'row',marginRight: 20,
   },
   HomeTopMenuIcon: {
     fontSize: 20,

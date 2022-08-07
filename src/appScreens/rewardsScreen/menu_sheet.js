@@ -1,4 +1,11 @@
-import {Image, Pressable, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import {BottomSheet} from 'react-native-btr';
 
@@ -9,49 +16,50 @@ import colors from '../../../assets/custom/colors';
 import fonts from '../../../assets/custom/fonts';
 import {Body, Left, List, ListItem, Right} from 'native-base';
 import {useNavigation} from '@react-navigation/native';
+import Share from 'react-native-share';
+import imgs from '../../../assets/images/base_64_imgs';
 const MenuSheet = props => {
   const navigation = useNavigation();
+
+  const OnShare = async () => {
+    const ShareContent = {
+      message: 'this is a test message to share.',
+      url: imgs.invite_image,
+    };
+    try {
+      const ShareResponse = await Share.open(ShareContent);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
-      <BottomSheet
-        visible={props.visible}
-        onBackButtonPress={() => props.setVisible(false)}
-        onBackdropPress={() => props.setVisible(false)}>
-        <View style={styles.bottomMainView}>
-          <View style={styles.menuBtn}>
-            <Text style={styles.menuText}>MENU</Text>
-          </View>
-          {/* <List style={{paddingHorizontal: 20, marginTop: 25}}> */}
-            {/* <ListItem icon noBorder style={styles.ListItm}>
-              <Left>
-                <Image
-                style={styles.cardImage}
-                source={{uri:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Masala_Chai.JPG/800px-Masala_Chai.JPG'}} />
-              </Left>
-              <Body>
-                <Text style={styles.ItemName}>Normal Tea</Text>
-              </Body>
-              <Right>
-                <Text style={styles.ItemPrice}>15</Text>
-              </Right>
-            </ListItem> */}
-          {/* </List> */}
-          {/* <View style={styles.top_btn_grp}> */}
-          <TouchableOpacity
-            style={styles.top_btn}
-            onPress={() => {
-              props.setVisible(false),
-                navigation.navigate('TransactionHistroy');
-            }}>
-            <Octicons name="history" style={styles.top_icon} />
-            <Text style={styles.top_btn_text}>Transactions history</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.top_btn} onPress={()=>console.warn('invite')}>
-            <Ionicons name="md-arrow-redo-outline" style={styles.top_icon} />
-            <Text style={styles.top_btn_text}>Invite friend</Text>
-          </TouchableOpacity>
-          {/* </View> */}
+    <BottomSheet
+      visible={props.visible}
+      onBackButtonPress={() => props.setVisible(false)}
+      onBackdropPress={() => props.setVisible(false)}>
+      <View style={styles.bottomMainView}>
+        <View style={styles.menuBtn}>
+          <Text style={styles.menuText}>MENU</Text>
         </View>
-      </BottomSheet>
+        <TouchableOpacity
+          style={styles.top_btn}
+          onPress={() => {
+            props.setVisible(false), navigation.navigate('TransactionHistroy');
+          }}>
+          <Octicons name="history" style={styles.top_icon} />
+          <Text style={styles.top_btn_text}>Transactions history</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.top_btn}
+          onPress={() => {
+            props.setVisible(false), OnShare();
+          }}>
+          <Ionicons name="md-arrow-redo-outline" style={styles.top_icon} />
+          <Text style={styles.top_btn_text}>Invite friend</Text>
+        </TouchableOpacity>
+        {/* </View> */}
+      </View>
+    </BottomSheet>
   );
 };
 

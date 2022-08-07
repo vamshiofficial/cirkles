@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   HeaderHedding: {
     fontFamily: fonts.PrimarySemiBoldFont,
     fontSize: fonts.FontHeadding,
-    color:colors.white
+    color: colors.white,
   },
   HeaderBody: {
     fontFamily: fonts.PrimarySemiBoldFont,
@@ -44,10 +44,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     flexDirection: 'row',
     padding: 15,
-    borderWidth:1,
-    borderColor:colors.white1,
-    borderRadius:5,
-    marginVertical:10,
+    borderWidth: 1,
+    borderColor: colors.white1,
+    borderRadius: 5,
+    marginVertical: 10,
   },
   item__left: {
     width: 55,
@@ -55,15 +55,15 @@ const styles = StyleSheet.create({
     backgroundColor: colors.bglight,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius:50,
+    borderRadius: 50,
   },
   item__icon: {
     fontSize: 28,
-    color:colors.black
+    color: colors.black,
   },
   item__right: {
     paddingLeft: 20,
-    flex:1
+    flex: 1,
   },
   item__heding: {
     fontFamily: fonts.PrimaryBoldFont,

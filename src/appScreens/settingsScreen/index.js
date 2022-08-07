@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback,useContext} from 'react';
+import React, {useEffect, useState, useCallback, useContext} from 'react';
 import {Text, View, Image, TouchableOpacity, Linking} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
@@ -119,12 +119,12 @@ const SettingsScreen = ({navigation}) => {
             </View>
           </View>
         </BottomSheet> */}
-        <View style={styles.note_view}>
+        {/* <View style={styles.note_view}>
           <Text style={styles.note_text}>
             Note: Data will be updated in all esigm products if you update here.
           </Text>
-        </View>
-        <View style={styles.user_related}>
+        </View> */}
+        {/* <View style={styles.user_related}> */}
           {/* <ListItem
             avatar
             style={styles.list_con}
@@ -179,7 +179,7 @@ const SettingsScreen = ({navigation}) => {
             </Body>
             <Right />
           </ListItem> */}
-        </View>
+        {/* </View> */}
         <View style={styles.user_related}>
           <ListItem
             icon
@@ -190,7 +190,7 @@ const SettingsScreen = ({navigation}) => {
               <Icon name="information-outline" style={styles.list_icon} />
             </Left>
             <Body style={styles.list_body}>
-              <Text style={styles.list_body_text}>About Opens</Text>
+              <Text style={styles.list_body_text}>About VAHH</Text>
             </Body>
             <Right />
           </ListItem>
@@ -218,9 +218,7 @@ const SettingsScreen = ({navigation}) => {
               <Icon name="information-outline" style={styles.list_icon} />
             </Left>
             <Body style={styles.list_body}>
-              <Text style={styles.list_body_text}>
-              Privacy Policy
-              </Text>
+              <Text style={styles.list_body_text}>Privacy Policy</Text>
             </Body>
             <Right />
           </ListItem>
@@ -256,13 +254,12 @@ const SettingsScreen = ({navigation}) => {
           <ListItem
             icon
             style={styles.list_con}
-            // onPress={() => navigation.navigate('onboard')}
-          >
+            onPress={() => navigation.navigate('OnBoardingScreen')}>
             <Left style={styles.list_left}>
               <Icon name="view-carousel" style={styles.list_icon} />
             </Left>
             <Body style={styles.list_body}>
-              <Text style={styles.list_body_text}>The Crikle Introduction</Text>
+              <Text style={styles.list_body_text}>The VAHH CIRCLE Intro</Text>
             </Body>
             <Right />
           </ListItem>

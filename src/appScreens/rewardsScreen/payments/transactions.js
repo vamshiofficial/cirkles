@@ -15,7 +15,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import RewardCard from '../RewardCard';
+import { useNavigation } from '@react-navigation/native';
+
 const TransactionHistory = () => {
+  const navigation = useNavigation();
   const [loading, SetLoading] = useState(false);
   const [data, SetData] = useState([]);
   const [dataLoading, SetDataLoading] = useState(false);
@@ -160,7 +163,7 @@ const TransactionHistory = () => {
           <Button
             transparent
             onPress={() => {
-              props.goBack();
+              navigation.goBack();
             }}
             style={{
               width: 40,

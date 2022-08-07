@@ -200,17 +200,6 @@ const RewardsScreen = ({navigation}) => {
       setNextPaymentVisible(!NextPaymentvisible);
     }
   };
-
-  const OnShare = async () => {
-    const ShareContent = {
-      message: 'this is a test message to share.',
-    };
-    try {
-      const ShareResponse = await Share.open(ShareContent);
-    } catch (err) {
-      console.log(err);
-    }
-  };
   return (
     <>
       {Currect_UserId !== null ? (

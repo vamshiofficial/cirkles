@@ -69,7 +69,7 @@ export default function TermsConditionsPage({navigation}) {
         <FullPageLoader visible={true} bigText=" " />
       ) : null}
       <Header
-        transparent
+        // transparent
         androidStatusBarColor={colors.black}
         style={{
           backgroundColor: colors.white,

@@ -1,5 +1,5 @@
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styles from './styles';
 import ListCardUi from '../components/ListCard';
 import * as Animatable from 'react-native-animatable';
@@ -10,9 +10,41 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {Body, Left, ListItem, Right} from 'native-base';
 import colors from '../../../assets/custom/colors';
 import OurAlert from '../components/alert';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { Body, Left, ListItem, Right } from 'native-base';
 const HomeScreen = ({navigation}) => {
   const {LogOutNow, LoginNow} = useContext(AuthContext);
+  const [UserName, setUserName] = useState('');
+  const [UserPic, setUserPic] = useState('');
+  const [Wish, setWish] = useState('');
+  const [Wish_msg, setWish_msg] = useState('');
+  useEffect(() => {
+    GetHomeCustoms();
+  }, []);
+  const GetHomeCustoms = async () => {
+    let id = '';
+    try {
+      id = await AsyncStorage.getItem('userToken');
+    } catch (e) {
+      console.log(e);
+    }
+    if (id !== null) {
+    } else {
+    }
+    const apiURL = `https://esigm.com/thecircle/v1/action.php?action=get_home_page_customs&user_id=${id}`;
+    fetch(apiURL)
+      .then(res => res.json())
+      .then(resJson => {
+        setUserName(resJson[0].user_fname);
+        setUserPic(resJson[0].user_pic);
+        setWish(resJson[0].wish);
+        setWish_msg(resJson[0].wish_msg);
+      })
+      .catch(function (e) {
+        console.warn(e);
+      });
+  };
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView contentContainerStyle={styles.con}>
@@ -21,11 +53,10 @@ const HomeScreen = ({navigation}) => {
           animation={'bounce'}
           duration={1000}
           style={[styles.HeaderSection, {marginBottom: 10}]}>
-          <Text style={styles.HeaderHedding}>Hello Vamshi good morning!</Text>
-          <Text style={styles.HeaderBody}>
-            Had your tea if you don’t please click here to search our circle
-            near you.
+          <Text style={styles.HeaderHedding}>
+            {UserName} {Wish}
           </Text>
+          <Text style={styles.HeaderBody}>{Wish_msg}</Text>
         </Animatable.View>
         <TouchableOpacity
           onPress={() => navigation.navigate('OnBoardingScreen')}>

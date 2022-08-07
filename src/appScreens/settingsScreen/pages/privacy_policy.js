@@ -69,7 +69,7 @@ export default function PrivacyPolicyPage({navigation}) {
         <FullPageLoader visible={true} bigText=" " />
       ) : null}
       <Header
-        transparent
+        // transparent
         androidStatusBarColor={colors.black}
         style={{
           backgroundColor: colors.white,

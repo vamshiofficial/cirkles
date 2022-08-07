@@ -8,7 +8,7 @@ function HeaderView(props) {
   return (
     <Header
       noLeft
-      transparent
+      // transparent
       androidStatusBarColor={colors.black}
       style={{
         backgroundColor: colors.white,
