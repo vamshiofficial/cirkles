@@ -15,6 +15,7 @@ import AllOutletsScreen from '../appScreens/allOutletsScreen/index.js';
 import PaymentsSection from '../appScreens/rewardsScreen/payments/index.js';
 import SearchFriend from '../appScreens/rewardsScreen/payments/search_frd.js';
 import PayOutletScaner from '../appScreens/rewardsScreen/payments/pay_scan.js';
+import TransactionHistory from '../appScreens/rewardsScreen/payments/transactions.js';
 // const Stack = createNativeStackNavigator();
 const Stack = createStackNavigator();
 const AuthNav = () => {
@@ -102,6 +103,15 @@ const AuthNav = () => {
         }}
         name="PaymentsSection"
         component={PaymentsSection}
+      />
+      <Stack.Screen
+        options={{
+          animationEnabled: true,
+          headerShown: false,
+          headerTitle: '',
+        }}
+        name="TransactionHistroy"
+        component={TransactionHistory}
       />
       <Stack.Screen
         options={{

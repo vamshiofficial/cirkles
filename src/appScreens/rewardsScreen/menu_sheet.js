@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Pressable, StyleSheet, Text, View,TouchableOpacity} from 'react-native';
 import React from 'react';
 import {BottomSheet} from 'react-native-btr';
 
@@ -8,10 +8,10 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import colors from '../../../assets/custom/colors';
 import fonts from '../../../assets/custom/fonts';
 import {Body, Left, List, ListItem, Right} from 'native-base';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 const MenuSheet = props => {
+  const navigation = useNavigation();
   return (
-    <View>
       <BottomSheet
         visible={props.visible}
         onBackButtonPress={() => props.setVisible(false)}
@@ -20,7 +20,7 @@ const MenuSheet = props => {
           <View style={styles.menuBtn}>
             <Text style={styles.menuText}>MENU</Text>
           </View>
-          <List style={{paddingHorizontal: 20, marginTop: 25}}>
+          {/* <List style={{paddingHorizontal: 20, marginTop: 25}}> */}
             {/* <ListItem icon noBorder style={styles.ListItm}>
               <Left>
                 <Image
@@ -34,20 +34,24 @@ const MenuSheet = props => {
                 <Text style={styles.ItemPrice}>15</Text>
               </Right>
             </ListItem> */}
-          </List>
+          {/* </List> */}
           {/* <View style={styles.top_btn_grp}> */}
-            <TouchableOpacity style={styles.top_btn}>
-              <Octicons name="history" style={styles.top_icon} />
-              <Text style={styles.top_btn_text}>Transactions history</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.top_btn}>
-              <Ionicons name="md-arrow-redo-outline" style={styles.top_icon} />
-              <Text style={styles.top_btn_text}>Invite friend</Text>
-            </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.top_btn}
+            onPress={() => {
+              props.setVisible(false),
+                navigation.navigate('TransactionHistroy');
+            }}>
+            <Octicons name="history" style={styles.top_icon} />
+            <Text style={styles.top_btn_text}>Transactions history</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.top_btn} onPress={()=>console.warn('invite')}>
+            <Ionicons name="md-arrow-redo-outline" style={styles.top_icon} />
+            <Text style={styles.top_btn_text}>Invite friend</Text>
+          </TouchableOpacity>
           {/* </View> */}
         </View>
       </BottomSheet>
-    </View>
   );
 };
 
@@ -56,7 +60,7 @@ export default MenuSheet;
 const styles = StyleSheet.create({
   bottomMainView: {
     backgroundColor: colors.white,
-    paddingBottom:20,
+    paddingBottom: 20,
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
     borderTopLeftRadius: 15,
@@ -110,22 +114,22 @@ const styles = StyleSheet.create({
     fontFamily: fonts.PrimarySemiBoldFont,
     fontSize: fonts.FontHeadding,
   },
-//   ===============btn
-top_btn_grp: {
+  //   ===============btn
+  top_btn_grp: {
     // flexDirection: 'row',
     // justifyContent: 'space-evenly',
   },
   top_btn: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    paddingHorizontal: 30,
+    paddingRight: 30,
     alignItems: 'center',
     paddingVertical: 10,
     borderRadius: 0,
     backgroundColor: colors.white,
     marginTop: 5,
-    width:'90%',
-    alignSelf:'center'
+    width: '90%',
+    alignSelf: 'center',
   },
   top_icon: {
     fontSize: 20,
