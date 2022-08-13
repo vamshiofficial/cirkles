@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet,Platform} from 'react-native';
 import colors from '../../../assets/custom/colors';
 import fonts from '../../../assets/custom/fonts';
 const styles = StyleSheet.create({
@@ -10,7 +10,8 @@ const styles = StyleSheet.create({
   },
   HeaderSection: {
     backgroundColor: colors.white,
-    paddingVertical: 15,
+    paddingTop: Platform.OS ==="ios"?40:15,
+    paddingBottom:15,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     shadowColor: '#000',

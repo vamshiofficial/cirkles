@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions, Platform} from 'react-native';
 import colors from '../../../assets/custom/colors';
 import fonts from '../../../assets/custom/fonts';
 //------------
@@ -9,7 +9,8 @@ const DeviceHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   MainHeaderSectionShadow: {
     backgroundColor: colors.white,
-    paddingVertical: 15,
+    paddingTop: Platform.OS === 'ios' ? 40 : 15,
+    paddingBottom: 15,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
     shadowColor: '#000',
@@ -23,12 +24,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   MainHeaderSection: {
+    paddingTop: Platform.OS === 'ios' ? 40 : 15,
+    paddingBottom: 15,
     backgroundColor: colors.white,
-    paddingVertical: 15,
+    // paddingVertical: 15,
     // borderBottomLeftRadius: 15,
     // borderBottomRightRadius: 15,
-    borderBottomWidth:0.5,
-    borderBottomColor:colors.bglight
+    borderBottomWidth: 0.5,
+    borderBottomColor: colors.bglight,
   },
   Mainhead_text: {
     fontFamily: fonts.PrimaryBoldFont,
@@ -114,7 +117,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: colors.white,
     alignItems: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

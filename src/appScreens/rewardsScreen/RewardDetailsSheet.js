@@ -46,13 +46,13 @@ const RewardDetailsSheet = props => {
               Payment: {props.ShowRewardDetails.payment_status}
             </Text>
             <Text style={styles.reward_text}>
-              PaidUsing: {props.ShowRewardDetails.paid_by}
+              PaidUsing: {props.ShowRewardDetails.paid_using}
             </Text>
             <Text style={styles.reward_text}>
-              RequestedTime: {props.ShowRewardDetails.posted_at}
+              RequestedTime: {props.ShowRewardDetails.posted_time}
             </Text>
             <Text style={styles.reward_text}>
-              PaidTime: {props.ShowRewardDetails.fname}
+              PaidTime: {props.ShowRewardDetails.paid_time}
             </Text>
             <Text style={styles.reward_text}>
               PaymentID: {props.ShowRewardDetails.payment_id}

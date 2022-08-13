@@ -48,10 +48,18 @@ const NotificationsScreen = ({navigation}) => {
   }, [pageCurrent]);
   //===============
 
-  const fetchdata = () => {
+  const fetchdata = async () => {
+    let id = '';
+    try {
+      id = await AsyncStorage.getItem('userToken');
+      setCurrect_UserId(id);
+      console.log('id', id);
+    } catch (e) {
+      console.log(e);
+    }
     SetDataLoading(true);
     const apiURL =
-      `https://esigm.com/thecircle/v1/action.php?action=get_notifications_list&the_user_id=${5017}&page=` +
+      `https://esigm.com/thecircle/v1/action.php?action=get_notifications_list&the_user_id=${id}&page=` +
       pageCurrent;
     fetch(apiURL)
       .then(res => res.json())
