@@ -7,10 +7,11 @@ import QrDataTest from './qrtest';
 import {AuthContext} from '../../navigations/context/authContest';
 import SubmitBtn from '../components/submitBtn';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Body, Left, ListItem, Right} from 'native-base';
+import {Body, Left, ListItem, Right, Toast} from 'native-base';
 import colors from '../../../assets/custom/colors';
 import OurAlert from '../components/alert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import LoginFirstModal from '../../authScreens/loginScreen/loginPopup';
 // import { Body, Left, ListItem, Right } from 'native-base';
 const HomeScreen = ({navigation}) => {
   const {LogOutNow, LoginNow} = useContext(AuthContext);
@@ -62,6 +63,7 @@ const HomeScreen = ({navigation}) => {
           onPress={() => navigation.navigate('OnBoardingScreen')}>
           <Text>OnBoardingScreen</Text>
         </TouchableOpacity>
+        {/* <LoginFirstModal /> */}
         <Animatable.View animation={'zoomIn'} duration={1000} delay={500}>
           <TouchableOpacity
             style={styles.item__con}

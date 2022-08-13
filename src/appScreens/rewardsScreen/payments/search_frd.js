@@ -168,6 +168,7 @@ const SearchFriend = () => {
               styles={styles.text_input}
               onChangeText={e => ValidatePhone(e)}
               keyboardType="numeric"
+              fontFamily={fonts.PrimaryBoldFont}
             />
           </View>
           <TouchableOpacity style={styles.right}>

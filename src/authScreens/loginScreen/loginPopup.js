@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Alert,
   Modal,
@@ -7,54 +7,66 @@ import {
   Text,
   Pressable,
   Dimensions,
+  TouchableNativeFeedback,
+  TouchableHighlight,
+  TouchableWithoutFeedbackBase,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import colors from '../../../assets/custom/colors';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import fonts from '../../../assets/custom/fonts';
+import LoginBtn from '../../appScreens/components/loginBtn';
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
-const FranchiseRequestModal = props => {
+const LoginFirstModal = props => {
+  const [visible, setvisible] = useState(props.visible);
+  const closeModal = () => {
+    setvisible(!visible);
+    setTimeout(() => {
+      setvisible(true);
+    }, props.duration);
+  };
+
   return (
-    <View style={styles.centeredView}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={props.visible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
-        <View style={styles.centeredView}>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={visible}
+      onRequestClose={() => closeModal()}>
+      <View style={styles.centeredView}>
+        <Pressable onPress={() => closeModal()} style={styles.Pressable}>
           <View style={styles.modalView}>
-            <Ionicons
-              name="ios-checkmark-done-circle"
-              style={styles.iconCheck}
-            />
-            <Text style={styles.heading_text}>
-              Request posted successfully{' '}
-            </Text>
+            <AntDesign name="login" style={styles.iconCheck} />
+            <Text style={styles.heading_text}>Please login to continue</Text>
             <Text style={styles.body_text}>
-              Your request has been successfully submitted. You will get a
-              phone call to <Text style={{fontFamily:fonts.PrimaryBoldFont,fontSize:fonts.FontSubHeadding}}>{props.UserMobile}</Text> to continue to forther steps.
+              You can have lots of fun and get unlimited rewards once you step
+              in.
             </Text>
-            <Pressable
-              style={styles.okay_btn}
-              onPress={() => props.setVisible(false)}>
-              <Text style={styles.btn_text}>OKAY</Text>
-            </Pressable>
+            <LoginBtn onPress={() => navigation.navigate('LoginScreen')} />
           </View>
-        </View>
-      </Modal>
-    </View>
+        </Pressable>
+      </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
   centeredView: {
-    width: '100%',
-    height: '100%',
+    width: DeviceWidth,
+    height: DeviceHeight,
+    // flex:1,
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  Pressable: {
+    width: DeviceWidth,
+    height: DeviceHeight,
+    // flex:1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    // backgroundColor: colors.red,
   },
   modalView: {
     width: '100%',
@@ -76,7 +88,7 @@ const styles = StyleSheet.create({
   iconCheck: {
     alignSelf: 'center',
     color: colors.green,
-    fontSize: 130,
+    fontSize: 90,
   },
   heading_text: {
     fontFamily: fonts.PrimaryBoldFont,
@@ -105,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FranchiseRequestModal;
+export default LoginFirstModal;

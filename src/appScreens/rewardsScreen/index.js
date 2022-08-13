@@ -25,6 +25,7 @@ import {useNavigation} from '@react-navigation/native';
 import MenuSheet from './menu_sheet';
 import RewardDetailsSheet from './RewardDetailsSheet';
 import NextPaymentSheet from './expireSheet';
+import LoginFirstModal from '../../authScreens/loginScreen/loginPopup'
 // import {BottomSheet} from 'react-native-btr';
 function HeaderSection(props) {
   const navigation = useNavigation();
@@ -134,6 +135,7 @@ const RewardsScreen = ({navigation}) => {
       console.log(e);
     }
     SetDataLoading(true);
+    
     if (id !== null) {
       const apiURL =
         `https://esigm.com/thecircle/v1/rewards.php?action=get_all___rewards_list&user_id=${id}&page=` +
@@ -165,6 +167,7 @@ const RewardsScreen = ({navigation}) => {
         });
     } else {
       console.warn('login required');
+      <LoginFirstModal />
     }
   };
   // ==========render footer data
