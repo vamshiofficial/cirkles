@@ -63,6 +63,9 @@ const ENTER_AMOUNT = props => {
             ) : null}
 
             <View style={styles.main_view}>
+              <View style={styles.balance_con}>
+                <Text style={styles.balance_text}>{props.PayingUname} your ESY balance is: ₹<Text style={styles.balance_bold_text}>{props.TotalEsyAmount}</Text></Text>
+              </View>
               <Text style={styles.body_text}>You are paying</Text>
               <View style={styles.input_row}>
                 <Text style={styles.rupee_text}>₹</Text>
@@ -234,4 +237,23 @@ const styles = StyleSheet.create({
     fontFamily: fonts.PrimarySemiBoldFont,
     marginTop: 10,
   },
+  // ===============balance
+  balance_con:{
+    borderColor:colors.bglight,
+    borderWidth:2,
+    paddingVertical:5,
+    paddingHorizontal:15,
+    borderRadius:25,
+    borderStyle:'dashed',
+    marginBottom:25,
+  },
+balance_text:{
+  color: colors.black,
+  fontFamily: fonts.PrimaryFont,
+},
+balance_bold_text:{
+  color: colors.black,
+  fontFamily: fonts.PrimaryBoldFont,
+  fontSize:18
+},
 });

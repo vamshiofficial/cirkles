@@ -19,6 +19,8 @@ import fonts from '../../../../assets/custom/fonts';
 import PayingModal from './result_modal';
 import ENTER_ESY_PIN from './esy_pin_modal';
 import ENTER_AMOUNT from './amount_modal';
+import LoginFirstModal from '../../../authScreens/loginScreen/loginPopup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //------------
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
@@ -30,6 +32,8 @@ const PayOutletScaner = props => {
   // ---
   const [Currect_UserId, setCurrect_UserId] = useState('');
   const [PageLoader, setPageLoader] = useState(false);
+  const [LoginModal, setLoginModal] = useState(false);
+
   const CameraRotate = () => {
     setisFrontCameraOn(!isFrontCameraOn);
   };
@@ -39,9 +43,15 @@ const PayOutletScaner = props => {
     }
   };
   // ---
-  const onSuccess = e => {
+  const onSuccess = async e => {
+    try {
+      id = await AsyncStorage.getItem('userToken');
+    } catch (e) {
+      console.log(e);
+    }
     setPageLoader(true);
-    if (Currect_UserId !== null) {
+    if (id !== null) {
+      // console.warn('yes');
       let text = e.data;
       console.log('scanned data', e.data);
       let result = text.slice(13);
@@ -61,7 +71,8 @@ const PayOutletScaner = props => {
         // props.setPageLoader(false);
       }
     } else {
-      alert('login first');
+      // alert('login first');
+      setLoginModal(true);
     }
   };
   const CustomMarker = () => (
@@ -126,6 +137,9 @@ const PayOutletScaner = props => {
   );
   return (
     <Animatable.View animation={'slideInUp'} duration={500} style={{flex: 1}}>
+      {LoginModal ? (
+        <LoginFirstModal visible={LoginModal} setVisible={setLoginModal} />
+      ) : null}
       <QRCodeScanner
         onRead={onSuccess}
         flashMode={

@@ -50,7 +50,7 @@ export default function AboutPage({ navigation }) {
                     </Button>
                 </Left>
                 <Body>
-                    <Title style={{ fontFamily: fonts.PrimaryFont, fontSize: fonts.FontSubHeadding, color: colors.black }}>About Opens</Title>
+                    <Title style={{ fontFamily: fonts.PrimaryFont, fontSize: fonts.FontSubHeadding, color: colors.black }}>About Vahh circle</Title>
                 </Body>
                 <Right />
             </Header>

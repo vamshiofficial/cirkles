@@ -7,6 +7,7 @@ import QrDataTest from './qrtest';
 import {AuthContext} from '../../navigations/context/authContest';
 import SubmitBtn from '../components/submitBtn';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import {Body, Left, ListItem, Right, Toast} from 'native-base';
 import colors from '../../../assets/custom/colors';
 import OurAlert from '../components/alert';
@@ -19,8 +20,16 @@ const HomeScreen = ({navigation}) => {
   const [UserPic, setUserPic] = useState('');
   const [Wish, setWish] = useState('');
   const [Wish_msg, setWish_msg] = useState('');
+  // ===============
+  // -----header items
+  const [NextPaymentvisible, setNextPaymentVisible] = useState(false);
+  const [NextPayment, setNextPayment] = useState('');
+  const [NextPaymentDate, setNextPaymentDate] = useState('');
+  const [PrevPaymentDate, setPrevPaymentDate] = useState('');
+  const [UserRewards, setUserRewards] = useState('');
   useEffect(() => {
     GetHomeCustoms();
+    GetExpireDate();
   }, []);
   const GetHomeCustoms = async () => {
     let id = '';
@@ -45,7 +54,31 @@ const HomeScreen = ({navigation}) => {
         console.warn(e);
       });
   };
-
+  // ==============copied from rewards index page
+  const GetExpireDate = async () => {
+    let id = '';
+    try {
+      id = await AsyncStorage.getItem('userToken');
+    } catch (e) {
+      console.log(e);
+    }
+    if (id !== null) {
+      const apiURL = `https://esigm.com/thecircle/v1/action.php?action=next__outlet_payment_time&user_id=${id}`;
+      fetch(apiURL)
+        .then(res => res.json())
+        .then(resJson => {
+          // console.log('expire', JSON.stringify(resJson));
+          // // setUserName(resJson[0].user_name);
+          setNextPayment(resJson[0].next_payment);
+          setUserRewards(resJson[0].total_rewards);
+          setPrevPaymentDate(resJson[0].prev_pay_date);
+          setNextPaymentDate(resJson[0].next_pay_date);
+        })
+        .catch(function (e) {
+          console.warn(e);
+        });
+    }
+  };
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView contentContainerStyle={styles.con}>
@@ -59,11 +92,35 @@ const HomeScreen = ({navigation}) => {
           </Text>
           <Text style={styles.HeaderBody}>{Wish_msg}</Text>
         </Animatable.View>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={() => navigation.navigate('OnBoardingScreen')}>
           <Text>OnBoardingScreen</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {/* <LoginFirstModal /> */}
+        {UserRewards !== 0 ? (
+          <Animatable.View animation={'zoomIn'} duration={1000} delay={400}>
+            <TouchableOpacity
+              style={[styles.item__con, {backgroundColor: '#0F9D59'}]}
+              onPress={() => navigation.navigate('AllOutletsScreen')}>
+              <View
+                style={[styles.item__left, {backgroundColor: colors.white}]}>
+                <IonIcon
+                  name="trophy-outline"
+                  style={[styles.item__icon, {fontSize: 22}]}
+                />
+              </View>
+              <View style={styles.item__right}>
+                <Text style={[styles.item__heding, {color: colors.white}]}>
+                  Your total rewards {UserRewards} rupees
+                </Text>
+                <Text style={[styles.item__body, {color: colors.white2}]}>
+                  You have {UserRewards} rupees unused rewards.You can actually
+                  Drink/Eat somthing at our VAHH outlets.
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </Animatable.View>
+        ) : null}
         <Animatable.View animation={'zoomIn'} duration={1000} delay={500}>
           <TouchableOpacity
             style={styles.item__con}
@@ -102,25 +159,27 @@ const HomeScreen = ({navigation}) => {
             </View>
           </TouchableOpacity>
         </Animatable.View>
-        <Animatable.View animation={'zoomIn'} duration={1000} delay={1100}>
-          <TouchableOpacity
-            style={styles.item__con}
-            onPress={() => navigation.navigate('PayOutletScaner')}>
-            <View style={styles.item__left}>
-              <MaterialCommunityIcons
-                name="scan-helper"
-                style={[styles.item__icon, {fontSize: 20}]}
-              />
-            </View>
-            <View style={styles.item__right}>
-              <Text style={styles.item__heding}>Pay at outlet</Text>
-              <Text style={styles.item__body}>
-                You can directly use your rewards which you won by scaning our
-                payment QR code at any VAHH outlets.
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </Animatable.View>
+        {NextPayment === 'PAY_NOW' ? (
+          <Animatable.View animation={'zoomIn'} duration={1000} delay={1100}>
+            <TouchableOpacity
+              style={styles.item__con}
+              onPress={() => navigation.navigate('PayOutletScaner')}>
+              <View style={styles.item__left}>
+                <MaterialCommunityIcons
+                  name="scan-helper"
+                  style={[styles.item__icon, {fontSize: 20}]}
+                />
+              </View>
+              <View style={styles.item__right}>
+                <Text style={styles.item__heding}>Pay at outlet</Text>
+                <Text style={styles.item__body}>
+                  You can directly use your rewards which you won by scaning our
+                  payment QR code at any VAHH outlets.
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </Animatable.View>
+        ) : null}
         <Animatable.View animation={'zoomIn'} duration={1000} delay={1500}>
           <TouchableOpacity
             style={styles.item__con}

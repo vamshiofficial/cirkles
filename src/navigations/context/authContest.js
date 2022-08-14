@@ -4,6 +4,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({children}) => {
   const [isLoading, setisLoading] = useState(true);
   const [userToken, setuserToken] = useState(null);
+  const [isFirstLaunch, setisFirstLaunch] = useState(null);
   const test = 'test';
   useEffect(() => {
     isUserLoggedIn();
@@ -25,18 +26,29 @@ export const AuthProvider = ({children}) => {
     setTimeout(() => setisLoading(false), 5000);
   };
   const isUserLoggedIn = async () => {
+    let FirstLaunch = null;
+    let UserToken = null;
     try {
       setisLoading(true);
-      let UserToken = await AsyncStorage.getItem('userToken');
-      setuserToken(UserToken);
-      setTimeout(() => setisLoading(false), 5000);
+      UserToken = await AsyncStorage.getItem('userToken');
+      FirstLaunch = await AsyncStorage.getItem('alreadyLaunched');
     } catch (error) {
       console.log('login error', error);
+    }
+    if (FirstLaunch == null) {
+      AsyncStorage.setItem('alreadyLaunched', 'true');
+      setisFirstLaunch('true');
+      setuserToken(UserToken);
+      setTimeout(() => setisLoading(false), 5000);
+    } else {
+      setisFirstLaunch('false');
+      setuserToken(UserToken);
+      setTimeout(() => setisLoading(false), 5000);
     }
   };
   return (
     <AuthContext.Provider
-      value={{test, LoginNow, LogOutNow, isLoading, userToken}}>
+      value={{test, LoginNow, LogOutNow, isLoading, userToken, isFirstLaunch}}>
       {children}
     </AuthContext.Provider>
   );

@@ -31,7 +31,7 @@ import FullPageLoader from '../components/FullPageLoader';
 import OtpVerifyModal from '../../authScreens/otpScreen';
 import {useNavigation} from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LoginBtn from '../components/loginBtn';
 const FranchiseRequestScreen = () => {
   const navigation = useNavigation();
@@ -314,7 +314,35 @@ District,State"
         </Container>
       ) : (
         <View style={styles.without_login_con}>
-          <Icon name="bell-outline" size={150} color={colors.bglight} />
+          <ImageBackground
+              borderBottomLeftRadius={35}
+              borderBottomRightRadius={35}
+              source={{
+                uri: 'https://esigm.com/thecircle/v1/used_images/franchise_bg.png',
+              }}
+              style={styles.header_bg_img}>
+              <View style={styles.sub_header}>
+                <TouchableOpacity
+                  style={styles.back_btn}
+                  onPress={() => navigation.goBack()}>
+                  <MaterialIcons
+                    name="keyboard-arrow-left"
+                    style={styles.back_icon}
+                  />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.header_heading_text}>
+                Ohoo, Thank you
+              </Text>
+              <Text style={styles.header_text}>
+                We are happy that you want to join our misssion to serve people
+                with our Tea & snacks.
+              </Text>
+            </ImageBackground>
+            <MaterialCommunityIcons
+                name="store-plus-outline"
+                style={[styles.login_f_icon]}
+              />
           <Text style={styles.without_login_text}>
             Please login to add your franchise request.
           </Text>

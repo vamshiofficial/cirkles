@@ -17,7 +17,7 @@ const OnBoarding = () => {
     const navigation = useNavigation();
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => navigation.navigate('AppNav')}
         style={styles.done_btn}>
         <Text style={styles.done_text}>Okay</Text>
       </TouchableOpacity>
@@ -42,7 +42,7 @@ const OnBoarding = () => {
     <View style={{flex: 1}}>
       <Onboarding
         DoneButtonComponent={Done}
-        onSkip={() => navigation.navigate('Home')}
+        onSkip={() => navigation.navigate('AppNav')}
         SkipButtonComponent={Skip}
         NextButtonComponent={Next}
         titleStyles={styles.title_style}

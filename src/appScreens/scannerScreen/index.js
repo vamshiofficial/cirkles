@@ -19,6 +19,7 @@ import styles from './styles';
 import RewardGettingSheet from './RewardGettingSheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Toast} from 'native-base';
+import LoginFirstModal from '../../authScreens/loginScreen/loginPopup';
 //------------
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
@@ -40,6 +41,7 @@ const ScannerSheet = ({navigation}) => {
   );
   // reward statuses (null | QR_INVALID | REWARD_SUCCESS | REWARD_FAILED)
   const [rewardStatus, setrewardStatus] = useState(null);
+  const [LoginModal, setLoginModal] = useState(false);
   //============
   useEffect(() => {
     const GetUserId = async () => {
@@ -54,14 +56,19 @@ const ScannerSheet = ({navigation}) => {
     GetUserId();
   }, []);
   //===============
-  const onSuccess = e => {
+  const onSuccess = async(e) => {
+    try {
+      id = await AsyncStorage.getItem('userToken');
+    } catch (e) {
+      console.log(e);
+    }
     setrewardStatus(null);
     setisRewardGetting(true);
     setRewardModal(false);
     setRewardModalType('');
     setRewardModalMsg('');
     setRewardModalAmount(0);
-    if (Currect_UserId !== null) {
+    if (id !== null) {
       let text = e.data;
       // console.log('scanned data', e.data);
       let result = text.slice(14);
@@ -75,7 +82,8 @@ const ScannerSheet = ({navigation}) => {
         alert('invalid qr code');
       }
     } else {
-      alert('login first');
+      // alert('login first');
+      setLoginModal(true);
       // Toast.show({
       //   text: 'Wrong password!',
       //   buttonText: 'Okay',
@@ -239,6 +247,9 @@ const ScannerSheet = ({navigation}) => {
   return (
     <View>
       <View style={styles.bottomNavigationView}>
+        {LoginModal ? (
+          <LoginFirstModal visible={LoginModal} setVisible={setLoginModal} />
+        ) : null}
         {RewardModal ? (
           <RewardGettingSheet
             RewardModal={RewardModal}

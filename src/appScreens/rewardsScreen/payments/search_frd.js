@@ -23,11 +23,14 @@ import {
 } from 'native-base';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Share from 'react-native-share';
 // --
 import colors from '../../../../assets/custom/colors';
 import fonts from '../../../../assets/custom/fonts';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import imgs from '../../../../assets/images/base_64_imgs';
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 function UserCard(props) {
@@ -53,7 +56,9 @@ function UserCard(props) {
       </Body>
       <Right>
         {props.CurrentUserMobile === props.userMobile ? (
-          <Text style={styles.send_text}>You</Text>
+          <TouchableOpacity style={styles.you_btn}>
+            <Text style={styles.you_text}>You</Text>
+          </TouchableOpacity>
         ) : (
           <TouchableOpacity
             style={styles.send_btn}
@@ -87,7 +92,7 @@ const UserNotFound = props => (
       </Text>
     </Body>
     <Right>
-      <TouchableOpacity style={styles.send_btn}>
+      <TouchableOpacity style={styles.send_btn} onPress={props.OnShare}>
         <Text style={styles.send_text}>Invite</Text>
       </TouchableOpacity>
     </Right>
@@ -148,6 +153,18 @@ const SearchFriend = () => {
       // setPhoneErrorText('Enter correct Mobile Number!');
     }
   };
+  // ===============
+  const OnShare = async () => {
+    const ShareContent = {
+      message: 'this is a test message to share.',
+      url: imgs.invite_image,
+    };
+    try {
+      const ShareResponse = await Share.open(ShareContent);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <Container>
       <Header style={{margin: 0, backgroundColor: colors.white}}>
@@ -189,7 +206,7 @@ const SearchFriend = () => {
           navigation={navigation}
         />
       ) : (
-        <UserNotFound userMobile={TheUserMobile} />
+        <UserNotFound userMobile={TheUserMobile} OnShare={OnShare} />
       )}
     </Container>
   );
@@ -266,6 +283,19 @@ const styles = StyleSheet.create({
     fontFamily: fonts.PrimaryBoldFont,
     textTransform: 'uppercase',
     color: colors.white,
+  },
+  you_btn: {
+    borderColor: colors.white,
+    borderWidth: 2,
+    paddingHorizontal: 25,
+    paddingVertical: 5,
+    borderRadius: 20,
+    backgroundColor: colors.bglight,
+  },
+  you_text: {
+    fontFamily: fonts.PrimaryBoldFont,
+    textTransform: 'uppercase',
+    color: colors.black,
   },
   //   =============user not found
   usernot__con: {

@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     // paddingVertical: 15,
     // borderBottomLeftRadius: 15,
     // borderBottomRightRadius: 15,
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
     borderBottomColor: colors.bglight,
   },
   Mainhead_text: {
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   rewardCount: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginTop:20
   },
   rewardCountIcon: {
     fontSize: 27,
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
   },
   rewardfooter: {
     color: colors.white3,
-    fontFamily: fonts.PrimaryBoldFont,
+    fontFamily: fonts.PrimarySemiBoldFont,
     fontSize: 15,
   },
   body: {
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
   //   ----
   bottomRightBtnsCon: {
     position: 'absolute',
-    bottom: 80,
+    bottom: 90,
     right: 15,
   },
   qrScanBtn: {
@@ -310,15 +311,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
     borderRadius: 25,
-    backgroundColor: colors.bglight,
+    backgroundColor: colors.white,
     marginTop: 25,
+    borderWidth: 1,
+    borderColor: colors.bglight,
   },
   top_icon: {
     fontSize: 20,
     marginRight: 10,
+    color: colors.black,
   },
   top_btn_text: {
     fontFamily: fonts.PrimaryBoldFont,
+    color: colors.black,
   },
 });
 export default styles;

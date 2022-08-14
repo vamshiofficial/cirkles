@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createStackNavigator} from '@react-navigation/stack';
 import OutletScreen from '../appScreens/outletScreen.js';
@@ -17,13 +17,18 @@ import SearchFriend from '../appScreens/rewardsScreen/payments/search_frd.js';
 import PayOutletScaner from '../appScreens/rewardsScreen/payments/pay_scan.js';
 import TransactionHistory from '../appScreens/rewardsScreen/payments/transactions.js';
 import InviteScreen from '../appScreens/inviteScreen/index.js';
+import {AuthContext} from './context/authContest.js';
 // const Stack = createNativeStackNavigator();
 const Stack = createStackNavigator();
 const AuthNav = () => {
+  const {isFirstLaunch, test} = useContext(AuthContext);
   return (
     // AppNav
     <Stack.Navigator
-      initialRouteName="AppNav"
+      initialRouteName={
+        isFirstLaunch === 'true' ? 'OnBoardingScreen' : 'AppNav'
+      }
+      // {isFirstLaunch ? 'OnBoardingScreen' : 'AppNav'}
       screenOptions={{
         headerShown: false,
       }}>
@@ -114,7 +119,7 @@ const AuthNav = () => {
         name="TransactionHistroy"
         component={TransactionHistory}
       />
-       <Stack.Screen
+      <Stack.Screen
         options={{
           animationEnabled: false,
           headerShown: false,

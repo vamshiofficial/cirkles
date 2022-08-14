@@ -17,25 +17,21 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import fonts from '../../../assets/custom/fonts';
 import LoginBtn from '../../appScreens/components/loginBtn';
+import {useNavigation} from '@react-navigation/native';
 const DeviceWidth = Dimensions.get('window').width;
 const DeviceHeight = Dimensions.get('window').height;
 const LoginFirstModal = props => {
-  const [visible, setvisible] = useState(props.visible);
-  const closeModal = () => {
-    setvisible(!visible);
-    setTimeout(() => {
-      setvisible(true);
-    }, props.duration);
-  };
-
+  const navigation = useNavigation();
   return (
     <Modal
       animationType="slide"
       transparent={true}
-      visible={visible}
-      onRequestClose={() => closeModal()}>
+      visible={props.visible}
+      onRequestClose={() => props.setVisible(false)}>
       <View style={styles.centeredView}>
-        <Pressable onPress={() => closeModal()} style={styles.Pressable}>
+        <Pressable
+          onPress={() => props.setVisible(false)}
+          style={styles.Pressable}>
           <View style={styles.modalView}>
             <AntDesign name="login" style={styles.iconCheck} />
             <Text style={styles.heading_text}>Please login to continue</Text>
@@ -88,7 +84,8 @@ const styles = StyleSheet.create({
   iconCheck: {
     alignSelf: 'center',
     color: colors.green,
-    fontSize: 90,
+    fontSize: 60,
+    marginBottom: 25,
   },
   heading_text: {
     fontFamily: fonts.PrimaryBoldFont,

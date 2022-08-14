@@ -104,11 +104,11 @@ const RewardsScreen = ({navigation}) => {
       console.log(e);
     }
     if (id !== null) {
-      const apiURL = `https://esigm.com/thecircle/v1/action.php?action=next____outlet_payment_time&user_id=${id}`;
+      const apiURL = `https://esigm.com/thecircle/v1/action.php?action=next__outlet_payment_time&user_id=${id}`;
       fetch(apiURL)
         .then(res => res.json())
         .then(resJson => {
-          console.log('expire', resJson);
+          // console.log('expire', resJson);
           setNextPayment(resJson[0].next_payment);
           setUserName(resJson[0].user_name);
           setUserRewards(resJson[0].total_rewards);
@@ -166,8 +166,8 @@ const RewardsScreen = ({navigation}) => {
           console.warn(e);
         });
     } else {
-      console.warn('login required');
-      <LoginFirstModal />
+      console.log('login required');
+      // <LoginFirstModal />
     }
   };
   // ==========render footer data

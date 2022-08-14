@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   sub_header: {
     width: '100%',
-    marginBottom:10,
+    marginBottom: 10,
   },
   back_btn: {
     backgroundColor: 'rgba(255,255,255,0.1)',
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   back_icon: {
     fontSize: 25,
-    color:colors.white
+    color: colors.white,
   },
   // ======
   body_con: {
@@ -133,13 +133,19 @@ const styles = StyleSheet.create({
   // ==========================
   without_login_con: {
     height: '100%',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     padding: 0,
     backgroundColor: colors.white,
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
     // marginTop: -35,
+  },
+  login_f_icon: {
+    // marginTop:50,
+    fontSize: 80,
+    color: colors.bglight,
+    marginTop: 50,
   },
   without_login_text: {
     fontSize: fonts.FontBody,

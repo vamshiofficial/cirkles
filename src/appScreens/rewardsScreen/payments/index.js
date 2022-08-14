@@ -64,6 +64,8 @@ const PaymentsSection = ({route}) => {
   const [PayingToName, setPayingToName] = useState('');
   const [PayingAmount, setPayingAmount] = useState(0);
   const [PayingAmountError, setPayingAmountError] = useState(false);
+  const [FromUname, setFromUname] = useState('')
+  const [UserTotalAmount, setUserTotalAmount] = useState(0)
   // -----related to esy pin
   const [userPaymentsPin, setuserPaymentsPin] = useState('');
   const [PinInput, setPinInput] = useState('');
@@ -148,11 +150,15 @@ const PaymentsSection = ({route}) => {
             setToUserProfileUrl(resJson[0].to_user_profile_pic);
             setPayingToName(resJson[0].to_user_name);
             setuserPaymentsPin(resJson[0].user_pin);
+            setFromUname(resJson[0].from_user_name)
+            setUserTotalAmount(resJson[0].user_total_amount)
             setPageLoader(false);
           } else if (__pay_type === 'User') {
             setToUserProfileUrl(resJson[0].to_user_profile_pic);
             setPayingToName(resJson[0].to_user_name);
             setuserPaymentsPin(resJson[0].user_pin);
+            setFromUname(resJson[0].from_user_name)
+            setUserTotalAmount(resJson[0].user_total_amount)
             setPageLoader(false);
           }
         } else {
@@ -337,6 +343,8 @@ const PaymentsSection = ({route}) => {
         ThePageStatus === 'AMOUNTMODAL' ? (
           <ENTER_AMOUNT
             Address={Address}
+            PayingUname={FromUname}
+            TotalEsyAmount={UserTotalAmount}
             PaymentType={PaymentType}
             PayingToName={PayingToName}
             ToUserProfileUrl={ToUserProfileUrl}
